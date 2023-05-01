@@ -1,0 +1,63 @@
+{% extends "layout.blank" %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+<body class="theme-dark d-flex flex-column">
+<div class="page page-center">
+    <div class="container container-tight py-4">
+        <div class="text-center mb-4">
+            <a href="." class="navbar-brand navbar-brand"><img src="/img/logo.png" height="36" alt=""></a>
+        </div>
+        <div class="card card-md">
+            <div class="card-body">
+                <h2 class="h2 text-center mb-4">Login To Your Account</h2>
+                <form method="POST" autocomplete="off" action="{{ route('login') }}">
+                    <input type="hidden" name="_token" value="{{ csrf_token() }}"/>
+
+                    <div class="mb-3">
+                        <label class="form-label">Email Address</label>
+                        <input id="email" class="form-control" type="email" name="email" autocomplete="off"
+                               value="{{ input_old('email') }}" required>
+                    </div>
+                    <div class="mb-2">
+                        <label class="form-label">
+                            Password
+                            <span class="form-label-description">
+                    <a href="{{ route('password.email') }}">Forgot Password?</a>
+                  </span>
+                        </label>
+                        <input id="password" name="password" type="password" class="form-control" autocomplete="off"
+                               required>
+                    </div>
+
+                    <div class="form-footer">
+                        {% if errors is not empty %}
+                            <div class="alert alert-danger">
+                                <p>{{ errors.all()|first }}</p>
+                            </div>
+                        {% endif %}
+                        {% if session('status') is not empty %}
+                            <div class="alert alert-success">
+                                <p>{{ session('status') }}</p>
+                            </div>
+                        {% endif %}
+                        <button type="submit" class="btn btn-primary w-100">Login</button>
+                    </div>
+                </form>
+            </div>
+            <div class="hr-text">or</div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col"><a href="/login/google" class="btn w-100">
+                            Login with Google
+                        </a></div>
+                </div>
+            </div>
+        </div>
+        <div class="text-center text-muted mt-3">
+            Don't have account yet? <a href="{{ route('register') }}" tabindex="-1">Register</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

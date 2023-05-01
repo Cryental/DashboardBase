@@ -1,0 +1,14 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+    <title>{% block title %}{% endblock %} - Cryental's Central</title>
+
+    {% include "layout.head" %}
+
+    {% block included_stylesheets %}{% endblock %}
+</head>
+{% block content %}{% endblock %}
+</html>

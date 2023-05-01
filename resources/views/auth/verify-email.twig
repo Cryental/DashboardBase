@@ -1,0 +1,41 @@
+{% extends "layout.blank" %}
+
+{% block title %}Verify Email Address{% endblock %}
+
+{% block content %}
+<body class="theme-dark d-flex flex-column">
+<div class="page page-center">
+    <div class="container container-tight py-4">
+        <div class="text-center mb-4">
+            <a href="." class="navbar-brand"><img src="/img/logo.png" height="36" alt=""></a>
+        </div>
+        <div class="text-center">
+            <div class="my-5">
+                <h2 class="h1">Check Your Inbox</h2>
+                <p class="fs-h3">
+                    We've sent you a magic link to your email address.<br/>
+                    Please click the link to confirm your address.
+                </p>
+            </div>
+            <div class="text-center text-muted mt-3">
+                <p class="small">Can't see the email? Please check the spam folder.<br/>
+                    Didn't receive your email? You can send it back by clicking the button below.</p>
+
+                {% if session('status') == 'verification-link-sent' %}
+                    <button class="btn btn-primary btn-block disabled">
+                        Email Confirmation Sent
+                    </button>
+                {% else %}
+                    <form method="POST" class="small" action="{{ route('verification.send') }}">
+                        <input type="hidden" name="_token" value="{{ csrf_token() }}"/>
+
+                        <button class="btn btn-primary btn-block">
+                            Resend Email Confirmation
+                        </button>
+                    </form>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

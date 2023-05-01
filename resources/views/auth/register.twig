@@ -1,0 +1,58 @@
+{% extends "layout.blank" %}
+
+{% block title %}Register{% endblock %}
+
+{% block content %}
+<body class="theme-dark d-flex flex-column">
+<div class="page page-center">
+    <div class="container container-tight py-4">
+        <div class="text-center mb-4">
+            <a href="." class="navbar-brand navbar-brand"><img src="/img/logo.png" height="36" alt=""></a>
+        </div>
+        <div class="card card-md">
+            <div class="card-body">
+                <h2 class="h2 text-center mb-4">Create New Account</h2>
+                <form method="POST" autocomplete="off" action="{{ route('register') }}">
+                    <input type="hidden" name="_token" value="{{ csrf_token() }}"/>
+
+                    <div class="mb-3">
+                        <label class="form-label">Name</label>
+                        <input id="name" class="form-control" name="name" autocomplete="off"
+                               value="{{ input_old('name') }}" required autofocus>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Email Address</label>
+                        <input id="email" class="form-control" type="email" name="email" autocomplete="off"
+                               value="{{ input_old('email') }}" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Password</label>
+                        <input id="password" name="password" type="password" class="form-control" autocomplete="off"
+                               required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Confirm Password</label>
+                        <input id="password_confirmation" name="password_confirmation" type="password"
+                               class="form-control" autocomplete="off" required>
+                    </div>
+                    <div class="mb-3">
+                        <span class="form-check-label">By creating an account, you agree to our terms.</span>
+                    </div>
+                    <div class="form-footer">
+                        {% if errors is not empty %}
+                            <div class="alert alert-danger">
+                                <p>{{ errors.all()|first }}</p>
+                            </div>
+                        {% endif %}
+                        <button type="submit" class="btn btn-primary w-100">Register</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="text-center text-muted mt-3">
+            Already have account? <a href="{{ route('login') }}" tabindex="-1">Login</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,357 @@
+{% extends "layout.admin" %}
+
+{% block title %}{{ user.name }}{% endblock %}
+
+{% block included_scripts %}
+    <script>
+        const modal = document.getElementById('modal-user-remove');
+        const modalLink = document.getElementById('user-remove-post');
+
+        // Listen for the "show.bs.modal" event
+        modal.addEventListener('show.bs.modal', function (event) {
+            // Update the link's href attribute with the value
+            modalLink.action = '/admin/users/{{ user.id }}/remove';
+        });
+    </script>
+{% endblock %}
+
+{% block content %}
+    <div class="page-header d-print-none">
+        <div class="container-xl">
+            <div class="row g-2 align-items-center">
+                <div class="col">
+                    <!-- Page pre-title -->
+                    <div class="page-pretitle">
+                        Admin
+                    </div>
+                    <h2 class="page-title text-white">
+                        {{ user.name }}'s Profile
+                    </h2>
+                </div>
+                <div class="col-auto ms-auto d-print-none">
+                    <a href="#" class="btn btn-danger" data-bs-toggle="modal"
+                       data-bs-target="#modal-user-remove">
+                        Delete
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="page-body">
+        <div class="container-xl">
+            <div class="row row-deck row-cards">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Edit Profile</h3>
+                        </div>
+                        <form method="POST" autocomplete="off" action="/admin/users/{{ user.id }}">
+                            <input type="hidden" name="_token" value="{{ csrf_token() }}"/>
+                            <div class="card-body">
+                                <div class="row align-items-center">
+                                    <div class="col-auto">
+                                        <span class="avatar avatar-lg rounded"
+                                              style="background-image: url({{ gravatar.get(user.email) }})"></span>
+                                    </div>
+                                    <div class="col">
+                                        <h1 class="fw-bold">{{ user.name }}</h1>
+                                        <div class="my-2">{{ user.email }}</div>
+                                    </div>
+                                </div>
+
+                                <h3 class="card-title mt-4">Public Profile</h3>
+                                <div class="row g-3">
+                                    <div class="col-md">
+                                        <div class="form-label">Name</div>
+                                        <input name="name" type="text" class="form-control" value="{{ user.name }}">
+                                    </div>
+                                    <div class="col-md">
+                                        <div class="form-label">Email</div>
+                                        <input name="email" type="email" class="form-control" value="{{ user.email }}">
+                                    </div>
+                                </div>
+                                <h3 class="card-title mt-4">Bio</h3>
+                                <p class="card-subtitle">This field supports the basic Markdown style.</p>
+                                <div class="row">
+                                    <div class="col-12">
+                                        <textarea name="bio" class="form-control" rows="3">{{ user.bio }}</textarea>
+                                    </div>
+                                </div>
+                                <div class="row g-3 mt-2">
+                                    <div class="col-md">
+                                        <div class="form-label">Website URL</div>
+                                        <input name="website_url" type="text" class="form-control"
+                                               value="{{ user.website_url }}">
+                                    </div>
+                                </div>
+                                <h3 class="card-title mt-4">Devices</h3>
+                                <div class="card">
+                                    <div class="table-responsive">
+                                        <table class="table table-vcenter table-mobile-md card-table">
+                                            <thead>
+                                            <tr>
+                                                <th>IP Address</th>
+                                                <th>Browser</th>
+                                                <th>Last Access</th>
+                                                <th class="w-1"></th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            {% for device in devices %}
+                                                <tr>
+                                                    <td data-label="IP Address">
+                                                        <div class="d-flex py-1 align-items-center">
+                                                        <span class="avatar me-2">
+                                                            {% if device.deviceDetector.mobile == true %}
+                                                                <svg xmlns="http://www.w3.org/2000/svg"
+                                                                     class="icon icon-tabler icon-tabler-device-mobile"
+                                                                     width="24" height="24" viewBox="0 0 24 24"
+                                                                     stroke-width="2" stroke="currentColor" fill="none"
+                                                                     stroke-linecap="round" stroke-linejoin="round">
+   <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+   <path d="M6 5a2 2 0 0 1 2 -2h8a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-8a2 2 0 0 1 -2 -2v-14z"></path>
+   <path d="M11 4h2"></path>
+   <path d="M12 17v.01"></path>
+</svg>
+                                                            {% elseif device.deviceDetector.tablet == true %}
+                                                                <svg xmlns="http://www.w3.org/2000/svg"
+                                                                     class="icon icon-tabler icon-tabler-device-tablet"
+                                                                     width="24" height="24" viewBox="0 0 24 24"
+                                                                     stroke-width="2" stroke="currentColor" fill="none"
+                                                                     stroke-linecap="round" stroke-linejoin="round">
+   <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+   <path d="M5 4a1 1 0 0 1 1 -1h12a1 1 0 0 1 1 1v16a1 1 0 0 1 -1 1h-12a1 1 0 0 1 -1 -1v-16z"></path>
+   <path d="M11 17a1 1 0 1 0 2 0a1 1 0 0 0 -2 0"></path>
+</svg>
+                                                            {% elseif device.deviceDetector.pc == true %}
+                                                                <svg xmlns="http://www.w3.org/2000/svg"
+                                                                     class="icon icon-tabler icon-tabler-device-desktop"
+                                                                     width="24" height="24" viewBox="0 0 24 24"
+                                                                     stroke-width="2" stroke="currentColor" fill="none"
+                                                                     stroke-linecap="round" stroke-linejoin="round">
+   <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+   <path d="M3 5a1 1 0 0 1 1 -1h16a1 1 0 0 1 1 1v10a1 1 0 0 1 -1 1h-16a1 1 0 0 1 -1 -1v-10z"></path>
+   <path d="M7 20h10"></path>
+   <path d="M9 16v4"></path>
+   <path d="M15 16v4"></path>
+</svg>
+                                                            {% elseif device.deviceDetector.tv == true %}
+                                                                <svg xmlns="http://www.w3.org/2000/svg"
+                                                                     class="icon icon-tabler icon-tabler-device-tv"
+                                                                     width="24" height="24" viewBox="0 0 24 24"
+                                                                     stroke-width="2" stroke="currentColor" fill="none"
+                                                                     stroke-linecap="round" stroke-linejoin="round">
+   <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+   <path d="M3 7m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v9a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z"></path>
+   <path d="M16 3l-4 4l-4 -4"></path>
+</svg>
+                                                            {% elseif device.deviceDetector.camera == true %}
+                                                                <svg xmlns="http://www.w3.org/2000/svg"
+                                                                     class="icon icon-tabler icon-tabler-camera"
+                                                                     width="24" height="24" viewBox="0 0 24 24"
+                                                                     stroke-width="2" stroke="currentColor" fill="none"
+                                                                     stroke-linecap="round" stroke-linejoin="round">
+   <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+   <path
+       d="M5 7h1a2 2 0 0 0 2 -2a1 1 0 0 1 1 -1h6a1 1 0 0 1 1 1a2 2 0 0 0 2 2h1a2 2 0 0 1 2 2v9a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-9a2 2 0 0 1 2 -2"></path>
+   <path d="M9 13a3 3 0 1 0 6 0a3 3 0 0 0 -6 0"></path>
+</svg>
+                                                            {% elseif device.deviceDetector.bot == true %}
+                                                                <svg xmlns="http://www.w3.org/2000/svg"
+                                                                     class="icon icon-tabler icon-tabler-robot"
+                                                                     width="24" height="24" viewBox="0 0 24 24"
+                                                                     stroke-width="2" stroke="currentColor" fill="none"
+                                                                     stroke-linecap="round" stroke-linejoin="round">
+   <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+   <path
+       d="M7 7h10a2 2 0 0 1 2 2v1l1 1v3l-1 1v3a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2v-3l-1 -1v-3l1 -1v-1a2 2 0 0 1 2 -2z"></path>
+   <path d="M10 16h4"></path>
+   <circle cx="8.5" cy="11.5" r=".5" fill="currentColor"></circle>
+   <circle cx="15.5" cy="11.5" r=".5" fill="currentColor"></circle>
+   <path d="M9 7l-1 -4"></path>
+   <path d="M15 7l1 -4"></path>
+</svg>
+                                                            {% else %}
+                                                                <svg xmlns="http://www.w3.org/2000/svg"
+                                                                     class="icon icon-tabler icon-tabler-question-mark"
+                                                                     width="24" height="24" viewBox="0 0 24 24"
+                                                                     stroke-width="2" stroke="currentColor" fill="none"
+                                                                     stroke-linecap="round" stroke-linejoin="round">
+   <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+   <path d="M8 8a3.5 3 0 0 1 3.5 -3h1a3.5 3 0 0 1 3.5 3a3 3 0 0 1 -2 3a3 4 0 0 0 -2 4"></path>
+   <path d="M12 19l0 .01"></path>
+</svg>
+                                                            {% endif %}
+
+                                                        </span>
+                                                            <div class="flex-fill">
+                                                                <div
+                                                                    class="font-weight-medium">{{ device.ip_address }}</div>
+                                                                <div class="text-muted">Miami, United States</div>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td data-label="Browser">
+                                                        <div>{{ device.agentBrowser }}</div>
+                                                        <div class="text-muted">{{ device.agentPlatform }}</div>
+                                                    </td>
+                                                    <td data-label="Last Access" class="text-muted">
+                                                        {{ device.last_activity|date("Y-m-d H:i:s") }} UTC
+                                                    </td>
+                                                    <td>
+                                                        <div class="btn-list flex-nowrap">
+                                                            {% if sessionID == device.id %}
+                                                                <a href="#" class="btn disabled">
+                                                                    Current
+                                                                </a>
+                                                            {% else %}
+                                                                <a href="/admin/users/{{ user.id }}/remove_device/{{ device.id }}"
+                                                                   class="btn btn-danger">
+                                                                    Remove
+                                                                </a>
+                                                            {% endif %}
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                                <h3 class="card-title mt-4">Password</h3>
+                                <div class="mb-4">
+                                    <input name="password" type="password" class="form-control">
+                                </div>
+
+                                <h3 class="card-title mt-4">Email Verification</h3>
+                                <div class="form-selectgroup-boxes row mb-3">
+                                    <div class="col-lg-6">
+                                        <label class="form-selectgroup-item">
+                                            <input type="radio" name="email-verification" value="Unverified"
+                                                   class="form-selectgroup-input" {% if user.email_verified_at is empty %} checked{% endif %}>
+                                            <span class="form-selectgroup-label d-flex align-items-center p-3">
+                    <span class="me-3">
+                      <span class="form-selectgroup-check"></span>
+                    </span>
+                    <span class="form-selectgroup-label-content">
+                      <span class="form-selectgroup-title strong mb-1">Unverified</span>
+                    </span>
+                  </span>
+                                        </label>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <label class="form-selectgroup-item">
+                                            <input type="radio" name="email-verification" value="Verified"
+                                                   class="form-selectgroup-input" {% if user.email_verified_at is not empty %} checked{% endif %}>
+                                            <span class="form-selectgroup-label d-flex align-items-center p-3">
+                    <span class="me-3">
+                      <span class="form-selectgroup-check"></span>
+                    </span>
+                    <span class="form-selectgroup-label-content">
+                      <span class="form-selectgroup-title strong mb-1">Verified</span>
+                    </span>
+                  </span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <h3 class="card-title mt-4">Role</h3>
+                                <div class="form-selectgroup-boxes row mb-3">
+                                    <div class="col-lg-6">
+                                        <label class="form-selectgroup-item">
+                                            <input type="radio" name="role" value="Member"
+                                                   class="form-selectgroup-input" {% if user.role == 'Member' or user.role is empty %} checked{% endif %}>
+                                            <span class="form-selectgroup-label d-flex align-items-center p-3">
+                    <span class="me-3">
+                      <span class="form-selectgroup-check"></span>
+                    </span>
+                    <span class="form-selectgroup-label-content">
+                      <span class="form-selectgroup-title strong mb-1">Member</span>
+                      <span class="d-block text-muted">No access to Admin Panel</span>
+                    </span>
+                  </span>
+                                        </label>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <label class="form-selectgroup-item">
+                                            <input type="radio" name="role" value="Admin"
+                                                   class="form-selectgroup-input" {% if user.role == 'Admin' %} checked{% endif %}>
+                                            <span class="form-selectgroup-label d-flex align-items-center p-3">
+                    <span class="me-3">
+                      <span class="form-selectgroup-check"></span>
+                    </span>
+                    <span class="form-selectgroup-label-content">
+                      <span class="form-selectgroup-title strong mb-1">Admin</span>
+                      <span class="d-block text-muted">All access granted</span>
+                    </span>
+                  </span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer bg-transparent mt-auto">
+                                {% if errors is not empty %}
+                                    <div class="alert alert-danger">
+                                        <p>{{ errors.all()|first }}</p>
+                                    </div>
+                                {% endif %}
+
+                                {% if session('status') is not empty %}
+                                    <div class="alert alert-success">
+                                        <p>{{ session('status') }}</p>
+                                    </div>
+                                {% endif %}
+
+                                <div class="btn-list justify-content-end">
+                                    <a href="{{ route('admin.users') }}" class="btn">
+                                        Cancel
+                                    </a>
+                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal modal-blur fade" id="modal-user-remove" tabindex="-1" role="dialog" aria-modal="true"
+         aria-hidden="true">
+        <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <div class="modal-status bg-danger"></div>
+                <div class="modal-body text-center py-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon mb-2 text-danger icon-lg" width="24" height="24"
+                         viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
+                         stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                        <path d="M12 9v2m0 4v.01"></path>
+                        <path
+                            d="M5 19h14a2 2 0 0 0 1.84 -2.75l-7.1 -12.25a2 2 0 0 0 -3.5 0l-7.1 12.25a2 2 0 0 0 1.75 2.75"></path>
+                    </svg>
+                    <h3>Are you sure?</h3>
+                    <div class="text-muted">Do you really want to remove this user? What you've done cannot be undone.
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="w-100">
+                        <form id="user-remove-post" method="POST" autocomplete="off" action="">
+                            <input type="hidden" name="_token" value="{{ csrf_token() }}"/>
+
+                            <div class="row">
+                                <div class="col"><a href="#" class="btn w-100" data-bs-dismiss="modal">
+                                        Cancel
+                                    </a></div>
+                                <div class="col">
+                                    <button type="submit" class="btn btn-danger w-100">Remove User</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
