@@ -39,7 +39,7 @@ class UserController extends Controller
 
         $user = User::query()->find($id);
 
-        if (!$user) {
+        if (! $user) {
             abort(404);
         }
 
@@ -151,7 +151,7 @@ class UserController extends Controller
 
         $user = User::query()->find($id);
 
-        if (!$user) {
+        if (! $user) {
             abort(404);
         }
 
@@ -191,7 +191,7 @@ class UserController extends Controller
             $user->email_verified_at = null;
         }
 
-        if (!empty($request->password)) {
+        if (! empty($request->password)) {
             $user->password = Hash::make($request->input('password'));
         }
 
@@ -208,7 +208,7 @@ class UserController extends Controller
 
         $user = User::query()->find($id);
 
-        if (!$user) {
+        if (! $user) {
             return redirect()->route('admin.users');
         }
 
