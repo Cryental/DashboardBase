@@ -16,7 +16,8 @@ class SetSocialPassword extends Controller
         return view('auth.social-password');
     }
 
-    public function store(Request $request) {
+    public function store(Request $request)
+    {
         $request->validate([
             'password' => $this->passwordRules(),
         ]);

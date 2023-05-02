@@ -172,7 +172,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         App\Providers\NavServiceProvider::class,
-        Mews\Captcha\CaptchaServiceProvider::class
+        Mews\Captcha\CaptchaServiceProvider::class,
     ])->toArray(),
 
     /*

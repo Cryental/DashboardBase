@@ -22,7 +22,7 @@ class SocialiteController extends Controller
         $userSocial = Socialite::driver('google')->user();
         $user = User::query()->where(['provider' => 'google', 'provider_id' => $userSocial->getId()])->get()->first();
 
-        if (!$user) {
+        if (! $user) {
             $user = User::query()->create([
                 'name' => $userSocial->getName(),
                 'email' => $userSocial->getEmail(),
