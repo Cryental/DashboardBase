@@ -26,7 +26,7 @@ class UserController extends Controller
             abort(403);
         }
 
-        $users = User::query()->paginate(50, ['*'], 'p');
+        $users = $this->userRepository->FindAll($request->search,1,50);
 
         $showingText = "Showing {$users->firstItem()} to {$users->lastItem()} of {$users->total()} entries";
 
@@ -117,7 +117,7 @@ class UserController extends Controller
             return view('admin.users', [
                 'users'      => $users,
                 'bottomText' => $showingText,
-                'links'      => self::GetNavLinks($users->currentPage(), $users->lastPage()),
+                'links'      => Nav::getNavLinks($users->currentPage(), $users->lastPage()),
                 'page'       => $users->currentPage(),
                 'search'     => $request->search,
             ]);

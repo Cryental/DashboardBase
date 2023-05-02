@@ -44,7 +44,7 @@
 #41 M:\\Volistx\\DashboardBase\\public\\index.php(52): Illuminate\\Foundation\\Http\\Kernel->handle()
 #42 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\resources\\server.php(16): require_once('M:\\\\Volistx\\\\Dash...')
 #43 {main}
-"} 
+"}
 [2023-05-02 02:48:05] production.ERROR: No application encryption key has been specified. {"exception":"[object] (Illuminate\\Encryption\\MissingAppKeyException(code: 0): No application encryption key has been specified. at M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Encryption\\EncryptionServiceProvider.php:79)
 [stacktrace]
 #0 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\helpers.php(306): Illuminate\\Encryption\\EncryptionServiceProvider->Illuminate\\Encryption\\{closure}()
@@ -68,7 +68,7 @@
 #18 M:\\Volistx\\DashboardBase\\public\\index.php(55): Illuminate\\Foundation\\Http\\Kernel->terminate()
 #19 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\resources\\server.php(16): require_once('M:\\\\Volistx\\\\Dash...')
 #20 {main}
-"} 
+"}
 [2023-05-02 02:48:05] production.ERROR: No application encryption key has been specified. {"exception":"[object] (Illuminate\\Encryption\\MissingAppKeyException(code: 0): No application encryption key has been specified. at M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Encryption\\EncryptionServiceProvider.php:79)
 [stacktrace]
 #0 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\helpers.php(306): Illuminate\\Encryption\\EncryptionServiceProvider->Illuminate\\Encryption\\{closure}()
@@ -115,7 +115,7 @@
 #41 M:\\Volistx\\DashboardBase\\public\\index.php(52): Illuminate\\Foundation\\Http\\Kernel->handle()
 #42 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\resources\\server.php(16): require_once('M:\\\\Volistx\\\\Dash...')
 #43 {main}
-"} 
+"}
 [2023-05-02 02:48:05] production.ERROR: No application encryption key has been specified. {"exception":"[object] (Illuminate\\Encryption\\MissingAppKeyException(code: 0): No application encryption key has been specified. at M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Encryption\\EncryptionServiceProvider.php:79)
 [stacktrace]
 #0 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\helpers.php(306): Illuminate\\Encryption\\EncryptionServiceProvider->Illuminate\\Encryption\\{closure}()
@@ -139,7 +139,7 @@
 #18 M:\\Volistx\\DashboardBase\\public\\index.php(55): Illuminate\\Foundation\\Http\\Kernel->terminate()
 #19 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\resources\\server.php(16): require_once('M:\\\\Volistx\\\\Dash...')
 #20 {main}
-"} 
+"}
 [2023-05-02 02:48:08] production.ERROR: No application encryption key has been specified. {"exception":"[object] (Illuminate\\Encryption\\MissingAppKeyException(code: 0): No application encryption key has been specified. at M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Encryption\\EncryptionServiceProvider.php:79)
 [stacktrace]
 #0 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\helpers.php(306): Illuminate\\Encryption\\EncryptionServiceProvider->Illuminate\\Encryption\\{closure}()
@@ -186,7 +186,7 @@
 #41 M:\\Volistx\\DashboardBase\\public\\index.php(52): Illuminate\\Foundation\\Http\\Kernel->handle()
 #42 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\resources\\server.php(16): require_once('M:\\\\Volistx\\\\Dash...')
 #43 {main}
-"} 
+"}
 [2023-05-02 02:48:08] production.ERROR: No application encryption key has been specified. {"exception":"[object] (Illuminate\\Encryption\\MissingAppKeyException(code: 0): No application encryption key has been specified. at M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Encryption\\EncryptionServiceProvider.php:79)
 [stacktrace]
 #0 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\helpers.php(306): Illuminate\\Encryption\\EncryptionServiceProvider->Illuminate\\Encryption\\{closure}()
@@ -210,7 +210,7 @@
 #18 M:\\Volistx\\DashboardBase\\public\\index.php(55): Illuminate\\Foundation\\Http\\Kernel->terminate()
 #19 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\resources\\server.php(16): require_once('M:\\\\Volistx\\\\Dash...')
 #20 {main}
-"} 
+"}
 [2023-05-02 02:48:10] production.ERROR: No application encryption key has been specified. {"exception":"[object] (Illuminate\\Encryption\\MissingAppKeyException(code: 0): No application encryption key has been specified. at M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Encryption\\EncryptionServiceProvider.php:79)
 [stacktrace]
 #0 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\helpers.php(306): Illuminate\\Encryption\\EncryptionServiceProvider->Illuminate\\Encryption\\{closure}()
@@ -257,7 +257,7 @@
 #41 M:\\Volistx\\DashboardBase\\public\\index.php(52): Illuminate\\Foundation\\Http\\Kernel->handle()
 #42 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\resources\\server.php(16): require_once('M:\\\\Volistx\\\\Dash...')
 #43 {main}
-"} 
+"}
 [2023-05-02 02:48:10] production.ERROR: No application encryption key has been specified. {"exception":"[object] (Illuminate\\Encryption\\MissingAppKeyException(code: 0): No application encryption key has been specified. at M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Encryption\\EncryptionServiceProvider.php:79)
 [stacktrace]
 #0 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\helpers.php(306): Illuminate\\Encryption\\EncryptionServiceProvider->Illuminate\\Encryption\\{closure}()
@@ -281,7 +281,7 @@
 #18 M:\\Volistx\\DashboardBase\\public\\index.php(55): Illuminate\\Foundation\\Http\\Kernel->terminate()
 #19 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\resources\\server.php(16): require_once('M:\\\\Volistx\\\\Dash...')
 #20 {main}
-"} 
+"}
 [2023-05-02 02:48:11] production.ERROR: No application encryption key has been specified. {"exception":"[object] (Illuminate\\Encryption\\MissingAppKeyException(code: 0): No application encryption key has been specified. at M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Encryption\\EncryptionServiceProvider.php:79)
 [stacktrace]
 #0 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\helpers.php(306): Illuminate\\Encryption\\EncryptionServiceProvider->Illuminate\\Encryption\\{closure}()
@@ -328,7 +328,7 @@
 #41 M:\\Volistx\\DashboardBase\\public\\index.php(52): Illuminate\\Foundation\\Http\\Kernel->handle()
 #42 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\resources\\server.php(16): require_once('M:\\\\Volistx\\\\Dash...')
 #43 {main}
-"} 
+"}
 [2023-05-02 02:48:11] production.ERROR: No application encryption key has been specified. {"exception":"[object] (Illuminate\\Encryption\\MissingAppKeyException(code: 0): No application encryption key has been specified. at M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Encryption\\EncryptionServiceProvider.php:79)
 [stacktrace]
 #0 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\helpers.php(306): Illuminate\\Encryption\\EncryptionServiceProvider->Illuminate\\Encryption\\{closure}()
@@ -352,7 +352,7 @@
 #18 M:\\Volistx\\DashboardBase\\public\\index.php(55): Illuminate\\Foundation\\Http\\Kernel->terminate()
 #19 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\resources\\server.php(16): require_once('M:\\\\Volistx\\\\Dash...')
 #20 {main}
-"} 
+"}
 [2023-05-02 02:48:11] production.ERROR: No application encryption key has been specified. {"exception":"[object] (Illuminate\\Encryption\\MissingAppKeyException(code: 0): No application encryption key has been specified. at M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Encryption\\EncryptionServiceProvider.php:79)
 [stacktrace]
 #0 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\helpers.php(306): Illuminate\\Encryption\\EncryptionServiceProvider->Illuminate\\Encryption\\{closure}()
@@ -399,7 +399,7 @@
 #41 M:\\Volistx\\DashboardBase\\public\\index.php(52): Illuminate\\Foundation\\Http\\Kernel->handle()
 #42 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\resources\\server.php(16): require_once('M:\\\\Volistx\\\\Dash...')
 #43 {main}
-"} 
+"}
 [2023-05-02 02:48:11] production.ERROR: No application encryption key has been specified. {"exception":"[object] (Illuminate\\Encryption\\MissingAppKeyException(code: 0): No application encryption key has been specified. at M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Encryption\\EncryptionServiceProvider.php:79)
 [stacktrace]
 #0 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\helpers.php(306): Illuminate\\Encryption\\EncryptionServiceProvider->Illuminate\\Encryption\\{closure}()
@@ -423,7 +423,7 @@
 #18 M:\\Volistx\\DashboardBase\\public\\index.php(55): Illuminate\\Foundation\\Http\\Kernel->terminate()
 #19 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\resources\\server.php(16): require_once('M:\\\\Volistx\\\\Dash...')
 #20 {main}
-"} 
+"}
 [2023-05-02 02:48:20] production.ERROR: No application encryption key has been specified. {"exception":"[object] (Illuminate\\Encryption\\MissingAppKeyException(code: 0): No application encryption key has been specified. at M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Encryption\\EncryptionServiceProvider.php:79)
 [stacktrace]
 #0 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\helpers.php(306): Illuminate\\Encryption\\EncryptionServiceProvider->Illuminate\\Encryption\\{closure}()
@@ -470,7 +470,7 @@
 #41 M:\\Volistx\\DashboardBase\\public\\index.php(52): Illuminate\\Foundation\\Http\\Kernel->handle()
 #42 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\resources\\server.php(16): require_once('M:\\\\Volistx\\\\Dash...')
 #43 {main}
-"} 
+"}
 [2023-05-02 02:48:20] production.ERROR: No application encryption key has been specified. {"exception":"[object] (Illuminate\\Encryption\\MissingAppKeyException(code: 0): No application encryption key has been specified. at M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Encryption\\EncryptionServiceProvider.php:79)
 [stacktrace]
 #0 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\helpers.php(306): Illuminate\\Encryption\\EncryptionServiceProvider->Illuminate\\Encryption\\{closure}()
@@ -494,7 +494,7 @@
 #18 M:\\Volistx\\DashboardBase\\public\\index.php(55): Illuminate\\Foundation\\Http\\Kernel->terminate()
 #19 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\resources\\server.php(16): require_once('M:\\\\Volistx\\\\Dash...')
 #20 {main}
-"} 
+"}
 [2023-05-02 02:48:22] production.ERROR: No application encryption key has been specified. {"exception":"[object] (Illuminate\\Encryption\\MissingAppKeyException(code: 0): No application encryption key has been specified. at M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Encryption\\EncryptionServiceProvider.php:79)
 [stacktrace]
 #0 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\helpers.php(306): Illuminate\\Encryption\\EncryptionServiceProvider->Illuminate\\Encryption\\{closure}()
@@ -541,7 +541,7 @@
 #41 M:\\Volistx\\DashboardBase\\public\\index.php(52): Illuminate\\Foundation\\Http\\Kernel->handle()
 #42 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\resources\\server.php(16): require_once('M:\\\\Volistx\\\\Dash...')
 #43 {main}
-"} 
+"}
 [2023-05-02 02:48:22] production.ERROR: No application encryption key has been specified. {"exception":"[object] (Illuminate\\Encryption\\MissingAppKeyException(code: 0): No application encryption key has been specified. at M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Encryption\\EncryptionServiceProvider.php:79)
 [stacktrace]
 #0 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\helpers.php(306): Illuminate\\Encryption\\EncryptionServiceProvider->Illuminate\\Encryption\\{closure}()
@@ -565,7 +565,7 @@
 #18 M:\\Volistx\\DashboardBase\\public\\index.php(55): Illuminate\\Foundation\\Http\\Kernel->terminate()
 #19 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\resources\\server.php(16): require_once('M:\\\\Volistx\\\\Dash...')
 #20 {main}
-"} 
+"}
 [2023-05-02 02:48:23] production.ERROR: No application encryption key has been specified. {"exception":"[object] (Illuminate\\Encryption\\MissingAppKeyException(code: 0): No application encryption key has been specified. at M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Encryption\\EncryptionServiceProvider.php:79)
 [stacktrace]
 #0 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\helpers.php(306): Illuminate\\Encryption\\EncryptionServiceProvider->Illuminate\\Encryption\\{closure}()
@@ -612,7 +612,7 @@
 #41 M:\\Volistx\\DashboardBase\\public\\index.php(52): Illuminate\\Foundation\\Http\\Kernel->handle()
 #42 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\resources\\server.php(16): require_once('M:\\\\Volistx\\\\Dash...')
 #43 {main}
-"} 
+"}
 [2023-05-02 02:48:23] production.ERROR: No application encryption key has been specified. {"exception":"[object] (Illuminate\\Encryption\\MissingAppKeyException(code: 0): No application encryption key has been specified. at M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Encryption\\EncryptionServiceProvider.php:79)
 [stacktrace]
 #0 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\helpers.php(306): Illuminate\\Encryption\\EncryptionServiceProvider->Illuminate\\Encryption\\{closure}()
@@ -636,7 +636,7 @@
 #18 M:\\Volistx\\DashboardBase\\public\\index.php(55): Illuminate\\Foundation\\Http\\Kernel->terminate()
 #19 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\resources\\server.php(16): require_once('M:\\\\Volistx\\\\Dash...')
 #20 {main}
-"} 
+"}
 [2023-05-02 02:49:12] production.ERROR: No application encryption key has been specified. {"exception":"[object] (Illuminate\\Encryption\\MissingAppKeyException(code: 0): No application encryption key has been specified. at M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Encryption\\EncryptionServiceProvider.php:79)
 [stacktrace]
 #0 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\helpers.php(306): Illuminate\\Encryption\\EncryptionServiceProvider->Illuminate\\Encryption\\{closure}()
@@ -683,7 +683,7 @@
 #41 M:\\Volistx\\DashboardBase\\public\\index.php(52): Illuminate\\Foundation\\Http\\Kernel->handle()
 #42 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\resources\\server.php(16): require_once('M:\\\\Volistx\\\\Dash...')
 #43 {main}
-"} 
+"}
 [2023-05-02 02:49:12] production.ERROR: No application encryption key has been specified. {"exception":"[object] (Illuminate\\Encryption\\MissingAppKeyException(code: 0): No application encryption key has been specified. at M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Encryption\\EncryptionServiceProvider.php:79)
 [stacktrace]
 #0 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\helpers.php(306): Illuminate\\Encryption\\EncryptionServiceProvider->Illuminate\\Encryption\\{closure}()
@@ -707,7 +707,7 @@
 #18 M:\\Volistx\\DashboardBase\\public\\index.php(55): Illuminate\\Foundation\\Http\\Kernel->terminate()
 #19 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\resources\\server.php(16): require_once('M:\\\\Volistx\\\\Dash...')
 #20 {main}
-"} 
+"}
 [2023-05-02 02:49:13] production.ERROR: No application encryption key has been specified. {"exception":"[object] (Illuminate\\Encryption\\MissingAppKeyException(code: 0): No application encryption key has been specified. at M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Encryption\\EncryptionServiceProvider.php:79)
 [stacktrace]
 #0 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\helpers.php(306): Illuminate\\Encryption\\EncryptionServiceProvider->Illuminate\\Encryption\\{closure}()
@@ -754,7 +754,7 @@
 #41 M:\\Volistx\\DashboardBase\\public\\index.php(52): Illuminate\\Foundation\\Http\\Kernel->handle()
 #42 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\resources\\server.php(16): require_once('M:\\\\Volistx\\\\Dash...')
 #43 {main}
-"} 
+"}
 [2023-05-02 02:49:13] production.ERROR: No application encryption key has been specified. {"exception":"[object] (Illuminate\\Encryption\\MissingAppKeyException(code: 0): No application encryption key has been specified. at M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Encryption\\EncryptionServiceProvider.php:79)
 [stacktrace]
 #0 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\helpers.php(306): Illuminate\\Encryption\\EncryptionServiceProvider->Illuminate\\Encryption\\{closure}()
@@ -778,7 +778,7 @@
 #18 M:\\Volistx\\DashboardBase\\public\\index.php(55): Illuminate\\Foundation\\Http\\Kernel->terminate()
 #19 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\resources\\server.php(16): require_once('M:\\\\Volistx\\\\Dash...')
 #20 {main}
-"} 
+"}
 [2023-05-02 02:49:13] production.ERROR: No application encryption key has been specified. {"exception":"[object] (Illuminate\\Encryption\\MissingAppKeyException(code: 0): No application encryption key has been specified. at M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Encryption\\EncryptionServiceProvider.php:79)
 [stacktrace]
 #0 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\helpers.php(306): Illuminate\\Encryption\\EncryptionServiceProvider->Illuminate\\Encryption\\{closure}()
@@ -825,7 +825,7 @@
 #41 M:\\Volistx\\DashboardBase\\public\\index.php(52): Illuminate\\Foundation\\Http\\Kernel->handle()
 #42 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\resources\\server.php(16): require_once('M:\\\\Volistx\\\\Dash...')
 #43 {main}
-"} 
+"}
 [2023-05-02 02:49:13] production.ERROR: No application encryption key has been specified. {"exception":"[object] (Illuminate\\Encryption\\MissingAppKeyException(code: 0): No application encryption key has been specified. at M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Encryption\\EncryptionServiceProvider.php:79)
 [stacktrace]
 #0 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\helpers.php(306): Illuminate\\Encryption\\EncryptionServiceProvider->Illuminate\\Encryption\\{closure}()
@@ -849,7 +849,7 @@
 #18 M:\\Volistx\\DashboardBase\\public\\index.php(55): Illuminate\\Foundation\\Http\\Kernel->terminate()
 #19 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\resources\\server.php(16): require_once('M:\\\\Volistx\\\\Dash...')
 #20 {main}
-"} 
+"}
 [2023-05-02 02:49:14] production.ERROR: No application encryption key has been specified. {"exception":"[object] (Illuminate\\Encryption\\MissingAppKeyException(code: 0): No application encryption key has been specified. at M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Encryption\\EncryptionServiceProvider.php:79)
 [stacktrace]
 #0 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\helpers.php(306): Illuminate\\Encryption\\EncryptionServiceProvider->Illuminate\\Encryption\\{closure}()
@@ -896,7 +896,7 @@
 #41 M:\\Volistx\\DashboardBase\\public\\index.php(52): Illuminate\\Foundation\\Http\\Kernel->handle()
 #42 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\resources\\server.php(16): require_once('M:\\\\Volistx\\\\Dash...')
 #43 {main}
-"} 
+"}
 [2023-05-02 02:49:14] production.ERROR: No application encryption key has been specified. {"exception":"[object] (Illuminate\\Encryption\\MissingAppKeyException(code: 0): No application encryption key has been specified. at M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Encryption\\EncryptionServiceProvider.php:79)
 [stacktrace]
 #0 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\helpers.php(306): Illuminate\\Encryption\\EncryptionServiceProvider->Illuminate\\Encryption\\{closure}()
@@ -920,7 +920,7 @@
 #18 M:\\Volistx\\DashboardBase\\public\\index.php(55): Illuminate\\Foundation\\Http\\Kernel->terminate()
 #19 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\resources\\server.php(16): require_once('M:\\\\Volistx\\\\Dash...')
 #20 {main}
-"} 
+"}
 [2023-05-02 02:49:14] production.ERROR: No application encryption key has been specified. {"exception":"[object] (Illuminate\\Encryption\\MissingAppKeyException(code: 0): No application encryption key has been specified. at M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Encryption\\EncryptionServiceProvider.php:79)
 [stacktrace]
 #0 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\helpers.php(306): Illuminate\\Encryption\\EncryptionServiceProvider->Illuminate\\Encryption\\{closure}()
@@ -967,7 +967,7 @@
 #41 M:\\Volistx\\DashboardBase\\public\\index.php(52): Illuminate\\Foundation\\Http\\Kernel->handle()
 #42 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\resources\\server.php(16): require_once('M:\\\\Volistx\\\\Dash...')
 #43 {main}
-"} 
+"}
 [2023-05-02 02:49:14] production.ERROR: No application encryption key has been specified. {"exception":"[object] (Illuminate\\Encryption\\MissingAppKeyException(code: 0): No application encryption key has been specified. at M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Encryption\\EncryptionServiceProvider.php:79)
 [stacktrace]
 #0 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\helpers.php(306): Illuminate\\Encryption\\EncryptionServiceProvider->Illuminate\\Encryption\\{closure}()
@@ -991,7 +991,7 @@
 #18 M:\\Volistx\\DashboardBase\\public\\index.php(55): Illuminate\\Foundation\\Http\\Kernel->terminate()
 #19 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\resources\\server.php(16): require_once('M:\\\\Volistx\\\\Dash...')
 #20 {main}
-"} 
+"}
 [2023-05-02 02:49:14] production.ERROR: No application encryption key has been specified. {"exception":"[object] (Illuminate\\Encryption\\MissingAppKeyException(code: 0): No application encryption key has been specified. at M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Encryption\\EncryptionServiceProvider.php:79)
 [stacktrace]
 #0 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\helpers.php(306): Illuminate\\Encryption\\EncryptionServiceProvider->Illuminate\\Encryption\\{closure}()
@@ -1038,7 +1038,7 @@
 #41 M:\\Volistx\\DashboardBase\\public\\index.php(52): Illuminate\\Foundation\\Http\\Kernel->handle()
 #42 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\resources\\server.php(16): require_once('M:\\\\Volistx\\\\Dash...')
 #43 {main}
-"} 
+"}
 [2023-05-02 02:49:14] production.ERROR: No application encryption key has been specified. {"exception":"[object] (Illuminate\\Encryption\\MissingAppKeyException(code: 0): No application encryption key has been specified. at M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Encryption\\EncryptionServiceProvider.php:79)
 [stacktrace]
 #0 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\helpers.php(306): Illuminate\\Encryption\\EncryptionServiceProvider->Illuminate\\Encryption\\{closure}()
@@ -1062,4 +1062,223 @@
 #18 M:\\Volistx\\DashboardBase\\public\\index.php(55): Illuminate\\Foundation\\Http\\Kernel->terminate()
 #19 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\resources\\server.php(16): require_once('M:\\\\Volistx\\\\Dash...')
 #20 {main}
-"} 
+"}
+[2023-05-02 04:31:54] production.ERROR: No application encryption key has been specified. {"exception":"[object] (Illuminate\\Encryption\\MissingAppKeyException(code: 0): No application encryption key has been specified. at M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Encryption\\EncryptionServiceProvider.php:79)
+[stacktrace]
+#0 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\helpers.php(306): Illuminate\\Encryption\\EncryptionServiceProvider->Illuminate\\Encryption\\{closure}()
+#1 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Encryption\\EncryptionServiceProvider.php(81): tap()
+#2 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Encryption\\EncryptionServiceProvider.php(60): Illuminate\\Encryption\\EncryptionServiceProvider->key()
+#3 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Encryption\\EncryptionServiceProvider.php(32): Illuminate\\Encryption\\EncryptionServiceProvider->parseKey()
+#4 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Container.php(910): Illuminate\\Encryption\\EncryptionServiceProvider->Illuminate\\Encryption\\{closure}()
+#5 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Container.php(795): Illuminate\\Container\\Container->build()
+#6 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Application.php(933): Illuminate\\Container\\Container->resolve()
+#7 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Container.php(731): Illuminate\\Foundation\\Application->resolve()
+#8 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Application.php(918): Illuminate\\Container\\Container->make()
+#9 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Container.php(1068): Illuminate\\Foundation\\Application->make()
+#10 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Container.php(984): Illuminate\\Container\\Container->resolveClass()
+#11 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Container.php(945): Illuminate\\Container\\Container->resolveDependencies()
+#12 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Container.php(795): Illuminate\\Container\\Container->build()
+#13 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Application.php(933): Illuminate\\Container\\Container->resolve()
+#14 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Container.php(731): Illuminate\\Foundation\\Application->resolve()
+#15 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Application.php(918): Illuminate\\Container\\Container->make()
+#16 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(169): Illuminate\\Foundation\\Application->make()
+#17 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(116): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#18 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(799): Illuminate\\Pipeline\\Pipeline->then()
+#19 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(776): Illuminate\\Routing\\Router->runRouteWithinStack()
+#20 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(740): Illuminate\\Routing\\Router->runRoute()
+#21 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php(729): Illuminate\\Routing\\Router->dispatchToRoute()
+#22 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(200): Illuminate\\Routing\\Router->dispatch()
+#23 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(141): Illuminate\\Foundation\\Http\\Kernel->Illuminate\\Foundation\\Http\\{closure}()
+#24 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#25 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\ConvertEmptyStringsToNull.php(31): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle()
+#26 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Foundation\\Http\\Middleware\\ConvertEmptyStringsToNull->handle()
+#27 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#28 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TrimStrings.php(40): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle()
+#29 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Foundation\\Http\\Middleware\\TrimStrings->handle()
+#30 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\ValidatePostSize.php(27): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#31 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Foundation\\Http\\Middleware\\ValidatePostSize->handle()
+#32 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\PreventRequestsDuringMaintenance.php(86): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#33 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Foundation\\Http\\Middleware\\PreventRequestsDuringMaintenance->handle()
+#34 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Http\\Middleware\\HandleCors.php(62): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#35 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Http\\Middleware\\HandleCors->handle()
+#36 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Http\\Middleware\\TrustProxies.php(39): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#37 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(180): Illuminate\\Http\\Middleware\\TrustProxies->handle()
+#38 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(116): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}()
+#39 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(175): Illuminate\\Pipeline\\Pipeline->then()
+#40 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(144): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter()
+#41 M:\\Volistx\\DashboardBase\\public\\index.php(52): Illuminate\\Foundation\\Http\\Kernel->handle()
+#42 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\resources\\server.php(16): require_once('M:\\\\Volistx\\\\Dash...')
+#43 {main}
+"}
+[2023-05-02 04:31:54] production.ERROR: No application encryption key has been specified. {"exception":"[object] (Illuminate\\Encryption\\MissingAppKeyException(code: 0): No application encryption key has been specified. at M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Encryption\\EncryptionServiceProvider.php:79)
+[stacktrace]
+#0 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\helpers.php(306): Illuminate\\Encryption\\EncryptionServiceProvider->Illuminate\\Encryption\\{closure}()
+#1 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Encryption\\EncryptionServiceProvider.php(81): tap()
+#2 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Encryption\\EncryptionServiceProvider.php(60): Illuminate\\Encryption\\EncryptionServiceProvider->key()
+#3 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Encryption\\EncryptionServiceProvider.php(32): Illuminate\\Encryption\\EncryptionServiceProvider->parseKey()
+#4 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Container.php(910): Illuminate\\Encryption\\EncryptionServiceProvider->Illuminate\\Encryption\\{closure}()
+#5 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Container.php(795): Illuminate\\Container\\Container->build()
+#6 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Application.php(933): Illuminate\\Container\\Container->resolve()
+#7 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Container.php(731): Illuminate\\Foundation\\Application->resolve()
+#8 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Application.php(918): Illuminate\\Container\\Container->make()
+#9 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Container.php(1068): Illuminate\\Foundation\\Application->make()
+#10 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Container.php(984): Illuminate\\Container\\Container->resolveClass()
+#11 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Container.php(945): Illuminate\\Container\\Container->resolveDependencies()
+#12 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Container.php(795): Illuminate\\Container\\Container->build()
+#13 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Application.php(933): Illuminate\\Container\\Container->resolve()
+#14 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Container.php(731): Illuminate\\Foundation\\Application->resolve()
+#15 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Application.php(918): Illuminate\\Container\\Container->make()
+#16 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(249): Illuminate\\Foundation\\Application->make()
+#17 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(213): Illuminate\\Foundation\\Http\\Kernel->terminateMiddleware()
+#18 M:\\Volistx\\DashboardBase\\public\\index.php(55): Illuminate\\Foundation\\Http\\Kernel->terminate()
+#19 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\resources\\server.php(16): require_once('M:\\\\Volistx\\\\Dash...')
+#20 {main}
+"}
+[2023-05-02 04:54:09] local.ERROR: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'dashboard.users' doesn't exist (Connection: mysql, SQL: alter table `users` add `two_factor_secret` text null after `password`, add `two_factor_recovery_codes` text null after `two_factor_secret`, add `two_factor_confirmed_at` timestamp null after `two_factor_recovery_codes`) {"exception":"[object] (Illuminate\\Database\\QueryException(code: 42S02): SQLSTATE[42S02]: Base table or view not found: 1146 Table 'dashboard.users' doesn't exist (Connection: mysql, SQL: alter table `users` add `two_factor_secret` text null after `password`, add `two_factor_recovery_codes` text null after `two_factor_secret`, add `two_factor_confirmed_at` timestamp null after `two_factor_recovery_codes`) at M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php:793)
+[stacktrace]
+#0 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php(753): Illuminate\\Database\\Connection->runQueryCallback()
+#1 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php(579): Illuminate\\Database\\Connection->run()
+#2 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Schema\\Blueprint.php(110): Illuminate\\Database\\Connection->statement()
+#3 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Schema\\Builder.php(439): Illuminate\\Database\\Schema\\Blueprint->build()
+#4 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Schema\\Builder.php(269): Illuminate\\Database\\Schema\\Builder->build()
+#5 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\Facades\\Facade.php(353): Illuminate\\Database\\Schema\\Builder->table()
+#6 M:\\Volistx\\DashboardBase\\database\\migrations\\2014_10_12_200000_add_two_factor_columns_to_users_table.php(29): Illuminate\\Support\\Facades\\Facade::__callStatic()
+#7 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Migrations\\Migrator.php(492): Illuminate\\Database\\Migrations\\Migration@anonymous->up()
+#8 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Migrations\\Migrator.php(410): Illuminate\\Database\\Migrations\\Migrator->runMethod()
+#9 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Migrations\\Migrator.php(419): Illuminate\\Database\\Migrations\\Migrator->Illuminate\\Database\\Migrations\\{closure}()
+#10 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Migrations\\Migrator.php(216): Illuminate\\Database\\Migrations\\Migrator->runMigration()
+#11 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Console\\View\\Components\\Task.php(37): Illuminate\\Database\\Migrations\\Migrator->Illuminate\\Database\\Migrations\\{closure}()
+#12 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Migrations\\Migrator.php(755): Illuminate\\Console\\View\\Components\\Task->render()
+#13 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Migrations\\Migrator.php(216): Illuminate\\Database\\Migrations\\Migrator->write()
+#14 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Migrations\\Migrator.php(181): Illuminate\\Database\\Migrations\\Migrator->runUp()
+#15 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Migrations\\Migrator.php(124): Illuminate\\Database\\Migrations\\Migrator->runPending()
+#16 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Console\\Migrations\\MigrateCommand.php(90): Illuminate\\Database\\Migrations\\Migrator->run()
+#17 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Migrations\\Migrator.php(632): Illuminate\\Database\\Console\\Migrations\\MigrateCommand->Illuminate\\Database\\Console\\Migrations\\{closure}()
+#18 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Console\\Migrations\\MigrateCommand.php(102): Illuminate\\Database\\Migrations\\Migrator->usingConnection()
+#19 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php(36): Illuminate\\Database\\Console\\Migrations\\MigrateCommand->handle()
+#20 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Util.php(41): Illuminate\\Container\\BoundMethod::Illuminate\\Container\\{closure}()
+#21 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php(93): Illuminate\\Container\\Util::unwrapIfClosure()
+#22 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php(37): Illuminate\\Container\\BoundMethod::callBoundMethod()
+#23 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Container.php(662): Illuminate\\Container\\BoundMethod::call()
+#24 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Console\\Command.php(194): Illuminate\\Container\\Container->call()
+#25 M:\\Volistx\\DashboardBase\\vendor\\symfony\\console\\Command\\Command.php(312): Illuminate\\Console\\Command->execute()
+#26 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Console\\Command.php(164): Symfony\\Component\\Console\\Command\\Command->run()
+#27 M:\\Volistx\\DashboardBase\\vendor\\symfony\\console\\Application.php(1040): Illuminate\\Console\\Command->run()
+#28 M:\\Volistx\\DashboardBase\\vendor\\symfony\\console\\Application.php(314): Symfony\\Component\\Console\\Application->doRunCommand()
+#29 M:\\Volistx\\DashboardBase\\vendor\\symfony\\console\\Application.php(168): Symfony\\Component\\Console\\Application->doRun()
+#30 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(200): Symfony\\Component\\Console\\Application->run()
+#31 M:\\Volistx\\DashboardBase\\artisan(37): Illuminate\\Foundation\\Console\\Kernel->handle()
+#32 {main}
+
+[previous exception] [object] (PDOException(code: 42S02): SQLSTATE[42S02]: Base table or view not found: 1146 Table 'dashboard.users' doesn't exist at M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php:578)
+[stacktrace]
+#0 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php(578): PDOStatement->execute()
+#1 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php(786): Illuminate\\Database\\Connection->Illuminate\\Database\\{closure}()
+#2 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php(753): Illuminate\\Database\\Connection->runQueryCallback()
+#3 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php(579): Illuminate\\Database\\Connection->run()
+#4 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Schema\\Blueprint.php(110): Illuminate\\Database\\Connection->statement()
+#5 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Schema\\Builder.php(439): Illuminate\\Database\\Schema\\Blueprint->build()
+#6 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Schema\\Builder.php(269): Illuminate\\Database\\Schema\\Builder->build()
+#7 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\Facades\\Facade.php(353): Illuminate\\Database\\Schema\\Builder->table()
+#8 M:\\Volistx\\DashboardBase\\database\\migrations\\2014_10_12_200000_add_two_factor_columns_to_users_table.php(29): Illuminate\\Support\\Facades\\Facade::__callStatic()
+#9 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Migrations\\Migrator.php(492): Illuminate\\Database\\Migrations\\Migration@anonymous->up()
+#10 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Migrations\\Migrator.php(410): Illuminate\\Database\\Migrations\\Migrator->runMethod()
+#11 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Migrations\\Migrator.php(419): Illuminate\\Database\\Migrations\\Migrator->Illuminate\\Database\\Migrations\\{closure}()
+#12 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Migrations\\Migrator.php(216): Illuminate\\Database\\Migrations\\Migrator->runMigration()
+#13 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Console\\View\\Components\\Task.php(37): Illuminate\\Database\\Migrations\\Migrator->Illuminate\\Database\\Migrations\\{closure}()
+#14 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Migrations\\Migrator.php(755): Illuminate\\Console\\View\\Components\\Task->render()
+#15 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Migrations\\Migrator.php(216): Illuminate\\Database\\Migrations\\Migrator->write()
+#16 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Migrations\\Migrator.php(181): Illuminate\\Database\\Migrations\\Migrator->runUp()
+#17 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Migrations\\Migrator.php(124): Illuminate\\Database\\Migrations\\Migrator->runPending()
+#18 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Console\\Migrations\\MigrateCommand.php(90): Illuminate\\Database\\Migrations\\Migrator->run()
+#19 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Migrations\\Migrator.php(632): Illuminate\\Database\\Console\\Migrations\\MigrateCommand->Illuminate\\Database\\Console\\Migrations\\{closure}()
+#20 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Console\\Migrations\\MigrateCommand.php(102): Illuminate\\Database\\Migrations\\Migrator->usingConnection()
+#21 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php(36): Illuminate\\Database\\Console\\Migrations\\MigrateCommand->handle()
+#22 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Util.php(41): Illuminate\\Container\\BoundMethod::Illuminate\\Container\\{closure}()
+#23 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php(93): Illuminate\\Container\\Util::unwrapIfClosure()
+#24 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php(37): Illuminate\\Container\\BoundMethod::callBoundMethod()
+#25 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Container.php(662): Illuminate\\Container\\BoundMethod::call()
+#26 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Console\\Command.php(194): Illuminate\\Container\\Container->call()
+#27 M:\\Volistx\\DashboardBase\\vendor\\symfony\\console\\Command\\Command.php(312): Illuminate\\Console\\Command->execute()
+#28 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Console\\Command.php(164): Symfony\\Component\\Console\\Command\\Command->run()
+#29 M:\\Volistx\\DashboardBase\\vendor\\symfony\\console\\Application.php(1040): Illuminate\\Console\\Command->run()
+#30 M:\\Volistx\\DashboardBase\\vendor\\symfony\\console\\Application.php(314): Symfony\\Component\\Console\\Application->doRunCommand()
+#31 M:\\Volistx\\DashboardBase\\vendor\\symfony\\console\\Application.php(168): Symfony\\Component\\Console\\Application->doRun()
+#32 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(200): Symfony\\Component\\Console\\Application->run()
+#33 M:\\Volistx\\DashboardBase\\artisan(37): Illuminate\\Foundation\\Console\\Kernel->handle()
+#34 {main}
+"}
+[2023-05-02 04:55:07] local.ERROR: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'dashboard.users' doesn't exist (Connection: mysql, SQL: alter table `users` add `two_factor_secret` text null after `password`, add `two_factor_recovery_codes` text null after `two_factor_secret`, add `two_factor_confirmed_at` timestamp null after `two_factor_recovery_codes`) {"exception":"[object] (Illuminate\\Database\\QueryException(code: 42S02): SQLSTATE[42S02]: Base table or view not found: 1146 Table 'dashboard.users' doesn't exist (Connection: mysql, SQL: alter table `users` add `two_factor_secret` text null after `password`, add `two_factor_recovery_codes` text null after `two_factor_secret`, add `two_factor_confirmed_at` timestamp null after `two_factor_recovery_codes`) at M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php:793)
+[stacktrace]
+#0 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php(753): Illuminate\\Database\\Connection->runQueryCallback()
+#1 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php(579): Illuminate\\Database\\Connection->run()
+#2 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Schema\\Blueprint.php(110): Illuminate\\Database\\Connection->statement()
+#3 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Schema\\Builder.php(439): Illuminate\\Database\\Schema\\Blueprint->build()
+#4 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Schema\\Builder.php(269): Illuminate\\Database\\Schema\\Builder->build()
+#5 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\Facades\\Facade.php(353): Illuminate\\Database\\Schema\\Builder->table()
+#6 M:\\Volistx\\DashboardBase\\database\\migrations\\2014_10_12_200000_add_two_factor_columns_to_users_table.php(29): Illuminate\\Support\\Facades\\Facade::__callStatic()
+#7 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Migrations\\Migrator.php(492): Illuminate\\Database\\Migrations\\Migration@anonymous->up()
+#8 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Migrations\\Migrator.php(410): Illuminate\\Database\\Migrations\\Migrator->runMethod()
+#9 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Migrations\\Migrator.php(419): Illuminate\\Database\\Migrations\\Migrator->Illuminate\\Database\\Migrations\\{closure}()
+#10 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Migrations\\Migrator.php(216): Illuminate\\Database\\Migrations\\Migrator->runMigration()
+#11 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Console\\View\\Components\\Task.php(37): Illuminate\\Database\\Migrations\\Migrator->Illuminate\\Database\\Migrations\\{closure}()
+#12 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Migrations\\Migrator.php(755): Illuminate\\Console\\View\\Components\\Task->render()
+#13 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Migrations\\Migrator.php(216): Illuminate\\Database\\Migrations\\Migrator->write()
+#14 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Migrations\\Migrator.php(181): Illuminate\\Database\\Migrations\\Migrator->runUp()
+#15 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Migrations\\Migrator.php(124): Illuminate\\Database\\Migrations\\Migrator->runPending()
+#16 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Console\\Migrations\\MigrateCommand.php(90): Illuminate\\Database\\Migrations\\Migrator->run()
+#17 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Migrations\\Migrator.php(632): Illuminate\\Database\\Console\\Migrations\\MigrateCommand->Illuminate\\Database\\Console\\Migrations\\{closure}()
+#18 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Console\\Migrations\\MigrateCommand.php(102): Illuminate\\Database\\Migrations\\Migrator->usingConnection()
+#19 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php(36): Illuminate\\Database\\Console\\Migrations\\MigrateCommand->handle()
+#20 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Util.php(41): Illuminate\\Container\\BoundMethod::Illuminate\\Container\\{closure}()
+#21 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php(93): Illuminate\\Container\\Util::unwrapIfClosure()
+#22 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php(37): Illuminate\\Container\\BoundMethod::callBoundMethod()
+#23 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Container.php(662): Illuminate\\Container\\BoundMethod::call()
+#24 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Console\\Command.php(194): Illuminate\\Container\\Container->call()
+#25 M:\\Volistx\\DashboardBase\\vendor\\symfony\\console\\Command\\Command.php(312): Illuminate\\Console\\Command->execute()
+#26 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Console\\Command.php(164): Symfony\\Component\\Console\\Command\\Command->run()
+#27 M:\\Volistx\\DashboardBase\\vendor\\symfony\\console\\Application.php(1040): Illuminate\\Console\\Command->run()
+#28 M:\\Volistx\\DashboardBase\\vendor\\symfony\\console\\Application.php(314): Symfony\\Component\\Console\\Application->doRunCommand()
+#29 M:\\Volistx\\DashboardBase\\vendor\\symfony\\console\\Application.php(168): Symfony\\Component\\Console\\Application->doRun()
+#30 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(200): Symfony\\Component\\Console\\Application->run()
+#31 M:\\Volistx\\DashboardBase\\artisan(37): Illuminate\\Foundation\\Console\\Kernel->handle()
+#32 {main}
+
+[previous exception] [object] (PDOException(code: 42S02): SQLSTATE[42S02]: Base table or view not found: 1146 Table 'dashboard.users' doesn't exist at M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php:578)
+[stacktrace]
+#0 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php(578): PDOStatement->execute()
+#1 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php(786): Illuminate\\Database\\Connection->Illuminate\\Database\\{closure}()
+#2 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php(753): Illuminate\\Database\\Connection->runQueryCallback()
+#3 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php(579): Illuminate\\Database\\Connection->run()
+#4 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Schema\\Blueprint.php(110): Illuminate\\Database\\Connection->statement()
+#5 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Schema\\Builder.php(439): Illuminate\\Database\\Schema\\Blueprint->build()
+#6 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Schema\\Builder.php(269): Illuminate\\Database\\Schema\\Builder->build()
+#7 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\Facades\\Facade.php(353): Illuminate\\Database\\Schema\\Builder->table()
+#8 M:\\Volistx\\DashboardBase\\database\\migrations\\2014_10_12_200000_add_two_factor_columns_to_users_table.php(29): Illuminate\\Support\\Facades\\Facade::__callStatic()
+#9 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Migrations\\Migrator.php(492): Illuminate\\Database\\Migrations\\Migration@anonymous->up()
+#10 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Migrations\\Migrator.php(410): Illuminate\\Database\\Migrations\\Migrator->runMethod()
+#11 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Migrations\\Migrator.php(419): Illuminate\\Database\\Migrations\\Migrator->Illuminate\\Database\\Migrations\\{closure}()
+#12 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Migrations\\Migrator.php(216): Illuminate\\Database\\Migrations\\Migrator->runMigration()
+#13 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Console\\View\\Components\\Task.php(37): Illuminate\\Database\\Migrations\\Migrator->Illuminate\\Database\\Migrations\\{closure}()
+#14 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Migrations\\Migrator.php(755): Illuminate\\Console\\View\\Components\\Task->render()
+#15 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Migrations\\Migrator.php(216): Illuminate\\Database\\Migrations\\Migrator->write()
+#16 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Migrations\\Migrator.php(181): Illuminate\\Database\\Migrations\\Migrator->runUp()
+#17 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Migrations\\Migrator.php(124): Illuminate\\Database\\Migrations\\Migrator->runPending()
+#18 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Console\\Migrations\\MigrateCommand.php(90): Illuminate\\Database\\Migrations\\Migrator->run()
+#19 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Migrations\\Migrator.php(632): Illuminate\\Database\\Console\\Migrations\\MigrateCommand->Illuminate\\Database\\Console\\Migrations\\{closure}()
+#20 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Console\\Migrations\\MigrateCommand.php(102): Illuminate\\Database\\Migrations\\Migrator->usingConnection()
+#21 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php(36): Illuminate\\Database\\Console\\Migrations\\MigrateCommand->handle()
+#22 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Util.php(41): Illuminate\\Container\\BoundMethod::Illuminate\\Container\\{closure}()
+#23 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php(93): Illuminate\\Container\\Util::unwrapIfClosure()
+#24 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php(37): Illuminate\\Container\\BoundMethod::callBoundMethod()
+#25 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Container.php(662): Illuminate\\Container\\BoundMethod::call()
+#26 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Console\\Command.php(194): Illuminate\\Container\\Container->call()
+#27 M:\\Volistx\\DashboardBase\\vendor\\symfony\\console\\Command\\Command.php(312): Illuminate\\Console\\Command->execute()
+#28 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Console\\Command.php(164): Symfony\\Component\\Console\\Command\\Command->run()
+#29 M:\\Volistx\\DashboardBase\\vendor\\symfony\\console\\Application.php(1040): Illuminate\\Console\\Command->run()
+#30 M:\\Volistx\\DashboardBase\\vendor\\symfony\\console\\Application.php(314): Symfony\\Component\\Console\\Application->doRunCommand()
+#31 M:\\Volistx\\DashboardBase\\vendor\\symfony\\console\\Application.php(168): Symfony\\Component\\Console\\Application->doRun()
+#32 M:\\Volistx\\DashboardBase\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(200): Symfony\\Component\\Console\\Application->run()
+#33 M:\\Volistx\\DashboardBase\\artisan(37): Illuminate\\Foundation\\Console\\Kernel->handle()
+#34 {main}
+"}
