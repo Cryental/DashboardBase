@@ -26,5 +26,6 @@ class AppServiceProvider extends ServiceProvider
 
         $gravatar = new Gravatar();
         Twig::addGlobal('gravatar', $gravatar);
+        Twig::addGlobal('captcha_src', captcha_src());
     }
 }

@@ -128,3 +128,7 @@ body {
     -webkit-backdrop-filter: blur(10px);
     backdrop-filter: blur(10px);
 }
+
+.dropdown-menu {
+    box-shadow: none;
+}

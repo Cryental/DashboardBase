@@ -21,6 +21,10 @@ class UserController extends Controller
 
         $showingText = 'Showing '.$users->firstItem().' to '.$users->lastItem().' of '.$users->total().' entries';
 
+        if (count($users) == 0) {
+            $showingText = 'Showing 0 to 0 of 0 entries';
+        }
+
         return view('admin.users', [
             'users'      => $users,
             'bottomText' => $showingText,
