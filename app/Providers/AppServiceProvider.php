@@ -25,6 +25,7 @@ class AppServiceProvider extends ServiceProvider
         Paginator::useBootstrapFive();
 
         $gravatar = new Gravatar();
+        Twig::addGlobal('captcha_src', captcha_src());
         Twig::addGlobal('gravatar', $gravatar);
     }
 }

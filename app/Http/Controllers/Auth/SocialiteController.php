@@ -1,27 +1,28 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Auth;
 
+use App\Http\Controllers\Controller;
 use App\Models\User;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Str;
+use Laravel\Fortify\Events\TwoFactorAuthenticationChallenged;
 use Laravel\Socialite\Facades\Socialite;
 
-class SocialController extends Controller
+class SocialiteController extends Controller
 {
-    public function redirect()
+    public function redirect($provider)
     {
-        return Socialite::driver('google')->redirect();
+        return Socialite::driver($provider)->redirect();
     }
 
-    public function callback()
+    public function handleProviderCallback(Request $request, $provider)
     {
         $userSocial = Socialite::driver('google')->user();
         $user = User::query()->where(['provider' => 'google', 'provider_id' => $userSocial->getId()])->get()->first();
 
-        if (! $user) {
+        if (!$user) {
             $user = User::query()->create([
                 'name' => $userSocial->getName(),
                 'email' => $userSocial->getEmail(),
@@ -36,7 +37,18 @@ class SocialController extends Controller
             $user->email_verified_at = now();
             $user->save();
         } else {
-            Auth::login($user);
+            if ($user->two_factor_confirmed) {
+                session()->put([
+                    'login.id' => $user->getKey(),
+                    'login.remember' => false,
+                ]);
+
+                TwoFactorAuthenticationChallenged::dispatch($user);
+
+                return redirect()->route('two-factor.login');
+            } else {
+                Auth::login($user);
+            }
         }
 
         return redirect('/');

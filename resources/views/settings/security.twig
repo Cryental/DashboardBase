@@ -2,6 +2,16 @@
 
 {% block title %}Security{% endblock %}
 
+{% block included_scripts %}
+    {% if session('2fa_recovery_key') is not empty %}
+    <script>
+        $(document).ready(function() {
+            var recoveryCodeModal = new bootstrap.Modal(document.getElementById('recovery-code'));
+            recoveryCodeModal.show();
+        });
+    </script>
+    {% endif %}
+{% endblock %}
 {% block content %}
 <div class="page-header d-print-none">
     <div class="container-xl">
@@ -35,29 +45,27 @@
                     </div>
                 </div>
                 <div class="col d-flex flex-column">
-                    <form method="POST" autocomplete="off" action="{{ route('settings.account') }}">
-                        <input type="hidden" name="_token" value="{{ csrf_token() }}"/>
-                        <div class="card-body">
-                            <h2 class="mb-4">Security</h2>
-                            <h3 class="card-title">Devices</h3>
-                            <p class="card-subtitle">This is a list of devices that have logged into your account.
-                                Revoke any device that you do not recognize.</p>
-                            <div class="card">
-                                <div class="table-responsive">
-                                    <table class="table table-vcenter table-mobile-md card-table">
-                                        <thead>
+                    <div class="card-body">
+                        <h2 class="mb-4">Security</h2>
+                        <h3 class="card-title">Devices</h3>
+                        <p class="card-subtitle">This is a list of devices that have logged into your account.
+                            Revoke any device that you do not recognize.</p>
+                        <div class="card">
+                            <div class="table-responsive">
+                                <table class="table table-vcenter table-mobile-md card-table">
+                                    <thead>
+                                    <tr>
+                                        <th>IP Address</th>
+                                        <th>Browser</th>
+                                        <th>Last Access</th>
+                                        <th class="w-1"></th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for device in devices %}
                                         <tr>
-                                            <th>IP Address</th>
-                                            <th>Browser</th>
-                                            <th>Last Access</th>
-                                            <th class="w-1"></th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        {% for device in devices %}
-                                            <tr>
-                                                <td data-label="IP Address">
-                                                    <div class="d-flex py-1 align-items-center">
+                                            <td data-label="IP Address">
+                                                <div class="d-flex py-1 align-items-center">
                                                         <span class="avatar me-2">
                                                             {% if device.deviceDetector.mobile == true %}
                                                                 <svg xmlns="http://www.w3.org/2000/svg"
@@ -141,70 +149,86 @@
                                                             {% endif %}
 
                                                         </span>
-                                                        <div class="flex-fill">
-                                                            <div
-                                                                class="font-weight-medium">{{ device.ip_address }}</div>
-                                                            <div class="text-muted">Miami, United States</div>
-                                                        </div>
+                                                    <div class="flex-fill">
+                                                        <div
+                                                            class="font-weight-medium">{{ device.ip_address }}</div>
+                                                        <div class="text-muted">Miami, United States</div>
                                                     </div>
-                                                </td>
-                                                <td data-label="Browser">
-                                                    <div>{{ device.agentBrowser }}</div>
-                                                    <div class="text-muted">{{ device.agentPlatform }}</div>
-                                                </td>
-                                                <td data-label="Last Access" class="text-muted">
-                                                    {{ device.last_activity|date("Y-m-d H:i:s") }} UTC
-                                                </td>
-                                                <td>
-                                                    <div class="btn-list flex-nowrap">
-                                                        {% if sessionID == device.id %}
-                                                            <a href="#" class="btn disabled">
-                                                                Current
-                                                            </a>
-                                                        {% else %}
-                                                            <a href="/settings/security/remove_device/{{ device.id }}"
-                                                               class="btn btn-danger">
-                                                                Remove
-                                                            </a>
-                                                        {% endif %}
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        {% endfor %}
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                            <h3 class="card-title mt-4">Password</h3>
-                            <p class="card-subtitle">You can change your password here.</p>
-                            <div>
-                                <a href="#" class="btn btn-danger" data-bs-toggle="modal"
-                                   data-bs-target="#modal-change-password">
-                                    Change Password
-                                </a>
+                                                </div>
+                                            </td>
+                                            <td data-label="Browser">
+                                                <div>{{ device.agentBrowser }}</div>
+                                                <div class="text-muted">{{ device.agentPlatform }}</div>
+                                            </td>
+                                            <td data-label="Last Access" class="text-muted">
+                                                {{ device.last_activity|date("Y-m-d H:i:s") }} UTC
+                                            </td>
+                                            <td>
+                                                <div class="btn-list flex-nowrap">
+                                                    {% if sessionID == device.id %}
+                                                        <a href="#" class="btn disabled">
+                                                            Current
+                                                        </a>
+                                                    {% else %}
+                                                        <a href="/settings/security/remove_device/{{ device.id }}"
+                                                           class="btn btn-danger">
+                                                            Remove
+                                                        </a>
+                                                    {% endif %}
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
-                        <div class="card-footer bg-transparent mt-auto">
-                            {% if errors is not empty %}
-                                <div class="alert alert-danger">
-                                    <p>{{ errors.all()|first }}</p>
-                                </div>
-                            {% endif %}
-
-                            {% if session('status') is not empty %}
-                                <div class="alert alert-success">
-                                    <p>{{ session('status') }}</p>
-                                </div>
-                            {% endif %}
-
-                            <div class="btn-list justify-content-end">
-                                <a href="{{ route('settings.account') }}" class="btn">
-                                    Cancel
-                                </a>
-                                <button type="submit" class="btn btn-primary">Submit</button>
-                            </div>
+                        <h3 class="card-title mt-4">Password</h3>
+                        <p class="card-subtitle">You can change your password here.</p>
+                        <div>
+                            <a href="#" class="btn btn-danger" data-bs-toggle="modal"
+                               data-bs-target="#modal-change-password">
+                                Change Password
+                            </a>
                         </div>
-                    </form>
+
+                        <h3 class="card-title mt-4">Two Factor Authorization</h3>
+                        <p class="card-subtitle">Enhance the security of your account by enabling two-factor
+                            authentication (2FA).</p>
+                        <div>
+                            {% if auth_user().two_factor_confirmed == 1 %}
+                                <form action="{{ route('two-factor.destroy') }}" method="POST">
+                                    <input type="hidden" name="_token" value="{{ csrf_token() }}"/>
+                                    <button type="submit" class="btn btn-primary">Disable 2FA</button>
+                                </form>
+                            {% else %}
+                                <form action="{{ route('two-factor.setup') }}" method="get">
+                                    <input type="hidden" name="_token" value="{{ csrf_token() }}"/>
+                                    <button type="submit" class="btn btn-primary">Activate 2FA</button>
+                                </form>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="card-footer bg-transparent mt-auto">
+                        {% if errors is not empty %}
+                            <div class="alert alert-danger">
+                                <p>{{ errors.all()|first }}</p>
+                            </div>
+                        {% endif %}
+
+                        {% if session('status') is not empty and session('status') != 'two-factor-authentication-enabled' %}
+                            <div class="alert alert-success">
+                                <p>{{ session('status') }}</p>
+                            </div>
+                        {% endif %}
+
+                        <div class="btn-list justify-content-end">
+                            <a href="{{ route('settings.account') }}" class="btn">
+                                Cancel
+                            </a>
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -221,16 +245,17 @@
                     </div>
                     <div class="modal-body">
                         {% if auth_user().password != null %}
-                        <div class="mb-3">
-                            <label class="form-label">Current Password</label>
-                            <input name="password" type="password" class="form-control">
-                        </div>
+                            <div class="mb-3">
+                                <label class="form-label">Current Password</label>
+                                <input name="password" type="password" class="form-control">
+                            </div>
                         {% else %}
-                        <div class="alert alert-warning">
-                            <p>
-                                You currently use a social login provider to log in to your account. After setting a password for your account, you can log in using your email and password.
-                            </p>
-                        </div>
+                            <div class="alert alert-warning">
+                                <p>
+                                    You currently use a social login provider to log in to your account. After setting a
+                                    password for your account, you can log in using your email and password.
+                                </p>
+                            </div>
                         {% endif %}
                         <div class="mb-3">
                             <label class="form-label">New Password</label>
@@ -248,6 +273,30 @@
                         <button type="submit" class="btn btn-danger">Submit</button>
                     </div>
                 </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal modal-blur fade" id="recovery-code" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Recovery Code</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="alert alert-success">
+                        <p>
+                            This is your recovery code. Please store it in a secure location. It can be used to recover
+                            access to your account if your 2FA device is lost.
+                        </p>
+                    </div>
+                    <div class="text-center">
+                        {% for code in session('2fa_recovery_key') %}
+                            <p>{{ code }}</p>
+                        {% endfor %}
+                    </div>
+                </div>
             </div>
         </div>
     </div>

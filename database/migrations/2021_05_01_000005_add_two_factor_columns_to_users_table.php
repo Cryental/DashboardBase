@@ -21,10 +21,14 @@ return new class extends Migration
                     ->after('two_factor_secret')
                     ->nullable();
 
+            $table->boolean('two_factor_confirmed')
+                ->after('two_factor_secret')
+                ->nullable();
+
             if (Fortify::confirmsTwoFactorAuthentication()) {
-                $table->timestamp('two_factor_confirmed_at')
-                        ->after('two_factor_recovery_codes')
-                        ->nullable();
+                $table->boolean('two_factor_confirmed')
+                    ->after('two_factor_secret')
+                    ->nullable();
             }
         });
     }
