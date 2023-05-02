@@ -22,7 +22,7 @@ class TwoFactorAuthController extends Controller
     /**
      * Create a new action instance.
      *
-     * @param TwoFactorAuthenticationProvider $provider
+     * @param  TwoFactorAuthenticationProvider  $provider
      * @return void
      */
     public function __construct(TwoFactorAuthenticationProvider $provider)
@@ -39,7 +39,7 @@ class TwoFactorAuthController extends Controller
             Auth::user()->refresh();
         }
 
-        if (!$user->two_factor_confirmed) {
+        if (! $user->two_factor_confirmed) {
             return view('auth.2fa-confirm-code', ['twoFactorSecretKey' => decrypt($user->two_factor_secret)]);
         }
 
@@ -60,7 +60,7 @@ class TwoFactorAuthController extends Controller
     {
         $confirmed = $request->user()->confirmTwoFactorAuth($request->code);
 
-        if (!$confirmed) {
+        if (! $confirmed) {
             return back()->withErrors('The provided 2FA code is invalid.');
         }
 

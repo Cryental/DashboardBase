@@ -54,7 +54,6 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
     ];
 
-
     public function confirmTwoFactorAuth($code)
     {
         if ($this->two_factor_secret === null) {
@@ -67,6 +66,7 @@ class User extends Authenticatable implements MustVerifyEmail
         if ($codeIsValid) {
             $this->two_factor_confirmed = true;
             $this->save();
+
             return true;
         }
 
