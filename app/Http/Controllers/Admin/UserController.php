@@ -17,7 +17,7 @@ class UserController extends Controller
 
     public function __construct(UserRepository $userRepository)
     {
-        $this->userRepository= $userRepository;
+        $this->userRepository = $userRepository;
     }
 
     public function show(Request $request)
@@ -26,7 +26,7 @@ class UserController extends Controller
             abort(403);
         }
 
-        $users = $this->userRepository->FindAll($request->search,1,50);
+        $users = $this->userRepository->FindAll($request->search, 1, 50);
 
         $showingText = "Showing {$users->firstItem()} to {$users->lastItem()} of {$users->total()} entries";
 

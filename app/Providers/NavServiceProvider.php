@@ -5,7 +5,6 @@ namespace App\Providers;
 use App\Helpers\NavHelper;
 use Illuminate\Support\ServiceProvider;
 
-
 class NavServiceProvider extends ServiceProvider
 {
     /**
