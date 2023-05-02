@@ -291,7 +291,7 @@
                             access to your account if your 2FA device is lost.
                         </p>
                     </div>
-                    <div class="text-center">
+                    <div class="text-center" style="font-family: Fira Code, sans-serif">
                         {% for code in session('2fa_recovery_key') %}
                             <p>{{ code }}</p>
                         {% endfor %}

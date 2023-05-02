@@ -24,6 +24,10 @@ return new class extends Migration
             $table->boolean('two_factor_confirmed')
                 ->after('two_factor_secret')
                 ->nullable();
+
+            $table->dateTime('two_factor_confirmed_at')
+                ->after('two_factor_confirmed')
+                ->nullable();
         });
     }
 

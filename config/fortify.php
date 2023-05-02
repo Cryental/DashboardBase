@@ -140,7 +140,8 @@ return [
         Features::twoFactorAuthentication([
             'confirm' => true,
             'confirmPassword' => true,
-            // 'window' => 3,
+            'window' => 3,
+            'recovery_codes' => true,
         ]),
     ],
 
