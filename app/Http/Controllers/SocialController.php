@@ -25,7 +25,7 @@ class SocialController extends Controller
             $user = User::query()->create([
                 'name' => $userSocial->getName(),
                 'email' => $userSocial->getEmail(),
-                'password' => Hash::make(Str::random(24)),
+                'password' => null,
                 'provider' => 'google',
                 'provider_id' => $userSocial->getId(),
                 'email_verified_at' => Carbon::now(),

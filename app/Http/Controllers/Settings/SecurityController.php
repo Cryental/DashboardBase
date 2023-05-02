@@ -46,13 +46,20 @@ class SecurityController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
-            'password'             => 'required|string|min:8|current_password',
-            'new_password'         => ['required', 'string', \Illuminate\Validation\Rules\Password::min(8)->letters()->numbers()->mixedCase()],
-            'confirm_new_password' => 'required|same:new_password',
-        ]);
-
         $user = Auth::user();
+
+        if (empty($user->password) && $user->provider_id !== null) {
+            $request->validate([
+                'new_password'         => ['required', 'string', \Illuminate\Validation\Rules\Password::min(8)->letters()->numbers()->mixedCase()],
+                'confirm_new_password' => 'required|same:new_password',
+            ]);
+        } else {
+            $request->validate([
+                'password'             => 'required_without:password|string|min:8|current_password',
+                'new_password'         => ['required', 'string', \Illuminate\Validation\Rules\Password::min(8)->letters()->numbers()->mixedCase()],
+                'confirm_new_password' => 'required|same:new_password',
+            ]);
+        }
 
         $user->forceFill([
             'password'       => Hash::make($request->new_password),
