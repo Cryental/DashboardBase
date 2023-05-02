@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\DataTables\UsersDataTable;
 use App\Models\User;
 use DeviceDetector\DeviceDetector;
 use Illuminate\Http\Request;
@@ -12,7 +11,7 @@ use Illuminate\Support\Str;
 
 class UserController extends Controller
 {
-    public function show(Request $request, UsersDataTable $dataTable)
+    public function show(Request $request)
     {
         if ($request->user()->cannot('viewAny', User::class)) {
             abort(403);
