@@ -2,19 +2,6 @@
 
 {% block title %}Register{% endblock %}
 
-{% block included_scripts %}
-    <script type="text/javascript">
-        $('#reload').click(function () {
-            $.ajax({
-                type: 'GET',
-                url: 'reload-captcha',
-                success: function (data) {
-                    $(".captcha img").attr('src', data.captcha);
-                }
-            });
-        });
-    </script>
-{% endblock %}
 {% block content %}
 <body class="theme-dark d-flex flex-column">
 <div class="page page-center">
@@ -48,18 +35,6 @@
                         <label class="form-label">Confirm Password</label>
                         <input id="password_confirmation" name="password_confirmation" type="password"
                                class="form-control" autocomplete="off" required>
-                    </div>
-                    <div class="md-3">
-                        <label class="form-label">Enter Captcha</label>
-                        <input id="captcha" type="text" class="form-control" name="captcha" required>
-                    </div>
-                    <div class="md-3 pt-3 pb-3" style="text-align: right;">
-                        <div class="captcha">
-                            <img src="{{ captcha_src|raw }}" class="rounded" alt="captcha">
-                            <button type="button" class="btn btn-primary reload" id="reload" name="reload">
-                                &#x21bb;
-                            </button>
-                        </div>
                     </div>
                     <div class="mb-3">
                         <span class="form-check-label">By creating an account, you agree to our terms.</span>

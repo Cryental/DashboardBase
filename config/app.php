@@ -171,7 +171,7 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-        Mews\Captcha\CaptchaServiceProvider::class,
+        App\Providers\NavServiceProvider::class
     ])->toArray(),
 
     /*
@@ -186,7 +186,7 @@ return [
     */
 
     'aliases' => Facade::defaultAliases()->merge([
-        'Captcha' => Mews\Captcha\Facades\Captcha::class,
+        // 'Example' => App\Facades\Example::class,
     ])->toArray(),
 
 ];

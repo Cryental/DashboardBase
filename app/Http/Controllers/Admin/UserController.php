@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Facades\Nav;
 use App\Models\User;
+use App\Repositories\UserRepository;
 use DeviceDetector\DeviceDetector;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -11,6 +13,13 @@ use Illuminate\Support\Str;
 
 class UserController extends Controller
 {
+    private UserRepository $userRepository;
+
+    public function __construct(UserRepository $userRepository)
+    {
+        $this->userRepository= $userRepository;
+    }
+
     public function show(Request $request)
     {
         if ($request->user()->cannot('viewAny', User::class)) {
@@ -19,17 +28,15 @@ class UserController extends Controller
 
         $users = User::query()->paginate(50, ['*'], 'p');
 
-        $showingText = 'Showing '.$users->firstItem().' to '.$users->lastItem().' of '.$users->total().' entries';
+        $showingText = "Showing {$users->firstItem()} to {$users->lastItem()} of {$users->total()} entries";
 
-        if (count($users) == 0) {
-            $showingText = 'Showing 0 to 0 of 0 entries';
-        }
+        $currentPage = $users->currentPage();
 
         return view('admin.users', [
             'users'      => $users,
             'bottomText' => $showingText,
-            'links'      => self::GetNavLinks($users->currentPage(), $users->lastPage()),
-            'page'       => $users->currentPage(),
+            'links'      => Nav::getNavLinks($currentPage, $users->lastPage()),
+            'page'       => $currentPage,
             'search'     => $request->search,
         ]);
     }
@@ -218,56 +225,5 @@ class UserController extends Controller
         $user->delete();
 
         return redirect()->route('admin.users');
-    }
-
-    private function GetNavLinks($p, $last): array
-    {
-        if ($last <= 5) {
-            $links = [];
-            $links[] = 1;
-            for ($i = 1; $i <= $last; $i++) {
-                $links[] = $i;
-            }
-            $links[] = $last;
-
-            return $links;
-        } else {
-            if ($last > 100) {
-                $last = 100;
-            }
-
-            if ($p <= 2) {
-                return [
-                    1,
-                    1,
-                    2,
-                    3,
-                    4,
-                    5,
-                    $p <= 1 ? 2 : $p + 1,
-                ];
-            }
-            if ($p >= $last - 1) {
-                return [
-                    $p >= $last ? $last - 1 : $p - 1,
-                    $last - 4,
-                    $last - 3,
-                    $last - 2,
-                    $last - 1,
-                    $last,
-                    $last,
-                ];
-            }
-
-            return [
-                $p - 1,
-                $p - 2,
-                $p - 1,
-                $p,
-                $p + 1,
-                $p + 2,
-                $p + 1,
-            ];
-        }
     }
 }
