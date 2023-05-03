@@ -182,6 +182,10 @@ class UserController extends Controller
             abort(403);
         }
 
+        if ($id == 1) {
+            abort(403);
+        }
+
         $user = User::query()->find($id);
 
         if (! $user) {

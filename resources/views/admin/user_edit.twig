@@ -28,12 +28,23 @@
                         {{ user.name }}
                     </h2>
                 </div>
-                <div class="col-auto ms-auto d-print-none">
-                    <a href="#" class="btn btn-danger" data-bs-toggle="modal"
-                       data-bs-target="#modal-user-remove">
-                        Delete
-                    </a>
-                </div>
+                {% if auth_user().hasPermission('edit.users') %}
+                    {% if user.id != 1 %}
+                    <div class="col-auto ms-auto d-print-none">
+                        <a href="#" class="btn btn-danger" data-bs-toggle="modal"
+                           data-bs-target="#modal-user-remove">
+                            Delete
+                        </a>
+                    </div>
+                        {% else %}
+                            <div class="col-auto ms-auto d-print-none">
+                                <a href="#" class="btn btn-danger" data-bs-toggle="modal"
+                                   data-bs-target="#modal-default-role-warning">
+                                    Delete
+                                </a>
+                            </div>
+                        {% endif %}
+                {% endif %}
             </div>
         </div>
     </div>
@@ -229,7 +240,7 @@
                                     <div class="col-lg-6">
                                         <label class="form-selectgroup-item">
                                             <input type="radio" name="email-verification" value="Unverified"
-                                                   class="form-selectgroup-input" {% if user.email_verified_at is empty %} checked{% endif %}>
+                                                   class="form-selectgroup-input" {% if user.email_verified_at is empty %} checked{% endif %}{% if user.id == 1 %} disabled{% endif %}>
                                             <span class="form-selectgroup-label d-flex align-items-center p-3">
                     <span class="me-3">
                       <span class="form-selectgroup-check"></span>
@@ -243,7 +254,7 @@
                                     <div class="col-lg-6">
                                         <label class="form-selectgroup-item">
                                             <input type="radio" name="email-verification" value="Verified"
-                                                   class="form-selectgroup-input" {% if user.email_verified_at is not empty %} checked{% endif %}>
+                                                   class="form-selectgroup-input" {% if user.email_verified_at is not empty %} checked{% endif %}{% if user.id == 1 %} disabled{% endif %}>
                                             <span class="form-selectgroup-label d-flex align-items-center p-3">
                     <span class="me-3">
                       <span class="form-selectgroup-check"></span>
@@ -261,7 +272,7 @@
                                     <div class="col-lg-6 mb-3">
                                         <label class="form-selectgroup-item">
                                             <input type="radio" name="role" value="{{ role.id }}"
-                                                   class="form-selectgroup-input" {% if user.hasRole(role.id) %} checked{% endif %}>
+                                                   class="form-selectgroup-input" {% if user.hasRole(role.id) %} checked{% endif %} {% if user.id == 1 %} disabled{% endif %}>
                                             <span class="form-selectgroup-label d-flex align-items-center p-3">
                     <span class="me-3">
                       <span class="form-selectgroup-check"></span>
@@ -335,6 +346,26 @@
                                 </div>
                             </div>
                         </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal modal-blur fade" id="modal-default-role-warning" tabindex="-1" role="dialog" aria-modal="true"
+         aria-hidden="true">
+        <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <div class="modal-status bg-danger"></div>
+                <div class="modal-body text-center py-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon mb-2 text-danger icon-lg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                        <path d="M19.875 6.27a2.225 2.225 0 0 1 1.125 1.948v7.284c0 .809 -.443 1.555 -1.158 1.948l-6.75 4.27a2.269 2.269 0 0 1 -2.184 0l-6.75 -4.27a2.225 2.225 0 0 1 -1.158 -1.948v-7.285c0 -.809 .443 -1.554 1.158 -1.947l6.75 -3.98a2.33 2.33 0 0 1 2.25 0l6.75 3.98h-.033z"></path>
+                        <path d="M12 12m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"></path>
+                    </svg>
+                    <h3>Default User</h3>
+                    <div class="text-muted">This is the default user and cannot be removed.
                     </div>
                 </div>
             </div>

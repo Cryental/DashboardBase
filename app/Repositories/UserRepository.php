@@ -43,8 +43,10 @@ class UserRepository
         }
 
         if (array_key_exists('role', $inputs)) {
-            $user->detachAllRoles();
-            $user->attachRole($inputs['role']);
+            if ($user_id != 1) {
+                $user->detachAllRoles();
+                $user->attachRole($inputs['role']);
+            }
         }
 
         if (array_key_exists('bio', $inputs)) {
@@ -55,10 +57,12 @@ class UserRepository
             $user->website_url = $inputs['website_url'];
         }
 
-        if (! $user->email_verified_at && $inputs['email-verification'] === 'Verified') {
-            $user->email_verified_at = now();
-        } elseif ($user->email_verified_at && $inputs['email-verification'] === 'Unverified') {
-            $user->email_verified_at = null;
+        if ($user_id != 1) {
+            if (!$user->email_verified_at && $inputs['email-verification'] === 'Verified') {
+                $user->email_verified_at = now();
+            } elseif ($user->email_verified_at && $inputs['email-verification'] === 'Unverified') {
+                $user->email_verified_at = null;
+            }
         }
 
         if (! empty($inputs['password'])) {

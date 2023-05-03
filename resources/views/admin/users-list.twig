@@ -43,10 +43,17 @@
                                                 </a>
                                                 {% endif %}
                                                 {% if auth_user().hasPermission('delete.users') %}
+                                                {% if user.id != 1 %}
                                                 <a href="#" data-value="{{ user.id }}" class="btn btn-danger"
                                                    data-bs-toggle="modal" data-bs-target="#modal-user-remove">
                                                     Remove
                                                 </a>
+                                                    {% else %}
+                                                        <a href="#" data-value="{{ user.id }}" class="btn btn-danger"
+                                                           data-bs-toggle="modal" data-bs-target="#modal-default-role-warning">
+                                                            Remove
+                                                        </a>
+                                                    {% endif %}
                                                 {% endif %}
                                             </div>
                                         </td>
