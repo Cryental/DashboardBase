@@ -12,12 +12,11 @@ class RoleController extends Controller
 {
     public function __construct()
     {
-
     }
 
     public function show(Request $request)
     {
-        if (!Auth::user()->hasPermission('view.roles')) {
+        if (! Auth::user()->hasPermission('view.roles')) {
             abort(403);
         }
 

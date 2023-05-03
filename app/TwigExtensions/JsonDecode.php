@@ -3,8 +3,8 @@
 namespace App\TwigExtensions;
 
 use Illuminate\Support\Str as IlluminateStr;
-use Twig\TwigFilter;
 use Twig\Extension\AbstractExtension;
+use Twig\TwigFilter;
 use Twig\TwigFunction;
 use TwigBridge\Facade\Twig;
 
@@ -27,7 +27,8 @@ class JsonDecode extends AbstractExtension
         ];
     }
 
-    public function json_decode($str) {
+    public function json_decode($str)
+    {
         return json_decode($str);
     }
 }
