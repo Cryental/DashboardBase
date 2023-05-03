@@ -39,7 +39,7 @@ class TwoFactorAuthController extends Controller
             Auth::user()->refresh();
         }
 
-        if (!$user->two_factor_confirmed) {
+        if (! $user->two_factor_confirmed) {
             return view('auth.2fa-confirm-code', ['twoFactorSecretKey' => decrypt($user->two_factor_secret)]);
         }
 
