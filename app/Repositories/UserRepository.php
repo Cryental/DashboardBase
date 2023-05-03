@@ -30,7 +30,7 @@ class UserRepository
     {
         $user = $this->Find($user_id);
 
-        if (!$user) {
+        if (! $user) {
             return null;
         }
 

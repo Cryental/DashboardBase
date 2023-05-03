@@ -26,7 +26,7 @@ class UserController extends Controller
 
     public function show(Request $request)
     {
-        if (!Auth::user()->hasPermission('view.users')) {
+        if (! Auth::user()->hasPermission('view.users')) {
             abort(403);
         }
 
@@ -47,7 +47,7 @@ class UserController extends Controller
 
     public function search(Request $request)
     {
-        if (!Auth::user()->hasPermission('view.users')) {
+        if (! Auth::user()->hasPermission('view.users')) {
             abort(403);
         }
 
@@ -68,13 +68,13 @@ class UserController extends Controller
 
     public function edit(Request $request, $id)
     {
-        if (!Auth::user()->hasPermission('edit.users')) {
+        if (! Auth::user()->hasPermission('edit.users')) {
             abort(403);
         }
 
         $user = $this->userRepository->Find($id);
 
-        if (!$user) {
+        if (! $user) {
             abort(404);
         }
 
@@ -107,7 +107,7 @@ class UserController extends Controller
 
     public function logoutDevice(Request $request, $id, $device_id)
     {
-        if (!Auth::user()->hasPermission('edit.users')) {
+        if (! Auth::user()->hasPermission('edit.users')) {
             abort(403);
         }
 
@@ -119,7 +119,7 @@ class UserController extends Controller
     public function store(Request $request)
     {
         if ($request->action == 'search') {
-            if (!Auth::user()->hasPermission('view.users')) {
+            if (! Auth::user()->hasPermission('view.users')) {
                 abort(403);
             }
 
@@ -146,7 +146,7 @@ class UserController extends Controller
                 'search' => $request->search,
             ]);
         } elseif ($request->action == 'create') {
-            if (!Auth::user()->hasPermission('create.users')) {
+            if (! Auth::user()->hasPermission('create.users')) {
                 abort(403);
             }
 
@@ -179,13 +179,13 @@ class UserController extends Controller
 
     public function editSave(Request $request, $id)
     {
-        if (!Auth::user()->hasPermission('edit.users')) {
+        if (! Auth::user()->hasPermission('edit.users')) {
             abort(403);
         }
 
         $user = $this->userRepository->Find($id);
 
-        if (!$user) {
+        if (! $user) {
             abort(404);
         }
 
@@ -201,12 +201,12 @@ class UserController extends Controller
 
         $this->userRepository->Update($user->id, $request->all());
 
-        return redirect('/admin/users/' . $user->id);
+        return redirect('/admin/users/'.$user->id);
     }
 
     public function delete(Request $request, $id)
     {
-        if (!Auth::user()->hasPermission('delete.users')) {
+        if (! Auth::user()->hasPermission('delete.users')) {
             abort(403);
         }
 
