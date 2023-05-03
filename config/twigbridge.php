@@ -122,6 +122,8 @@ return [
             'TwigBridge\Extension\Laravel\Translator',
             'TwigBridge\Extension\Laravel\Url',
             'TwigBridge\Extension\Laravel\Model',
+
+            'App\TwigExtensions\JsonDecode',
             // 'TwigBridge\Extension\Laravel\Gate',
 
             // 'TwigBridge\Extension\Laravel\Form',

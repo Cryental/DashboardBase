@@ -5,6 +5,9 @@ namespace App\Providers;
 use Creativeorange\Gravatar\Gravatar;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Str as IlluminateStr;
+use Twig\TwigFilter;
+use Twig\TwigFunction;
 use TwigBridge\Facade\Twig;
 
 class AppServiceProvider extends ServiceProvider

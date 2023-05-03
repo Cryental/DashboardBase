@@ -257,17 +257,17 @@
                                 </div>
                                 <h3 class="card-title mt-4">Role</h3>
                                 <div class="form-selectgroup-boxes row mb-3">
-                                    {% for permission in permissions %}
+                                    {% for role in roles %}
                                     <div class="col-lg-6 mb-3">
                                         <label class="form-selectgroup-item">
-                                            <input type="radio" name="role" value="{{ permission.id }}"
-                                                   class="form-selectgroup-input" {% if user.hasRole(permission.id) %} checked{% endif %}>
+                                            <input type="radio" name="role" value="{{ role.id }}"
+                                                   class="form-selectgroup-input" {% if user.hasRole(role.id) %} checked{% endif %}>
                                             <span class="form-selectgroup-label d-flex align-items-center p-3">
                     <span class="me-3">
                       <span class="form-selectgroup-check"></span>
                     </span>
                     <span class="form-selectgroup-label-content">
-                      <span class="form-selectgroup-title strong mb-1">{{ permission.name }}</span>
+                      <span class="form-selectgroup-title strong mb-1">{{ role.name }}</span>
                     </span>
                   </span>
                                         </label>

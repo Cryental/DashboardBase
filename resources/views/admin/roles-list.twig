@@ -8,45 +8,46 @@
                             <table class="table table-vcenter table-mobile-md card-table">
                                 <thead>
                                 <tr>
+                                    <th>ID</th>
                                     <th>Name</th>
-                                    <th>Email</th>
-                                    <th>Role</th>
+                                    <th>Description</th>
+                                    <th>Level</th>
+                                    <th class="w-33">Permissions</th>
                                     <th>Created Date</th>
                                     <th>Updated Date</th>
                                     <th class="w-1"></th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                {% for user in users %}
+                                {% for role in roles %}
                                     <tr>
+                                        <td>{{ role.id }}</td>
+                                        <td>{{ role.name }}</td>
+                                        <td>{{ role.description }}</td>
+                                        <td>{{ role.level }}</td>
                                         <td>
-                                            <div class="d-flex py-1 align-items-center">
-                                                <span class="avatar me-2"
-                                                      style="background-image: url({{ gravatar.get(user.email) }})"></span>
-                                                <div class="flex-fill">
-                                                    <div class="font-weight-medium">{{ user.name }}</div>
-                                                    <div class="text-muted"><a href="#"
-                                                                               class="text-reset">{{ user.email }}</a>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                            {% if permissions[role.id] is defined %}
+                                                {% for permission in permissions[role.id] %}
+                                                    <span class="badge badge-primary mb-1">{{ permission.name }}</span>
+                                                {% endfor %}
+                                            {% else %}
+                                                <span class="text-muted">No permissions</span>
+                                            {% endif %}
                                         </td>
-                                        <td>{{ user.email }}</td>
-                                        <td>{{ user.roles.first()['name'] }}</td>
-                                        <td>{{ user.created_at }}</td>
-                                        <td>{{ user.updated_at }}</td>
+                                        <td>{{ role.created_at }}</td>
+                                        <td>{{ role.updated_at }}</td>
                                         <td>
                                             <div class="btn-list flex-nowrap">
                                                 {% if auth_user().hasPermission('edit.users') %}
-                                                <a href="/admin/users/{{ user.id }}" class="btn">
-                                                    Edit
-                                                </a>
+                                                    <a href="/admin/users/{{ user.id }}" class="btn">
+                                                        Edit
+                                                    </a>
                                                 {% endif %}
                                                 {% if auth_user().hasPermission('delete.users') %}
-                                                <a href="#" data-value="{{ user.id }}" class="btn btn-danger"
-                                                   data-bs-toggle="modal" data-bs-target="#modal-user-remove">
-                                                    Remove
-                                                </a>
+                                                    <a href="#" data-value="{{ user.id }}" class="btn btn-danger"
+                                                       data-bs-toggle="modal" data-bs-target="#modal-user-remove">
+                                                        Remove
+                                                    </a>
                                                 {% endif %}
                                             </div>
                                         </td>

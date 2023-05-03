@@ -44,7 +44,6 @@
                     $("div#users-container").html(data);
                 }
             });
-
         });
     </script>
 {% endblock %}
@@ -119,36 +118,22 @@
                         </div>
                         <label class="form-label">Role</label>
                         <div class="form-selectgroup-boxes row mb-3">
-                            <div class="col-lg-6">
-                                <label class="form-selectgroup-item">
-                                    <input type="radio" name="role" value="Member"
-                                           class="form-selectgroup-input" {% if input_old('role') == 'Member' or input_old('role') is empty %} checked{% endif %}>
-                                    <span class="form-selectgroup-label d-flex align-items-center p-3">
+                            {% for role in roles %}
+                                <div class="col-lg-6 mb-3">
+                                    <label class="form-selectgroup-item">
+                                        <input type="radio" name="role" value="{{ role.id }}"
+                                               class="form-selectgroup-input" {% if role.id == 2 %} checked{% endif %}>
+                                        <span class="form-selectgroup-label d-flex align-items-center p-3">
                     <span class="me-3">
                       <span class="form-selectgroup-check"></span>
                     </span>
                     <span class="form-selectgroup-label-content">
-                      <span class="form-selectgroup-title strong mb-1">Member</span>
-                      <span class="d-block text-muted">No access to Admin Panel</span>
+                      <span class="form-selectgroup-title strong mb-1">{{ role.name }}</span>
                     </span>
                   </span>
-                                </label>
-                            </div>
-                            <div class="col-lg-6">
-                                <label class="form-selectgroup-item">
-                                    <input type="radio" name="role" value="Admin"
-                                           class="form-selectgroup-input" {% if input_old('role') == 'Admin' %} checked{% endif %}>
-                                    <span class="form-selectgroup-label d-flex align-items-center p-3">
-                    <span class="me-3">
-                      <span class="form-selectgroup-check"></span>
-                    </span>
-                    <span class="form-selectgroup-label-content">
-                      <span class="form-selectgroup-title strong mb-1">Admin</span>
-                      <span class="d-block text-muted">All access granted</span>
-                    </span>
-                  </span>
-                                </label>
-                            </div>
+                                    </label>
+                                </div>
+                            {% endfor %}
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Bio</label>

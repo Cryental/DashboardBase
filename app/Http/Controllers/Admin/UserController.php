@@ -36,12 +36,15 @@ class UserController extends Controller
 
         $currentPage = $users->currentPage();
 
+        $roles = config('roles.models.role')::all();
+
         return view('admin.users', [
             'users' => $users,
             'bottomText' => $showingText,
             'links' => Nav::getNavLinks($currentPage, $users->lastPage()),
             'page' => $currentPage,
             'search' => $request->search,
+            'roles' => $roles,
         ]);
     }
 
@@ -95,13 +98,13 @@ class UserController extends Controller
             $deviceArrays[] = $device;
         }
 
-        $permissionList = config('roles.models.role')::all()->toArray();
+        $roles = config('roles.models.role')::all();
 
         return response()->view('admin.user_edit', [
             'user' => $user,
             'devices' => $deviceArrays,
             'sessionID' => $currentSessionID,
-            'permissions' => $permissionList,
+            'roles' => $roles,
         ]);
     }
 
