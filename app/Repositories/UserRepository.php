@@ -58,7 +58,7 @@ class UserRepository
         }
 
         if ($user_id != 1) {
-            if (!$user->email_verified_at && $inputs['email-verification'] === 'Verified') {
+            if (! $user->email_verified_at && $inputs['email-verification'] === 'Verified') {
                 $user->email_verified_at = now();
             } elseif ($user->email_verified_at && $inputs['email-verification'] === 'Unverified') {
                 $user->email_verified_at = null;
