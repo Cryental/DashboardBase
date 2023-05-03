@@ -32,6 +32,9 @@ class SocialiteController extends Controller
                 'email_verified_at' => Carbon::now(),
             ]);
 
+            $role = config('roles.models.role')::where('name', '=', 'User')->first();
+            $user->attachRole($role);
+
             Auth::login($user);
         } elseif ($user->email_verified_at === null) {
             $user->email_verified_at = now();

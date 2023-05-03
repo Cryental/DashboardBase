@@ -9,6 +9,7 @@ use App\Repositories\DevicesRepository;
 use App\Repositories\UserRepository;
 use DeviceDetector\DeviceDetector;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
@@ -25,7 +26,7 @@ class UserController extends Controller
 
     public function show(Request $request)
     {
-        if ($request->user()->cannot('viewAny', User::class)) {
+        if (!Auth::user()->hasPermission('view.users')) {
             abort(403);
         }
 
@@ -46,7 +47,7 @@ class UserController extends Controller
 
     public function search(Request $request)
     {
-        if ($request->user()->cannot('viewAny', User::class)) {
+        if (!Auth::user()->hasPermission('view.users')) {
             abort(403);
         }
 
@@ -67,13 +68,13 @@ class UserController extends Controller
 
     public function edit(Request $request, $id)
     {
-        if ($request->user()->cannot('update', User::class)) {
+        if (!Auth::user()->hasPermission('edit.users')) {
             abort(403);
         }
 
         $user = $this->userRepository->Find($id);
 
-        if (! $user) {
+        if (!$user) {
             abort(404);
         }
 
@@ -94,15 +95,22 @@ class UserController extends Controller
             $deviceArrays[] = $device;
         }
 
+        $permissionList = config('roles.models.role')::all()->toArray();
+
         return response()->view('admin.user_edit', [
-            'user' => $user->toArray(),
+            'user' => $user,
             'devices' => $deviceArrays,
             'sessionID' => $currentSessionID,
+            'permissions' => $permissionList,
         ]);
     }
 
     public function logoutDevice(Request $request, $id, $device_id)
     {
+        if (!Auth::user()->hasPermission('edit.users')) {
+            abort(403);
+        }
+
         $this->devicesRepository->LogoutUserDevice($id, $device_id);
 
         return back();
@@ -111,6 +119,10 @@ class UserController extends Controller
     public function store(Request $request)
     {
         if ($request->action == 'search') {
+            if (!Auth::user()->hasPermission('view.users')) {
+                abort(403);
+            }
+
             $users = User::query();
 
             if ($request->search) {
@@ -134,7 +146,7 @@ class UserController extends Controller
                 'search' => $request->search,
             ]);
         } elseif ($request->action == 'create') {
-            if ($request->user()->cannot('create', User::class)) {
+            if (!Auth::user()->hasPermission('create.users')) {
                 abort(403);
             }
 
@@ -167,20 +179,20 @@ class UserController extends Controller
 
     public function editSave(Request $request, $id)
     {
-        if ($request->user()->cannot('update', User::class)) {
+        if (!Auth::user()->hasPermission('edit.users')) {
             abort(403);
         }
 
         $user = $this->userRepository->Find($id);
 
-        if (! $user) {
+        if (!$user) {
             abort(404);
         }
 
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users,email,'.$user->id,
-            'role' => 'required|string|in:Member,Admin',
+            'role' => 'required|int',
             'bio' => 'sometimes|string|max:1000|nullable',
             'website_url' => 'sometimes|url|max:500|nullable',
             'email-verification' => 'required|string|in:Unverified,Verified',
@@ -189,12 +201,12 @@ class UserController extends Controller
 
         $this->userRepository->Update($user->id, $request->all());
 
-        return redirect("/admin/users/$user->id");
+        return redirect('/admin/users/' . $user->id);
     }
 
     public function delete(Request $request, $id)
     {
-        if ($request->user()->cannot('delete', User::class)) {
+        if (!Auth::user()->hasPermission('delete.users')) {
             abort(403);
         }
 

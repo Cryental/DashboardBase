@@ -26,7 +26,6 @@ class CreateUsersTable extends Migration
             $table->string('provider')->nullable();
             $table->string('provider_id')->nullable();
             $table->rememberToken();
-            $table->string('role', 100)->nullable()->default('Member');
             $table->text('notes')->default('');
             $table->timestamps();
         });

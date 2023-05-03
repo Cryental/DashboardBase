@@ -32,10 +32,15 @@ class CreateNewUser implements CreatesNewUsers
             'captcha' => 'required|captcha',
         ])->validate();
 
-        return User::create([
+        $user = User::create([
             'name' => $input['name'],
             'email' => $input['email'],
             'password' => Hash::make($input['password']),
         ]);
+
+        $role = config('roles.models.role')::where('name', '=', 'User')->first();
+        $user->attachRole($role);
+
+        return $user;
     }
 }

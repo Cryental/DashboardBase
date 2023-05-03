@@ -30,7 +30,7 @@ class UserRepository
     {
         $user = $this->Find($user_id);
 
-        if (! $user) {
+        if (!$user) {
             return null;
         }
 
@@ -43,7 +43,7 @@ class UserRepository
         }
 
         if (array_key_exists('role', $inputs)) {
-            $user->role = $inputs['role'];
+            $user->attachRole($inputs['role']);
         }
 
         if (array_key_exists('bio', $inputs)) {

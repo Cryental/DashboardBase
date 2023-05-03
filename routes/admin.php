@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware(['auth', 'verified'])->group(function () {
+Route::middleware(['auth', 'verified', 'role:admin', 'level:2'])->group(function () {
     Route::get('/admin/users', [\App\Http\Controllers\Admin\UserController::class, 'show'])
         ->name('admin.users');
     Route::post('/admin/users/search', [\App\Http\Controllers\Admin\UserController::class, 'search'])

@@ -17,11 +17,11 @@
                           style="background-image: url({{ gravatar.get(auth_user().email) }})"></span>
                     <div class="d-none d-xl-block ps-2">
                         <div>{{ auth_user().name }}</div>
-                        <div class="mt-1 small text-muted">{{ auth_user().role }}</div>
+                        <div class="mt-1 small text-muted">{{ auth_user().roles.first()['name'] }}</div>
                     </div>
                 </a>
                 <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                    {% if auth_user().role == 'Admin' %}
+                    {% if auth_user().hasRole('admin') %}
                         <a href="/" class="dropdown-item">Back to User Panel</a>
                         <div class="dropdown-divider"></div>
                     {% endif %}
