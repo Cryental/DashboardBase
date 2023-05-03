@@ -22,7 +22,7 @@
                 </a>
 
                 <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                    {% if auth_user().hasRole('admin') %}
+                    {% if auth_user().level(2) %}
                         <a href="{{ route('admin.users') }}" class="dropdown-item">Admin Panel</a>
                         <div class="dropdown-divider"></div>
                     {% endif %}

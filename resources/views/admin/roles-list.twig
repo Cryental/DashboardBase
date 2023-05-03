@@ -38,16 +38,30 @@
                                         <td>{{ role.updated_at }}</td>
                                         <td>
                                             <div class="btn-list flex-nowrap">
-                                                {% if auth_user().hasPermission('edit.users') %}
-                                                    <a href="/admin/users/{{ user.id }}" class="btn">
-                                                        Edit
-                                                    </a>
+                                                {% if auth_user().hasPermission('edit.roles') %}
+                                                    {% if role.id == 1 or role.id == 2 %}
+                                                        <a href="#" class="btn"
+                                                           data-bs-toggle="modal" data-bs-target="#modal-default-role-warning">
+                                                            Edit
+                                                        </a>
+                                                    {% else %}
+                                                        <a href="/admin/roles/{{ role.id }}" class="btn">
+                                                            Edit
+                                                        </a>
+                                                    {% endif %}
                                                 {% endif %}
-                                                {% if auth_user().hasPermission('delete.users') %}
-                                                    <a href="#" data-value="{{ user.id }}" class="btn btn-danger"
-                                                       data-bs-toggle="modal" data-bs-target="#modal-user-remove">
+                                                {% if auth_user().hasPermission('delete.roles') %}
+                                                    {% if role.id == 1 or role.id == 2 %}
+                                                    <a href="#" data-value="{{ role.id }}" class="btn btn-danger"
+                                                       data-bs-toggle="modal" data-bs-target="#modal-default-role-warning">
                                                         Remove
                                                     </a>
+                                                    {% else %}
+                                                        <a href="#" data-value="{{ role.id }}" class="btn btn-danger"
+                                                           data-bs-toggle="modal" data-bs-target="#modal-role-remove">
+                                                            Remove
+                                                        </a>
+                                                    {% endif %}
                                                 {% endif %}
                                             </div>
                                         </td>

@@ -34,10 +34,11 @@
             e.preventDefault(); // avoid to execute the actual submit of the form.
 
             var form = $(this);
+            var actionUrl = form.attr('action');
 
             $.ajax({
                 type: "POST",
-                url: {{ route('admin.users.search') }},
+                url: actionUrl,
                 data: form.serialize(), // serializes the form's elements.
                 success: function (data) {
                     // var response = JSON.parse(data);
@@ -54,7 +55,7 @@
                 <div class="col">
                     <!-- Page pre-title -->
                     <div class="page-pretitle">
-                        Admin
+                        Admin / Users
                     </div>
                     <h2 class="page-title text-white">
                         Users
@@ -62,7 +63,7 @@
                 </div>
 
                 <div class="col-auto ms-auto d-print-none">
-                    <form id="search-form" autocomplete="off">
+                    <form method="POST" id="search-form" autocomplete="off" action="{{ route('admin.users.search') }}">
                         <div class="btn-list">
                             <input type="hidden" name="_token" value="{{ csrf_token() }}"/>
                             <input type="hidden" name="action" value="search" />

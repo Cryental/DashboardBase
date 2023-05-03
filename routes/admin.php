@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware(['auth', 'verified', 'role:admin', 'level:2'])->group(function () {
+Route::middleware(['auth', 'verified', 'level:2'])->group(function () {
     Route::get('/admin/users', [\App\Http\Controllers\Admin\UserController::class, 'show'])
         ->name('admin.users');
     Route::post('/admin/users/search', [\App\Http\Controllers\Admin\UserController::class, 'search'])
@@ -26,6 +26,11 @@ Route::middleware(['auth', 'verified', 'role:admin', 'level:2'])->group(function
 
     Route::get('/admin/roles', [\App\Http\Controllers\Admin\RoleController::class, 'show'])
         ->name('admin.roles');
+    Route::post('/admin/roles', [\App\Http\Controllers\Admin\RoleController::class, 'store']);
     Route::post('/admin/roles/search', [\App\Http\Controllers\Admin\RoleController::class, 'search'])
         ->name('admin.roles.search');
+    Route::get('/admin/roles/{id}', [\App\Http\Controllers\Admin\RoleController::class, 'edit']);
+    Route::post('/admin/roles/{id}/remove', [\App\Http\Controllers\Admin\RoleController::class, 'delete']);
+
+    Route::post('/admin/roles/{id}', [\App\Http\Controllers\Admin\RoleController::class, 'editSave']);
 });

@@ -43,6 +43,7 @@ class UserRepository
         }
 
         if (array_key_exists('role', $inputs)) {
+            $user->detachAllRoles();
             $user->attachRole($inputs['role']);
         }
 

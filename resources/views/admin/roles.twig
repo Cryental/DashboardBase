@@ -25,7 +25,7 @@
             const value = button.getAttribute('data-value');
 
             // Update the link's href attribute with the value
-            modalLink.action = '/admin/role/' + value + '/remove';
+            modalLink.action = '/admin/roles/' + value + '/remove';
         });
     </script>
     <script>
@@ -34,17 +34,17 @@
             e.preventDefault(); // avoid to execute the actual submit of the form.
 
             var form = $(this);
+            var actionUrl = form.attr('action');
 
             $.ajax({
                 type: "POST",
-                url: {{ route('admin.roles.search') }},
+                url: actionUrl,
                 data: form.serialize(), // serializes the form's elements.
                 success: function (data) {
                     // var response = JSON.parse(data);
                     $("div#users-container").html(data);
                 }
             });
-
         });
     </script>
 {% endblock %}
@@ -55,7 +55,7 @@
                 <div class="col">
                     <!-- Page pre-title -->
                     <div class="page-pretitle">
-                        Admin
+                        Admin / Roles
                     </div>
                     <h2 class="page-title text-white">
                         Roles
@@ -99,10 +99,9 @@
              tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
-                    <form method="POST" autocomplete="off" action="{{ route('admin.users') }}">
+                    <form method="POST" autocomplete="off" action="{{ route('admin.roles') }}">
                         <input type="hidden" name="_token" value="{{ csrf_token() }}"/>
-                        <input type="hidden" name="action" value="create"/>
-                        <input type="hidden" name="email" value="{{ auth_user().email }}"/>
+
                         <div class="modal-header">
                             <h5 class="modal-title">Create New Role</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -119,7 +118,7 @@
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">Description</label>
-                                <input name="slug" type="text" class="form-control">
+                                <input name="description" type="text" class="form-control">
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">Level</label>
@@ -129,7 +128,7 @@
                             <div class="form-selectgroup">
                                 {% for permission in permissions_list %}
                                     <label class="form-selectgroup-item">
-                                        <input type="permissions" name="name" value="{{ permission.id }}" class="form-selectgroup-input">
+                                        <input type="checkbox" name="permissions[]" value="{{ permission.id }}" class="form-selectgroup-input">
                                         <span class="form-selectgroup-label">{{ permission.name }}</span>
                                     </label>
                                 {% endfor %}
@@ -158,7 +157,7 @@
     {% endif %}
 
     {% if auth_user().hasPermission('delete.roles') %}
-        <div class="modal modal-blur fade" id="modal-user-remove" tabindex="-1" role="dialog" aria-modal="true"
+        <div class="modal modal-blur fade" id="modal-role-remove" tabindex="-1" role="dialog" aria-modal="true"
              aria-hidden="true">
             <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
                 <div class="modal-content">
@@ -174,12 +173,12 @@
                                 d="M5 19h14a2 2 0 0 0 1.84 -2.75l-7.1 -12.25a2 2 0 0 0 -3.5 0l-7.1 12.25a2 2 0 0 0 1.75 2.75"></path>
                         </svg>
                         <h3>Are you sure?</h3>
-                        <div class="text-muted">Do you really want to remove this user? What you've done cannot be undone.
+                        <div class="text-muted">Do you really want to remove this role? What you've done cannot be undone.
                         </div>
                     </div>
                     <div class="modal-footer">
                         <div class="w-100">
-                            <form id="user-remove-post" method="POST" autocomplete="off" action="">
+                            <form id="role-remove-post" method="POST" autocomplete="off" action="">
                                 <input type="hidden" name="_token" value="{{ csrf_token() }}"/>
 
                                 <div class="row">
@@ -197,4 +196,24 @@
             </div>
         </div>
     {% endif %}
+
+    <div class="modal modal-blur fade" id="modal-default-role-warning" tabindex="-1" role="dialog" aria-modal="true"
+         aria-hidden="true">
+        <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <div class="modal-status bg-danger"></div>
+                <div class="modal-body text-center py-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon mb-2 text-danger icon-lg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                        <path d="M19.875 6.27a2.225 2.225 0 0 1 1.125 1.948v7.284c0 .809 -.443 1.555 -1.158 1.948l-6.75 4.27a2.269 2.269 0 0 1 -2.184 0l-6.75 -4.27a2.225 2.225 0 0 1 -1.158 -1.948v-7.285c0 -.809 .443 -1.554 1.158 -1.947l6.75 -3.98a2.33 2.33 0 0 1 2.25 0l6.75 3.98h-.033z"></path>
+                        <path d="M12 12m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"></path>
+                    </svg>
+                    <h3>Default Role</h3>
+                    <div class="text-muted">This is the default role and cannot be removed.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
