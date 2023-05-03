@@ -2,6 +2,7 @@
 
 namespace App\DataTransferObjects;
 
+
 class DeviceDTO extends DataTransferObjectBase
 {
     public static function fromModel($deviceDetector): self

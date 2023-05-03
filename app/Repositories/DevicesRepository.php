@@ -116,7 +116,7 @@ class DevicesRepository
     public function FindAllUserDevices($user_id): \Illuminate\Support\Collection
     {
         return DB::table('sessions')
-            ->where('user_id', $user_id)
+            ->where('user_id',$user_id)
             ->get();
     }
 

@@ -30,7 +30,7 @@ class UserRepository
     {
         $user = $this->Find($user_id);
 
-        if (! $user) {
+        if (!$user) {
             return null;
         }
 
@@ -54,13 +54,13 @@ class UserRepository
             $user->website_url = $inputs['website_url'];
         }
 
-        if (! $user->email_verified_at && $inputs['email-verification'] === 'Verified') {
+        if (!$user->email_verified_at && $inputs['email-verification'] === 'Verified') {
             $user->email_verified_at = now();
         } elseif ($user->email_verified_at && $inputs['email-verification'] === 'Unverified') {
             $user->email_verified_at = null;
         }
 
-        if (! empty($inputs['password'])) {
+        if (!empty($inputs['password'])) {
             $user->password = Hash::make($inputs['password']);
         }
 
