@@ -90,7 +90,7 @@ class RoleController extends Controller
 
     public function store(Request $request)
     {
-        if (!Auth::user()->hasPermission('create.roles')) {
+        if (! Auth::user()->hasPermission('create.roles')) {
             abort(403);
         }
 
@@ -102,7 +102,7 @@ class RoleController extends Controller
             'permissions' => 'required|array',
             'permissions.*' => [
                 'integer',
-                Rule::exists('permissions', 'id')
+                Rule::exists('permissions', 'id'),
             ],
         ]);
 
@@ -119,12 +119,12 @@ class RoleController extends Controller
             $role->attachPermission($permission);
         }
 
-        return redirect('/admin/roles/' . $role->id);
+        return redirect('/admin/roles/'.$role->id);
     }
 
     public function editSave(Request $request, $id)
     {
-        if (!Auth::user()->hasPermission('edit.roles')) {
+        if (! Auth::user()->hasPermission('edit.roles')) {
             abort(403);
         }
 
@@ -134,7 +134,7 @@ class RoleController extends Controller
 
         $role = config('roles.models.role')::find($id);
 
-        if (!$role) {
+        if (! $role) {
             abort(404);
         }
 
@@ -145,7 +145,7 @@ class RoleController extends Controller
             'permissions' => 'required|array',
             'permissions.*' => [
                 'integer',
-                Rule::exists('permissions', 'id')
+                Rule::exists('permissions', 'id'),
             ],
         ]);
 
@@ -161,12 +161,12 @@ class RoleController extends Controller
             $role->attachPermission($permission);
         }
 
-        return redirect('/admin/roles/' . $role->id);
+        return redirect('/admin/roles/'.$role->id);
     }
 
     public function edit(Request $request, $id)
     {
-        if (!Auth::user()->hasPermission('edit.roles')) {
+        if (! Auth::user()->hasPermission('edit.roles')) {
             abort(403);
         }
 
@@ -176,7 +176,7 @@ class RoleController extends Controller
 
         $role = config('roles.models.role')::query()->find($id);
 
-        if (!$role) {
+        if (! $role) {
             abort(404);
         }
 
@@ -211,7 +211,7 @@ class RoleController extends Controller
 
     public function delete(Request $request, $id)
     {
-        if (!Auth::user()->hasPermission('delete.roles')) {
+        if (! Auth::user()->hasPermission('delete.roles')) {
             abort(403);
         }
 
@@ -221,7 +221,7 @@ class RoleController extends Controller
 
         $role = config('roles.models.role')::find($id);
 
-        if (!$role) {
+        if (! $role) {
             return redirect()->route('admin.roles');
         }
 

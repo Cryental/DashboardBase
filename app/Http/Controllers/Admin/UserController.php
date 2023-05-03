@@ -26,7 +26,7 @@ class UserController extends Controller
 
     public function show(Request $request)
     {
-        if (!Auth::user()->hasPermission('view.users')) {
+        if (! Auth::user()->hasPermission('view.users')) {
             abort(403);
         }
 
@@ -50,7 +50,7 @@ class UserController extends Controller
 
     public function search(Request $request)
     {
-        if (!Auth::user()->hasPermission('view.users')) {
+        if (! Auth::user()->hasPermission('view.users')) {
             abort(403);
         }
 
@@ -71,13 +71,13 @@ class UserController extends Controller
 
     public function edit(Request $request, $id)
     {
-        if (!Auth::user()->hasPermission('edit.users')) {
+        if (! Auth::user()->hasPermission('edit.users')) {
             abort(403);
         }
 
         $user = $this->userRepository->Find($id);
 
-        if (!$user) {
+        if (! $user) {
             abort(404);
         }
 
@@ -91,8 +91,8 @@ class UserController extends Controller
             $dd = new DeviceDetector($device->user_agent);
             $dd->parse();
 
-            $device->agentPlatform = $dd->getOs('name') . ' ' . $dd->getOs('version');
-            $device->agentBrowser = $dd->getClient('name') . ' ' . $dd->getClient('version');
+            $device->agentPlatform = $dd->getOs('name').' '.$dd->getOs('version');
+            $device->agentBrowser = $dd->getClient('name').' '.$dd->getClient('version');
             $device->deviceDetector = DeviceDTO::fromModel($dd)->GetDTO();
 
             $deviceArrays[] = $device;
@@ -110,7 +110,7 @@ class UserController extends Controller
 
     public function logoutDevice(Request $request, $id, $device_id)
     {
-        if (!Auth::user()->hasPermission('edit.users')) {
+        if (! Auth::user()->hasPermission('edit.users')) {
             abort(403);
         }
 
@@ -121,7 +121,7 @@ class UserController extends Controller
 
     public function store(Request $request)
     {
-        if (!Auth::user()->hasPermission('create.users')) {
+        if (! Auth::user()->hasPermission('create.users')) {
             abort(403);
         }
 
@@ -146,24 +146,24 @@ class UserController extends Controller
             'remember_token' => Str::random(60),
         ]);
 
-        return redirect('/admin/users/' . $user->id);
+        return redirect('/admin/users/'.$user->id);
     }
 
     public function editSave(Request $request, $id)
     {
-        if (!Auth::user()->hasPermission('edit.users')) {
+        if (! Auth::user()->hasPermission('edit.users')) {
             abort(403);
         }
 
         $user = $this->userRepository->Find($id);
 
-        if (!$user) {
+        if (! $user) {
             abort(404);
         }
 
         $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users,email,' . $user->id,
+            'email' => 'required|string|email|max:255|unique:users,email,'.$user->id,
             'role' => 'required|int',
             'bio' => 'sometimes|string|max:1000|nullable',
             'website_url' => 'sometimes|url|max:500|nullable',
@@ -173,18 +173,18 @@ class UserController extends Controller
 
         $this->userRepository->Update($user->id, $request->all());
 
-        return redirect('/admin/users/' . $user->id);
+        return redirect('/admin/users/'.$user->id);
     }
 
     public function delete(Request $request, $id)
     {
-        if (!Auth::user()->hasPermission('delete.users')) {
+        if (! Auth::user()->hasPermission('delete.users')) {
             abort(403);
         }
 
         $user = User::query()->find($id);
 
-        if (!$user) {
+        if (! $user) {
             return redirect()->route('admin.users');
         }
 
