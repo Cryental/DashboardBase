@@ -16,6 +16,8 @@ use Illuminate\Support\Facades\Route;
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/admin/users', [\App\Http\Controllers\Admin\UserController::class, 'show'])
         ->name('admin.users');
+    Route::post('/admin/users/search', [\App\Http\Controllers\Admin\UserController::class, 'search'])
+        ->name('admin.users.search');
     Route::post('/admin/users', [\App\Http\Controllers\Admin\UserController::class, 'store']);
     Route::post('/admin/users/{id}/remove', [\App\Http\Controllers\Admin\UserController::class, 'delete']);
     Route::get('/admin/users/{id}', [\App\Http\Controllers\Admin\UserController::class, 'edit']);

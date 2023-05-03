@@ -2,22 +2,25 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\DataTransferObjects\DeviceDTO;
 use App\Facades\Nav;
 use App\Models\User;
+use App\Repositories\DevicesRepository;
 use App\Repositories\UserRepository;
 use DeviceDetector\DeviceDetector;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
 class UserController extends Controller
 {
     private UserRepository $userRepository;
+    private DevicesRepository $devicesRepository;
 
-    public function __construct(UserRepository $userRepository)
+    public function __construct(UserRepository $userRepository, DevicesRepository $devicesRepository)
     {
         $this->userRepository = $userRepository;
+        $this->devicesRepository = $devicesRepository;
     }
 
     public function show(Request $request)
@@ -26,18 +29,39 @@ class UserController extends Controller
             abort(403);
         }
 
-        $users = $this->userRepository->FindAll($request->search, 1, 50);
+        $users = $this->userRepository->FindAll('', 1, 50);
 
         $showingText = "Showing {$users->firstItem()} to {$users->lastItem()} of {$users->total()} entries";
 
         $currentPage = $users->currentPage();
 
         return view('admin.users', [
-            'users'      => $users,
+            'users' => $users,
             'bottomText' => $showingText,
-            'links'      => Nav::getNavLinks($currentPage, $users->lastPage()),
-            'page'       => $currentPage,
-            'search'     => $request->search,
+            'links' => Nav::getNavLinks($currentPage, $users->lastPage()),
+            'page' => $currentPage,
+            'search' => $request->search,
+        ]);
+    }
+
+    public function search(Request $request)
+    {
+        if ($request->user()->cannot('viewAny', User::class)) {
+            abort(403);
+        }
+
+        $users = $this->userRepository->FindAll($request->search, $request->p, 50);
+
+        $showingText = "Showing {$users->firstItem()} to {$users->lastItem()} of {$users->total()} entries";
+
+        $currentPage = $users->currentPage();
+
+        return view('admin.users-list', [
+            'users' => $users,
+            'bottomText' => $showingText,
+            'links' => Nav::getNavLinks($currentPage, $users->lastPage()),
+            'page' => $currentPage,
+            'search' => $request->search,
         ]);
     }
 
@@ -47,15 +71,13 @@ class UserController extends Controller
             abort(403);
         }
 
-        $user = User::query()->find($id);
+        $user = $this->userRepository->Find($id);
 
-        if (! $user) {
+        if (!$user) {
             abort(404);
         }
 
-        $devices = DB::table('sessions')
-            ->where('user_id', $user->id)
-            ->get()->reverse()->toArray();
+        $devices = $this->devicesRepository->FindAllUserDevices($user->id)->reverse()->toArray();
 
         $currentSessionID = $request->session()->getId();
 
@@ -65,33 +87,23 @@ class UserController extends Controller
             $dd = new DeviceDetector($device->user_agent);
             $dd->parse();
 
-            $device->agentPlatform = $dd->getOs('name').' '.$dd->getOs('version');
-            $device->agentBrowser = $dd->getClient('name').' '.$dd->getClient('version');
-
-            $device->deviceDetector = [
-                'mobile' => $dd->isSmartphone() || $dd->isFeaturePhone() || $dd->isMobileApp(),
-                'tablet' => $dd->isTablet() || $dd->isPhablet(),
-                'pc'     => $dd->isDesktop(),
-                'tv'     => $dd->isTV() || $dd->isSmartDisplay(),
-                'camera' => $dd->isCamera(),
-                'bot'    => $dd->isBot(),
-            ];
+            $device->agentPlatform = $dd->getOs('name') . ' ' . $dd->getOs('version');
+            $device->agentBrowser = $dd->getClient('name') . ' ' . $dd->getClient('version');
+            $device->deviceDetector = DeviceDTO::fromModel($dd)->GetDTO();
 
             $deviceArrays[] = $device;
         }
 
         return response()->view('admin.user_edit', [
-            'user'      => $user->toArray(),
-            'devices'   => $deviceArrays,
+            'user' => $user->toArray(),
+            'devices' => $deviceArrays,
             'sessionID' => $currentSessionID,
         ]);
     }
 
     public function logoutDevice(Request $request, $id, $device_id)
     {
-        DB::table('sessions')
-            ->where('id', $device_id)
-            ->where('user_id', $id)->delete();
+        $this->devicesRepository->LogoutUserDevice($id, $device_id);
 
         return back();
     }
@@ -102,8 +114,8 @@ class UserController extends Controller
             $users = User::query();
 
             if ($request->search) {
-                $users->where('name', 'like', '%'.$request->search.'%')
-                    ->orWhere('email', 'like', '%'.$request->search.'%');
+                $users->where('name', 'like', '%' . $request->search . '%')
+                    ->orWhere('email', 'like', '%' . $request->search . '%');
             }
 
             $users = $users->paginate(50, ['*'], 'p');
@@ -111,15 +123,15 @@ class UserController extends Controller
             if (count($users) == 0) {
                 $showingText = 'Showing 0 to 0 of 0 entries';
             } else {
-                $showingText = 'Showing '.$users->firstItem().' to '.$users->lastItem().' of '.$users->total().' entries';
+                $showingText = 'Showing ' . $users->firstItem() . ' to ' . $users->lastItem() . ' of ' . $users->total() . ' entries';
             }
 
             return view('admin.users', [
-                'users'      => $users,
+                'users' => $users,
                 'bottomText' => $showingText,
-                'links'      => Nav::getNavLinks($users->currentPage(), $users->lastPage()),
-                'page'       => $users->currentPage(),
-                'search'     => $request->search,
+                'links' => Nav::getNavLinks($users->currentPage(), $users->lastPage()),
+                'page' => $users->currentPage(),
+                'search' => $request->search,
             ]);
         } elseif ($request->action == 'create') {
             if ($request->user()->cannot('create', User::class)) {
@@ -127,27 +139,27 @@ class UserController extends Controller
             }
 
             $request->validate([
-                'name'               => 'required|string|max:255',
-                'email'              => 'required|string|email|max:255|unique:users',
-                'role'               => 'required|string|in:Member,Admin',
-                'bio'                => 'sometimes|string|max:1000|nullable',
-                'website_url'        => 'sometimes|url|max:500|nullable',
+                'name' => 'required|string|max:255',
+                'email' => 'required|string|email|max:255|unique:users',
+                'role' => 'required|string|in:Member,Admin',
+                'bio' => 'sometimes|string|max:1000|nullable',
+                'website_url' => 'sometimes|url|max:500|nullable',
                 'email-verification' => 'required|string|in:Unverified,Verified',
-                'password'           => 'required|string|min:8',
+                'password' => 'required|string|min:8',
             ]);
 
             $user = User::query()->create([
-                'name'              => $request->input('name'),
-                'email'             => $request->input('email'),
-                'role'              => $request->input('role'),
-                'bio'               => $request->input('bio'),
-                'website_url'       => $request->input('website_url'),
+                'name' => $request->input('name'),
+                'email' => $request->input('email'),
+                'role' => $request->input('role'),
+                'bio' => $request->input('bio'),
+                'website_url' => $request->input('website_url'),
                 'email_verified_at' => $request->input('email-verification') === 'Verified' ? now() : null,
-                'password'          => Hash::make($request->input('password')),
-                'remember_token'    => Str::random(60),
+                'password' => Hash::make($request->input('password')),
+                'remember_token' => Str::random(60),
             ]);
 
-            return redirect('/admin/users/'.$user->id);
+            return redirect('/admin/users/' . $user->id);
         } else {
             return redirect('/admin/users');
         }
@@ -159,55 +171,25 @@ class UserController extends Controller
             abort(403);
         }
 
-        $user = User::query()->find($id);
+        $user = $this->userRepository->Find($id);
 
-        if (! $user) {
+        if (!$user) {
             abort(404);
         }
 
         $request->validate([
-            'name'               => 'required|string|max:255',
-            'email'              => 'required|string|email|max:255|unique:users,email,'.$user->id,
-            'role'               => 'required|string|in:Member,Admin',
-            'bio'                => 'sometimes|string|max:1000|nullable',
-            'website_url'        => 'sometimes|url|max:500|nullable',
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users,email,' . $user->id,
+            'role' => 'required|string|in:Member,Admin',
+            'bio' => 'sometimes|string|max:1000|nullable',
+            'website_url' => 'sometimes|url|max:500|nullable',
             'email-verification' => 'required|string|in:Unverified,Verified',
-            'password'           => 'sometimes|string|nullable',
+            'password' => 'sometimes|string|nullable',
         ]);
 
-        if ($user->name != $request->name) {
-            $user->name = $request->name;
-        }
+        $this->userRepository->Update($user->id, $request->all());
 
-        if ($user->email != $request->email) {
-            $user->email = $request->email;
-        }
-
-        if ($user->role != $request->role) {
-            $user->role = $request->role;
-        }
-
-        if ($user->bio != $request->bio) {
-            $user->bio = $request->bio;
-        }
-
-        if ($user->website_url != $request->website_url) {
-            $user->website_url = $request->website_url;
-        }
-
-        if ($user->email_verified_at == null && $request->input('email-verification') === 'Verified') {
-            $user->email_verified_at = now();
-        } elseif ($user->email_verified_at != null && $request->input('email-verification') === 'Unverified') {
-            $user->email_verified_at = null;
-        }
-
-        if (! empty($request->password)) {
-            $user->password = Hash::make($request->input('password'));
-        }
-
-        $user->save();
-
-        return redirect('/admin/users/'.$user->id);
+        return redirect("/admin/users/$user->id");
     }
 
     public function delete(Request $request, $id)
@@ -218,7 +200,7 @@ class UserController extends Controller
 
         $user = User::query()->find($id);
 
-        if (! $user) {
+        if (!$user) {
             return redirect()->route('admin.users');
         }
 
