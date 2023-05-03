@@ -28,15 +28,15 @@ class Handler extends ExceptionHandler
         });
 
         $this->reportable(function (\jeremykenedy\LaravelRoles\App\Exceptions\RoleDeniedException $e) {
-            return false;
+            abort(403);
         });
 
         $this->reportable(function (\jeremykenedy\LaravelRoles\App\Exceptions\PermissionDeniedException $e) {
-            return false;
+            abort(403);
         });
 
         $this->reportable(function (\jeremykenedy\LaravelRoles\App\Exceptions\LevelDeniedException $e) {
-            return false;
+            abort(403);
         });
     }
 }

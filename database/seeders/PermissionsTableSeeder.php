@@ -42,6 +42,54 @@ class PermissionsTableSeeder extends Seeder
                 'description' => 'Can delete users',
                 'model'       => 'Permission',
             ],
+            [
+                'name'        => 'Can View Roles',
+                'slug'        => 'view.roles',
+                'description' => 'Can view roles',
+                'model'       => 'Permission',
+            ],
+            [
+                'name'        => 'Can Create Roles',
+                'slug'        => 'create.roles',
+                'description' => 'Can create roles',
+                'model'       => 'Permission',
+            ],
+            [
+                'name'        => 'Can Edit Roles',
+                'slug'        => 'edit.roles',
+                'description' => 'Can edit roles',
+                'model'       => 'Permission',
+            ],
+            [
+                'name'        => 'Can Delete Roles',
+                'slug'        => 'delete.roles',
+                'description' => 'Can delete roles',
+                'model'       => 'Permission',
+            ],
+            [
+                'name'        => 'Can View Permissions',
+                'slug'        => 'view.permissions',
+                'description' => 'Can view permissions',
+                'model'       => 'Permission',
+            ],
+            [
+                'name'        => 'Can Create Permissions',
+                'slug'        => 'create.permissions',
+                'description' => 'Can create permissions',
+                'model'       => 'Permission',
+            ],
+            [
+                'name'        => 'Can Edit Permissions',
+                'slug'        => 'edit.permissions',
+                'description' => 'Can edit permissions',
+                'model'       => 'Permission',
+            ],
+            [
+                'name'        => 'Can Delete Permissions',
+                'slug'        => 'delete.permissions',
+                'description' => 'Can delete permissions',
+                'model'       => 'Permission',
+            ],
         ];
 
         /*

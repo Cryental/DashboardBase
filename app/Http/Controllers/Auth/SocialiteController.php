@@ -32,7 +32,12 @@ class SocialiteController extends Controller
                 'email_verified_at' => Carbon::now(),
             ]);
 
-            $role = config('roles.models.role')::where('name', '=', 'User')->first();
+            if (User::count() === 1) {
+                $role = config('roles.models.role')::where('name', '=', 'Admin')->first();
+            } else {
+                $role = config('roles.models.role')::where('name', '=', 'User')->first();
+            }
+
             $user->attachRole($role);
 
             Auth::login($user);
