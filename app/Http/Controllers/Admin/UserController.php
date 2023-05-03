@@ -73,7 +73,7 @@ class UserController extends Controller
 
         $user = $this->userRepository->Find($id);
 
-        if (!$user) {
+        if (! $user) {
             abort(404);
         }
 
@@ -87,8 +87,8 @@ class UserController extends Controller
             $dd = new DeviceDetector($device->user_agent);
             $dd->parse();
 
-            $device->agentPlatform = $dd->getOs('name') . ' ' . $dd->getOs('version');
-            $device->agentBrowser = $dd->getClient('name') . ' ' . $dd->getClient('version');
+            $device->agentPlatform = $dd->getOs('name').' '.$dd->getOs('version');
+            $device->agentBrowser = $dd->getClient('name').' '.$dd->getClient('version');
             $device->deviceDetector = DeviceDTO::fromModel($dd)->GetDTO();
 
             $deviceArrays[] = $device;
@@ -114,8 +114,8 @@ class UserController extends Controller
             $users = User::query();
 
             if ($request->search) {
-                $users->where('name', 'like', '%' . $request->search . '%')
-                    ->orWhere('email', 'like', '%' . $request->search . '%');
+                $users->where('name', 'like', '%'.$request->search.'%')
+                    ->orWhere('email', 'like', '%'.$request->search.'%');
             }
 
             $users = $users->paginate(50, ['*'], 'p');
@@ -123,7 +123,7 @@ class UserController extends Controller
             if (count($users) == 0) {
                 $showingText = 'Showing 0 to 0 of 0 entries';
             } else {
-                $showingText = 'Showing ' . $users->firstItem() . ' to ' . $users->lastItem() . ' of ' . $users->total() . ' entries';
+                $showingText = 'Showing '.$users->firstItem().' to '.$users->lastItem().' of '.$users->total().' entries';
             }
 
             return view('admin.users', [
@@ -159,7 +159,7 @@ class UserController extends Controller
                 'remember_token' => Str::random(60),
             ]);
 
-            return redirect('/admin/users/' . $user->id);
+            return redirect('/admin/users/'.$user->id);
         } else {
             return redirect('/admin/users');
         }
@@ -173,13 +173,13 @@ class UserController extends Controller
 
         $user = $this->userRepository->Find($id);
 
-        if (!$user) {
+        if (! $user) {
             abort(404);
         }
 
         $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users,email,' . $user->id,
+            'email' => 'required|string|email|max:255|unique:users,email,'.$user->id,
             'role' => 'required|string|in:Member,Admin',
             'bio' => 'sometimes|string|max:1000|nullable',
             'website_url' => 'sometimes|url|max:500|nullable',
@@ -200,7 +200,7 @@ class UserController extends Controller
 
         $user = User::query()->find($id);
 
-        if (!$user) {
+        if (! $user) {
             return redirect()->route('admin.users');
         }
 
