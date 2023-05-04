@@ -55,7 +55,7 @@ class UserController extends Controller
         }
 
         $users = $this->userRepository->FindAll($request->search, $request->p, 5);
-ray($request->all());
+        ray($request->all());
         $showingText = "Showing {$users->firstItem()} to {$users->lastItem()} of {$users->total()} entries";
 
         $currentPage = $users->currentPage();
