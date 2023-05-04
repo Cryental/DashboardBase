@@ -30,7 +30,7 @@ class UserController extends Controller
             abort(403);
         }
 
-        $users = $this->userRepository->FindAll('', 1, 50);
+        $users = $this->userRepository->FindAll('', 1, 5);
 
         $showingText = "Showing {$users->firstItem()} to {$users->lastItem()} of {$users->total()} entries";
 
@@ -54,8 +54,8 @@ class UserController extends Controller
             abort(403);
         }
 
-        $users = $this->userRepository->FindAll($request->search, $request->p, 50);
-
+        $users = $this->userRepository->FindAll($request->search, $request->p, 5);
+ray($request->all());
         $showingText = "Showing {$users->firstItem()} to {$users->lastItem()} of {$users->total()} entries";
 
         $currentPage = $users->currentPage();

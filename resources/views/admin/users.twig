@@ -29,19 +29,20 @@
         });
     </script>
     <script>
-        $("#search-form").submit(function (e) {
-
+        $(document).on("click", "#search-form button[type=submit]", function (e) {
             e.preventDefault(); // avoid to execute the actual submit of the form.
 
-            var form = $(this);
+            var form = $(this).closest("form");
             var actionUrl = form.attr('action');
+            var buttonValue = $(this).val(); // get the value of the clicked button
 
+            // Include the clicked button's value in the serialized data
+            var formData = form.serialize() + "&" + encodeURIComponent($(this).attr("name")) + "=" + encodeURIComponent(buttonValue);
             $.ajax({
                 type: "POST",
                 url: actionUrl,
-                data: form.serialize(), // serializes the form's elements.
+                data: formData, // send the form's elements along with the clicked button's value
                 success: function (data) {
-                    // var response = JSON.parse(data);
                     $("div#users-container").html(data);
                 }
             });
@@ -49,24 +50,22 @@
     </script>
 {% endblock %}
 {% block content %}
-    <div class="page-header d-print-none">
-        <div class="container-xl">
-            <div class="row g-2 align-items-center">
-                <div class="col">
-                    <!-- Page pre-title -->
-                    <div class="page-pretitle">
-                        Admin / Users
+    <form method="POST" id="search-form" autocomplete="off" action="{{ route('admin.users.search') }}">
+        <div class="page-header d-print-none">
+            <div class="container-xl">
+                <div class="row g-2 align-items-center">
+                    <div class="col">
+                        <!-- Page pre-title -->
+                        <div class="page-pretitle">
+                            Admin / Users
+                        </div>
+                        <h2 class="page-title text-white">
+                            Users
+                        </h2>
                     </div>
-                    <h2 class="page-title text-white">
-                        Users
-                    </h2>
-                </div>
-
-                <div class="col-auto ms-auto d-print-none">
-                    <form method="POST" id="search-form" autocomplete="off" action="{{ route('admin.users.search') }}">
+                    <div class="col-auto ms-auto d-print-none">
                         <div class="btn-list">
                             <input type="hidden" name="_token" value="{{ csrf_token() }}"/>
-                            <input type="hidden" name="action" value="search" />
                             <div class="form-group">
                                 <input id="search" class="form-control" type="text" name="search" value="{{ search }}">
                             </div>
@@ -75,7 +74,7 @@
                                 <button type="submit" class="btn">Search</button>
                             </span>
                             {% if auth_user().hasPermission('create.users') %}
-                            <span class="d-none d-sm-inline">
+                                <span class="d-none d-sm-inline">
                                 <a href="#" class="btn btn-primary" data-bs-toggle="modal"
                                    data-bs-target="#modal-create-user">
                                   Create New User
@@ -83,48 +82,47 @@
                             </span>
                             {% endif %}
                         </div>
-                    </form>
+                    </div>
                 </div>
-
             </div>
         </div>
-    </div>
 
-    <div id="users-container">
-        {% include 'admin/users-list.twig' %}
-    </div>
+        <div id="users-container">
+            {% include 'admin/users-list.twig' %}
+        </div>
+    </form>
+
 
     {% if auth_user().hasPermission('create.users') %}
-    <div class="modal modal-blur modal-lg{% if errors is empty %} fade{% endif %}" id="modal-create-user"
-         tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <form method="POST" autocomplete="off" action="{{ route('admin.users') }}">
-                    <input type="hidden" name="_token" value="{{ csrf_token() }}"/>
-                    <input type="hidden" name="action" value="create"/>
-                    <input type="hidden" name="email" value="{{ auth_user().email }}"/>
-                    <div class="modal-header">
-                        <h5 class="modal-title">Create New User</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
+        <div class="modal modal-blur modal-lg{% if errors is empty %} fade{% endif %}" id="modal-create-user"
+             tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <form method="POST" autocomplete="off" action="{{ route('admin.users') }}">
+                        <input type="hidden" name="_token" value="{{ csrf_token() }}"/>
+                        <input type="hidden" name="email" value="{{ auth_user().email }}"/>
+                        <div class="modal-header">
+                            <h5 class="modal-title">Create New User</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
 
-                    <div class="modal-body">
-                        <div class="mb-3">
-                            <label class="form-label">Name</label>
-                            <input name="name" type="text" class="form-control">
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">Email</label>
-                            <input name="email" type="email" class="form-control">
-                        </div>
-                        <label class="form-label">Role</label>
-                        <div class="form-selectgroup-boxes row mb-3">
-                            {% for role in roles %}
-                                <div class="col-lg-6 mb-3">
-                                    <label class="form-selectgroup-item">
-                                        <input type="radio" name="role" value="{{ role.id }}"
-                                               class="form-selectgroup-input" {% if role.id == 2 %} checked{% endif %}>
-                                        <span class="form-selectgroup-label d-flex align-items-center p-3">
+                        <div class="modal-body">
+                            <div class="mb-3">
+                                <label class="form-label">Name</label>
+                                <input name="name" type="text" class="form-control">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Email</label>
+                                <input name="email" type="email" class="form-control">
+                            </div>
+                            <label class="form-label">Role</label>
+                            <div class="form-selectgroup-boxes row mb-3">
+                                {% for role in roles %}
+                                    <div class="col-lg-6 mb-3">
+                                        <label class="form-selectgroup-item">
+                                            <input type="radio" name="role" value="{{ role.id }}"
+                                                   class="form-selectgroup-input" {% if role.id == 2 %} checked{% endif %}>
+                                            <span class="form-selectgroup-label d-flex align-items-center p-3">
                     <span class="me-3">
                       <span class="form-selectgroup-check"></span>
                     </span>
@@ -132,26 +130,26 @@
                       <span class="form-selectgroup-title strong mb-1">{{ role.name }}</span>
                     </span>
                   </span>
-                                    </label>
-                                </div>
-                            {% endfor %}
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">Bio</label>
-                            <textarea name="bio" class="form-control" rows="3">{{ input_old('bio') }}</textarea>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">Website URL</label>
-                            <input name="website_url" type="text" class="form-control">
-                        </div>
+                                        </label>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Bio</label>
+                                <textarea name="bio" class="form-control" rows="3">{{ input_old('bio') }}</textarea>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Website URL</label>
+                                <input name="website_url" type="text" class="form-control">
+                            </div>
 
-                        <label class="form-label">Email Verification</label>
-                        <div class="form-selectgroup-boxes row mb-3">
-                            <div class="col-lg-6">
-                                <label class="form-selectgroup-item">
-                                    <input type="radio" name="email-verification" value="Unverified"
-                                           class="form-selectgroup-input" {% if input_old('email-verification') == 'Unverified' %} checked{% endif %}>
-                                    <span class="form-selectgroup-label d-flex align-items-center p-3">
+                            <label class="form-label">Email Verification</label>
+                            <div class="form-selectgroup-boxes row mb-3">
+                                <div class="col-lg-6">
+                                    <label class="form-selectgroup-item">
+                                        <input type="radio" name="email-verification" value="Unverified"
+                                               class="form-selectgroup-input" {% if input_old('email-verification') == 'Unverified' %} checked{% endif %}>
+                                        <span class="form-selectgroup-label d-flex align-items-center p-3">
                     <span class="me-3">
                       <span class="form-selectgroup-check"></span>
                     </span>
@@ -159,13 +157,13 @@
                       <span class="form-selectgroup-title strong mb-1">Unverified</span>
                     </span>
                   </span>
-                                </label>
-                            </div>
-                            <div class="col-lg-6">
-                                <label class="form-selectgroup-item">
-                                    <input type="radio" name="email-verification" value="Verified"
-                                           class="form-selectgroup-input" {% if input_old('email-verification') == 'Verified' or input_old('email-verification') is empty %} checked{% endif %}>
-                                    <span class="form-selectgroup-label d-flex align-items-center p-3">
+                                    </label>
+                                </div>
+                                <div class="col-lg-6">
+                                    <label class="form-selectgroup-item">
+                                        <input type="radio" name="email-verification" value="Verified"
+                                               class="form-selectgroup-input" {% if input_old('email-verification') == 'Verified' or input_old('email-verification') is empty %} checked{% endif %}>
+                                        <span class="form-selectgroup-label d-flex align-items-center p-3">
                     <span class="me-3">
                       <span class="form-selectgroup-check"></span>
                     </span>
@@ -173,39 +171,82 @@
                       <span class="form-selectgroup-title strong mb-1">Verified</span>
                     </span>
                   </span>
-                                </label>
-                            </div>
-                        </div>
-
-                        <div class="mb-3">
-                            <label class="form-label">Password</label>
-                            <input name="password" type="password" class="form-control">
-                        </div>
-                        {% if errors is not empty %}
-                            <div class="mb-3">
-                                <div class="alert alert-danger">
-                                    <p>{{ errors.all()|first }}</p>
+                                    </label>
                                 </div>
                             </div>
-                        {% endif %}
-                    </div>
-                    <div class="modal-footer">
-                        <div class="col-auto">
-                            <a href="#" class="btn btn-link link-secondary" data-bs-dismiss="modal">
-                                Cancel
-                            </a>
-                            <button type="submit" class="btn btn-primary">Submit</button>
-                        </div>
 
-                    </div>
-                </form>
+                            <div class="mb-3">
+                                <label class="form-label">Password</label>
+                                <input name="password" type="password" class="form-control">
+                            </div>
+                            {% if errors is not empty %}
+                                <div class="mb-3">
+                                    <div class="alert alert-danger">
+                                        <p>{{ errors.all()|first }}</p>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="modal-footer">
+                            <div class="col-auto">
+                                <a href="#" class="btn btn-link link-secondary" data-bs-dismiss="modal">
+                                    Cancel
+                                </a>
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                            </div>
+
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
-    </div>
     {% endif %}
 
     {% if auth_user().hasPermission('delete.users') %}
-    <div class="modal modal-blur fade" id="modal-user-remove" tabindex="-1" role="dialog" aria-modal="true"
+        <div class="modal modal-blur fade" id="modal-user-remove" tabindex="-1" role="dialog" aria-modal="true"
+             aria-hidden="true">
+            <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <div class="modal-status bg-danger"></div>
+                    <div class="modal-body text-center py-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon mb-2 text-danger icon-lg" width="24"
+                             height="24"
+                             viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                             stroke-linecap="round"
+                             stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                            <path d="M12 9v2m0 4v.01"></path>
+                            <path
+                                d="M5 19h14a2 2 0 0 0 1.84 -2.75l-7.1 -12.25a2 2 0 0 0 -3.5 0l-7.1 12.25a2 2 0 0 0 1.75 2.75"></path>
+                        </svg>
+                        <h3>Are you sure?</h3>
+                        <div class="text-muted">Do you really want to remove this user? What you've done cannot be
+                            undone.
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="w-100">
+                            <form id="user-remove-post" method="POST" autocomplete="off" action="">
+                                <input type="hidden" name="_token" value="{{ csrf_token() }}"/>
+
+                                <div class="row">
+                                    <div class="col"><a href="#" class="btn w-100" data-bs-dismiss="modal">
+                                            Cancel
+                                        </a></div>
+                                    <div class="col">
+                                        <button type="submit" class="btn btn-danger w-100">Remove User</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+    <div class="modal modal-blur fade" id="modal-default-role-warning" tabindex="-1" role="dialog" aria-modal="true"
          aria-hidden="true">
         <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
             <div class="modal-content">
@@ -216,45 +257,8 @@
                          viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
                          stroke-linejoin="round">
                         <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                        <path d="M12 9v2m0 4v.01"></path>
                         <path
-                            d="M5 19h14a2 2 0 0 0 1.84 -2.75l-7.1 -12.25a2 2 0 0 0 -3.5 0l-7.1 12.25a2 2 0 0 0 1.75 2.75"></path>
-                    </svg>
-                    <h3>Are you sure?</h3>
-                    <div class="text-muted">Do you really want to remove this user? What you've done cannot be undone.
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <div class="w-100">
-                        <form id="user-remove-post" method="POST" autocomplete="off" action="">
-                            <input type="hidden" name="_token" value="{{ csrf_token() }}"/>
-
-                            <div class="row">
-                                <div class="col"><a href="#" class="btn w-100" data-bs-dismiss="modal">
-                                        Cancel
-                                    </a></div>
-                                <div class="col">
-                                    <button type="submit" class="btn btn-danger w-100">Remove User</button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    {% endif %}
-
-    <div class="modal modal-blur fade" id="modal-default-role-warning" tabindex="-1" role="dialog" aria-modal="true"
-         aria-hidden="true">
-        <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                <div class="modal-status bg-danger"></div>
-                <div class="modal-body text-center py-4">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon mb-2 text-danger icon-lg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                        <path d="M19.875 6.27a2.225 2.225 0 0 1 1.125 1.948v7.284c0 .809 -.443 1.555 -1.158 1.948l-6.75 4.27a2.269 2.269 0 0 1 -2.184 0l-6.75 -4.27a2.225 2.225 0 0 1 -1.158 -1.948v-7.285c0 -.809 .443 -1.554 1.158 -1.947l6.75 -3.98a2.33 2.33 0 0 1 2.25 0l6.75 3.98h-.033z"></path>
+                            d="M19.875 6.27a2.225 2.225 0 0 1 1.125 1.948v7.284c0 .809 -.443 1.555 -1.158 1.948l-6.75 4.27a2.269 2.269 0 0 1 -2.184 0l-6.75 -4.27a2.225 2.225 0 0 1 -1.158 -1.948v-7.285c0 -.809 .443 -1.554 1.158 -1.947l6.75 -3.98a2.33 2.33 0 0 1 2.25 0l6.75 3.98h-.033z"></path>
                         <path d="M12 12m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"></path>
                     </svg>
                     <h3>Default User</h3>
