@@ -14,6 +14,6 @@ class PermissionRepository
 {
     public function FindAll()
     {
-       return config('roles.models.permission')::all();
+        return config('roles.models.permission')::all();
     }
 }

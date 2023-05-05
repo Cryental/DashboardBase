@@ -31,7 +31,7 @@ class RoleController extends Controller
 
     public function show(Request $request)
     {
-        if (!Auth::user()->hasPermission('view.roles')) {
+        if (! Auth::user()->hasPermission('view.roles')) {
             abort(403);
         }
 
@@ -62,7 +62,7 @@ class RoleController extends Controller
 
     public function search(Request $request)
     {
-        if (!Auth::user()->hasPermission('view.roles')) {
+        if (! Auth::user()->hasPermission('view.roles')) {
             abort(403);
         }
 
@@ -92,7 +92,7 @@ class RoleController extends Controller
 
     public function store(Request $request)
     {
-        if (!Auth::user()->hasPermission('create.roles')) {
+        if (! Auth::user()->hasPermission('create.roles')) {
             abort(403);
         }
 
@@ -112,7 +112,7 @@ class RoleController extends Controller
             'name' => $request->input('name'),
             'slug' => $request->input('slug'),
             'description' => $request->input('description'),
-            'level' => (int)$request->input('level'),
+            'level' => (int) $request->input('level'),
         ]);
 
         $role = $this->roleRepository->FindBySlug($request->input('slug'));
@@ -127,7 +127,7 @@ class RoleController extends Controller
     public function editSave(Request $request, $id)
     {
         // no permissions or trying to edit admin or user roles.
-        if (!Auth::user()->hasPermission('edit.roles') || $id == 1 || $id == 2) {
+        if (! Auth::user()->hasPermission('edit.roles') || $id == 1 || $id == 2) {
             abort(403);
         }
 
@@ -145,11 +145,11 @@ class RoleController extends Controller
         $role = $this->roleRepository->Update($id, [
             'name' => $request->input('name'),
             'description' => $request->input('description'),
-            'level' => (int)$request->input('level'),
-            'permissions' => $request->input('permissions')
+            'level' => (int) $request->input('level'),
+            'permissions' => $request->input('permissions'),
         ]);
 
-        if (!$role) {
+        if (! $role) {
             abort(403);
         }
 
@@ -158,13 +158,13 @@ class RoleController extends Controller
 
     public function edit(Request $request, $id)
     {
-        if (!Auth::user()->hasPermission('edit.roles') || $id == 1 || $id == 2) {
+        if (! Auth::user()->hasPermission('edit.roles') || $id == 1 || $id == 2) {
             abort(403);
         }
 
         $role = $this->roleRepository->FindById($id);
 
-        if (!$role) {
+        if (! $role) {
             abort(404);
         }
 
@@ -191,13 +191,13 @@ class RoleController extends Controller
 
     public function delete(Request $request, $id)
     {
-        if (!Auth::user()->hasPermission('delete.roles') || $id == 1 || $id == 2) {
+        if (! Auth::user()->hasPermission('delete.roles') || $id == 1 || $id == 2) {
             abort(403);
         }
 
         $role = $this->roleRepository->FindById($id);
 
-        if (!$role) {
+        if (! $role) {
             return redirect()->route('admin.roles');
         }
 

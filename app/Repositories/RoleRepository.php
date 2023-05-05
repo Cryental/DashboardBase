@@ -26,7 +26,7 @@ class RoleRepository
     {
         $role = $this->FindById($role_id);
 
-        if (!$role) {
+        if (! $role) {
             return null;
         }
 
