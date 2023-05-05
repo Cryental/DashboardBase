@@ -29,44 +29,45 @@
         });
     </script>
     <script>
-        $("#search-form").submit(function (e) {
-
+        $(document).on("click", "#search-form button[type=submit]", function (e) {
             e.preventDefault(); // avoid to execute the actual submit of the form.
 
-            var form = $(this);
+            var form = $(this).closest("form");
             var actionUrl = form.attr('action');
+            var buttonValue = $(this).val(); // get the value of the clicked button
 
+            // Include the clicked button's value in the serialized data
+            var formData = form.serialize() + "&" + encodeURIComponent($(this).attr("name")) + "=" + encodeURIComponent(buttonValue);
             $.ajax({
                 type: "POST",
                 url: actionUrl,
-                data: form.serialize(), // serializes the form's elements.
+                data: formData, // send the form's elements along with the clicked button's value
                 success: function (data) {
-                    // var response = JSON.parse(data);
-                    $("div#users-container").html(data);
+                    $("div#roles-container").html(data);
                 }
             });
         });
     </script>
 {% endblock %}
 {% block content %}
-    <div class="page-header d-print-none">
-        <div class="container-xl">
-            <div class="row g-2 align-items-center">
-                <div class="col">
-                    <!-- Page pre-title -->
-                    <div class="page-pretitle">
-                        Admin / Roles
+    <form method="POST" id="search-form" autocomplete="off" action="{{ route('admin.roles.search') }}">
+        <div class="page-header d-print-none">
+            <div class="container-xl">
+                <div class="row g-2 align-items-center">
+                    <div class="col">
+                        <!-- Page pre-title -->
+                        <div class="page-pretitle">
+                            Admin / Roles
+                        </div>
+                        <h2 class="page-title text-white">
+                            Roles
+                        </h2>
                     </div>
-                    <h2 class="page-title text-white">
-                        Roles
-                    </h2>
-                </div>
 
-                <div class="col-auto ms-auto d-print-none">
-                    <form method="POST" id="search-form" autocomplete="off" action="{{ route('admin.roles.search') }}">
+                    <div class="col-auto ms-auto d-print-none">
                         <div class="btn-list">
                             <input type="hidden" name="_token" value="{{ csrf_token() }}"/>
-                            <input type="hidden" name="action" value="search" />
+                            <input type="hidden" name="action" value="search"/>
                             <div class="form-group">
                                 <input id="search" class="form-control" type="text" name="search" value="{{ search }}">
                             </div>
@@ -83,16 +84,16 @@
                             </span>
                             {% endif %}
                         </div>
-                    </form>
-                </div>
+                    </div>
 
+                </div>
             </div>
         </div>
-    </div>
 
-    <div id="users-container">
-        {% include 'admin/roles-list.twig' %}
-    </div>
+        <div id="roles-container">
+            {% include 'admin/roles-list.twig' %}
+        </div>
+    </form>
 
     {% if auth_user().hasPermission('create.roles') %}
         <div class="modal modal-blur modal-lg{% if errors is empty %} fade{% endif %}" id="modal-create-role"
@@ -128,19 +129,20 @@
                             <div class="form-selectgroup">
                                 {% for permission in permissions_list %}
                                     <label class="form-selectgroup-item">
-                                        <input type="checkbox" name="permissions[]" value="{{ permission.id }}" class="form-selectgroup-input">
+                                        <input type="checkbox" name="permissions[]" value="{{ permission.id }}"
+                                               class="form-selectgroup-input">
                                         <span class="form-selectgroup-label">{{ permission.name }}</span>
                                     </label>
                                 {% endfor %}
                             </div>
-                            </div>
-                            {% if errors is not empty %}
-                                <div class="mb-3">
-                                    <div class="alert alert-danger">
-                                        <p>{{ errors.all()|first }}</p>
-                                    </div>
+                        </div>
+                        {% if errors is not empty %}
+                            <div class="mb-3">
+                                <div class="alert alert-danger">
+                                    <p>{{ errors.all()|first }}</p>
                                 </div>
-                                {% endif %}
+                            </div>
+                        {% endif %}
                         <div class="modal-footer">
                             <div class="col-auto">
                                 <a href="#" class="btn btn-link link-secondary" data-bs-dismiss="modal">
@@ -164,8 +166,10 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     <div class="modal-status bg-danger"></div>
                     <div class="modal-body text-center py-4">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="icon mb-2 text-danger icon-lg" width="24" height="24"
-                             viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon mb-2 text-danger icon-lg" width="24"
+                             height="24"
+                             viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                             stroke-linecap="round"
                              stroke-linejoin="round">
                             <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                             <path d="M12 9v2m0 4v.01"></path>
@@ -173,7 +177,8 @@
                                 d="M5 19h14a2 2 0 0 0 1.84 -2.75l-7.1 -12.25a2 2 0 0 0 -3.5 0l-7.1 12.25a2 2 0 0 0 1.75 2.75"></path>
                         </svg>
                         <h3>Are you sure?</h3>
-                        <div class="text-muted">Do you really want to remove this role? What you've done cannot be undone.
+                        <div class="text-muted">Do you really want to remove this role? What you've done cannot be
+                            undone.
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -204,9 +209,12 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 <div class="modal-status bg-danger"></div>
                 <div class="modal-body text-center py-4">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon mb-2 text-danger icon-lg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon mb-2 text-danger icon-lg" width="24" height="24"
+                         viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
+                         stroke-linejoin="round">
                         <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                        <path d="M19.875 6.27a2.225 2.225 0 0 1 1.125 1.948v7.284c0 .809 -.443 1.555 -1.158 1.948l-6.75 4.27a2.269 2.269 0 0 1 -2.184 0l-6.75 -4.27a2.225 2.225 0 0 1 -1.158 -1.948v-7.285c0 -.809 .443 -1.554 1.158 -1.947l6.75 -3.98a2.33 2.33 0 0 1 2.25 0l6.75 3.98h-.033z"></path>
+                        <path
+                            d="M19.875 6.27a2.225 2.225 0 0 1 1.125 1.948v7.284c0 .809 -.443 1.555 -1.158 1.948l-6.75 4.27a2.269 2.269 0 0 1 -2.184 0l-6.75 -4.27a2.225 2.225 0 0 1 -1.158 -1.948v-7.285c0 -.809 .443 -1.554 1.158 -1.947l6.75 -3.98a2.33 2.33 0 0 1 2.25 0l6.75 3.98h-.033z"></path>
                         <path d="M12 12m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"></path>
                     </svg>
                     <h3>Default Role</h3>

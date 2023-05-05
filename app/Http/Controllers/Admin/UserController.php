@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\DataTransferObjects\DeviceDTO;
 use App\Facades\Nav;
 use App\Models\User;
-use App\Repositories\DevicesRepository;
+use App\Repositories\DeviceRepository;
 use App\Repositories\UserRepository;
 use DeviceDetector\DeviceDetector;
 use Illuminate\Http\Request;
@@ -16,9 +16,9 @@ use Illuminate\Support\Str;
 class UserController extends Controller
 {
     private UserRepository $userRepository;
-    private DevicesRepository $devicesRepository;
+    private DeviceRepository $devicesRepository;
 
-    public function __construct(UserRepository $userRepository, DevicesRepository $devicesRepository)
+    public function __construct(UserRepository $userRepository, DeviceRepository $devicesRepository)
     {
         $this->userRepository = $userRepository;
         $this->devicesRepository = $devicesRepository;
@@ -30,7 +30,7 @@ class UserController extends Controller
             abort(403);
         }
 
-        $users = $this->userRepository->FindAll('', 1, 5);
+        $users = $this->userRepository->FindAll('', 1, 50);
 
         $showingText = "Showing {$users->firstItem()} to {$users->lastItem()} of {$users->total()} entries";
 
@@ -54,8 +54,8 @@ class UserController extends Controller
             abort(403);
         }
 
-        $users = $this->userRepository->FindAll($request->search, $request->p, 5);
-        ray($request->all());
+        $users = $this->userRepository->FindAll($request->search, $request->p, 50);
+
         $showingText = "Showing {$users->firstItem()} to {$users->lastItem()} of {$users->total()} entries";
 
         $currentPage = $users->currentPage();

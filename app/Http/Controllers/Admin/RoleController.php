@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Admin;
 use App\DataTransferObjects\DeviceDTO;
 use App\Facades\Nav;
 use App\Models\User;
-use App\Repositories\DevicesRepository;
+use App\Repositories\DeviceRepository;
+use App\Repositories\PermissionRepository;
+use App\Repositories\RoleRepository;
 use App\Repositories\UserRepository;
 use DeviceDetector\DeviceDetector;
 use Illuminate\Http\Request;
@@ -18,18 +20,23 @@ use jeremykenedy\LaravelRoles\Traits\RolesAndPermissionsHelpersTrait;
 class RoleController extends Controller
 {
     use RolesAndPermissionsHelpersTrait;
+    private RoleRepository $roleRepository;
+    private PermissionRepository $permissionRepository;
 
-    public function __construct()
+    public function __construct(RoleRepository $roleRepository, PermissionRepository $permissionRepository)
     {
+        $this->roleRepository = $roleRepository;
+        $this->permissionRepository = $permissionRepository;
     }
 
     public function show(Request $request)
     {
-        if (! Auth::user()->hasPermission('view.roles')) {
+        if (!Auth::user()->hasPermission('view.roles')) {
             abort(403);
         }
 
-        $roles = config('roles.models.role')::paginate(50, ['*'], 'p', 1);
+        $roles = $this->roleRepository->FindAll('', 1, 50);
+
         $permissionsArray = [];
 
         // Iterate through the roles and get their permissions
@@ -42,7 +49,6 @@ class RoleController extends Controller
 
         $currentPage = $roles->currentPage();
 
-        //exit("<pre>". print_r($permissionsArray, true) ."</pre>");
         return view('admin.roles', [
             'roles' => $roles,
             'permissions' => $permissionsArray,
@@ -56,15 +62,11 @@ class RoleController extends Controller
 
     public function search(Request $request)
     {
-        if (! Auth::user()->hasPermission('view.roles')) {
+        if (!Auth::user()->hasPermission('view.roles')) {
             abort(403);
         }
 
-        $roles = config('roles.models.role')::where('name', 'LIKE', "%$request->search%")
-            ->orWhere('slug', 'LIKE', "%$request->search%")
-            ->orWhere('description', 'LIKE', "%$request->search%")
-            ->orWhere('level', 'LIKE', "%$request->search%")
-            ->paginate(50, ['*'], 'p', 1);
+        $roles = $this->roleRepository->FindAll($request->search, $request->p, 50);
 
         $permissionsArray = [];
 
@@ -90,7 +92,7 @@ class RoleController extends Controller
 
     public function store(Request $request)
     {
-        if (! Auth::user()->hasPermission('create.roles')) {
+        if (!Auth::user()->hasPermission('create.roles')) {
             abort(403);
         }
 
@@ -106,36 +108,27 @@ class RoleController extends Controller
             ],
         ]);
 
-        config('roles.models.role')::create([
+        $this->roleRepository->Create([
             'name' => $request->input('name'),
             'slug' => $request->input('slug'),
             'description' => $request->input('description'),
-            'level' => (int) $request->input('level'),
+            'level' => (int)$request->input('level'),
         ]);
 
-        $role = config('roles.models.role')::where('slug', '=', $request->input('slug'))->first();
+        $role = $this->roleRepository->FindBySlug($request->input('slug'));
 
         foreach ($request->input('permissions') as $permission) {
             $role->attachPermission($permission);
         }
 
-        return redirect('/admin/roles/'.$role->id);
+        return redirect("/admin/roles/$role->id");
     }
 
     public function editSave(Request $request, $id)
     {
-        if (! Auth::user()->hasPermission('edit.roles')) {
+        // no permissions or trying to edit admin or user roles.
+        if (!Auth::user()->hasPermission('edit.roles') || $id == 1 || $id == 2) {
             abort(403);
-        }
-
-        if ($id == 1 || $id == 2) {
-            abort(403);
-        }
-
-        $role = config('roles.models.role')::find($id);
-
-        if (! $role) {
-            abort(404);
         }
 
         $request->validate([
@@ -149,58 +142,45 @@ class RoleController extends Controller
             ],
         ]);
 
-        $role->update([
+        $role = $this->roleRepository->Update($id, [
             'name' => $request->input('name'),
             'description' => $request->input('description'),
-            'level' => (int) $request->input('level'),
+            'level' => (int)$request->input('level'),
+            'permissions' => $request->input('permissions')
         ]);
 
-        $role->detachAllPermissions();
-
-        foreach ($request->input('permissions') as $permission) {
-            $role->attachPermission($permission);
+        if (!$role) {
+            abort(403);
         }
 
-        return redirect('/admin/roles/'.$role->id);
+        return redirect("/admin/roles/$id");
     }
 
     public function edit(Request $request, $id)
     {
-        if (! Auth::user()->hasPermission('edit.roles')) {
+        if (!Auth::user()->hasPermission('edit.roles') || $id == 1 || $id == 2) {
             abort(403);
         }
 
-        if ($id == 1 || $id == 2) {
-            abort(403);
-        }
+        $role = $this->roleRepository->FindById($id);
 
-        $role = config('roles.models.role')::query()->find($id);
-
-        if (! $role) {
+        if (!$role) {
             abort(404);
         }
 
         $permissionsArray = [];
 
-        $fullPermissions = config('roles.models.permission')::all();
+        $fullPermissions = $this->permissionRepository->FindAll();
+
         $permissions = $role->permissions()->pluck('slug')->toArray();
 
         foreach ($fullPermissions as $permission) {
-            if (in_array($permission->slug, $permissions)) {
-                $permissionsArray[] = [
-                    'id' => $permission->id,
-                    'name' => $permission->name,
-                    'slug' => $permission->slug,
-                    'checked' => true,
-                ];
-            } else {
-                $permissionsArray[] = [
-                    'id' => $permission->id,
-                    'name' => $permission->name,
-                    'slug' => $permission->slug,
-                    'checked' => false,
-                ];
-            }
+            $permissionsArray[] = [
+                'id' => $permission->id,
+                'name' => $permission->name,
+                'slug' => $permission->slug,
+                'checked' => in_array($permission->slug, $permissions),
+            ];
         }
 
         return response()->view('admin.role_edit', [
@@ -211,17 +191,13 @@ class RoleController extends Controller
 
     public function delete(Request $request, $id)
     {
-        if (! Auth::user()->hasPermission('delete.roles')) {
+        if (!Auth::user()->hasPermission('delete.roles') || $id == 1 || $id == 2) {
             abort(403);
         }
 
-        if ($id == 1 || $id == 2) {
-            abort(403);
-        }
+        $role = $this->roleRepository->FindById($id);
 
-        $role = config('roles.models.role')::find($id);
-
-        if (! $role) {
+        if (!$role) {
             return redirect()->route('admin.roles');
         }
 

@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
-class DevicesRepository
+class DeviceRepository
 {
 //    public function Create(array $inputs): Model|Builder
 //    {
