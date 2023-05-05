@@ -2,18 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\DataTransferObjects\DeviceDTO;
 use App\Facades\Nav;
 use App\Models\User;
-use App\Repositories\DeviceRepository;
 use App\Repositories\PermissionRepository;
 use App\Repositories\RoleRepository;
-use App\Repositories\UserRepository;
-use DeviceDetector\DeviceDetector;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use jeremykenedy\LaravelRoles\Traits\RolesAndPermissionsHelpersTrait;
 

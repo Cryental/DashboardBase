@@ -2,11 +2,8 @@
 
 namespace App\TwigExtensions;
 
-use Illuminate\Support\Str as IlluminateStr;
 use Twig\Extension\AbstractExtension;
-use Twig\TwigFilter;
 use Twig\TwigFunction;
-use TwigBridge\Facade\Twig;
 
 class JsonDecode extends AbstractExtension
 {
