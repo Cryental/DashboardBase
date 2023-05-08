@@ -1,0 +1,89 @@
+{% block content %}
+    <div class="page-body">
+        <div class="container-xl">
+            <div class="row row-deck row-cards">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="table-responsive">
+                            <table class="table table-vcenter table-mobile-md card-table">
+                                <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Name</th>
+                                    <th>Description</th>
+                                    <th>Created Date</th>
+                                    <th>Updated Date</th>
+                                    <th class="w-1"></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for permission in permissions %}
+                                    <tr>
+                                        <td>{{ permission.id }}</td>
+                                        <td>{{ permission.name }}</td>
+                                        <td>{{ permission.description }}</td>
+                                        <td>{{ permission.created_at }}</td>
+                                        <td>{{ permission.updated_at }}</td>
+                                        <td>
+                                            <div class="btn-list flex-nowrap">
+                                                {% if auth_user().hasPermission('edit.permissions') %}
+                                                    <a href="/admin/permissions/{{ role.id }}" class="btn">
+                                                        Edit
+                                                    </a>
+                                                {% endif %}
+                                                {% if auth_user().hasPermission('delete.permissions') %}
+                                                    <a href="#" data-value="{{ role.id }}" class="btn btn-danger"
+                                                       data-bs-toggle="modal" data-bs-target="#modal-role-remove">
+                                                        Remove
+                                                    </a>
+                                                {% endif %}
+                                            </div>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="card-footer d-flex align-items-center">
+                            <p class="m-0 text-muted">{{ bottomText }}</p>
+                            <ul class="pagination m-0 ms-auto">
+                                <li {{ page != 1 ? 'class="page-item"' : 'class="page-item disabled"' }}
+                                    class="page-item">
+                                    <button type="submit" name="p" value="{{ links[0] }}" class="page-link">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24"
+                                             viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                                             stroke-linecap="round" stroke-linejoin="round">
+                                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                            <path d="M15 6l-6 6l6 6"></path>
+                                        </svg>
+                                        Prev
+                                    </button>
+                                </li>
+                                {% for i in 1..links|length-2 %}
+                                    <li>
+                                        <button
+                                            type="submit"
+                                            class="page-item page-link{{ page == links[i] ? ' active' : '' }}"
+                                            name="p" value="{{ links[i] }}">{{ links[i] }}</button>
+                                    </li>
+                                {% endfor %}
+                                <li {{ page != links|last ? 'class="page-item"' : 'class="page-item disabled"' }}
+                                    class="page-item">
+                                    <button type="submit" name="p" value="{{ links|last }}" class="page-link">
+                                        Next
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24"
+                                             viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                                             stroke-linecap="round" stroke-linejoin="round">
+                                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                            <path d="M9 6l6 6l-6 6"></path>
+                                        </svg>
+                                    </button>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

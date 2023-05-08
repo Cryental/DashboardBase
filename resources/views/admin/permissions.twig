@@ -1,11 +1,11 @@
 {% extends "layout.admin" %}
 
-{% block title %}Roles{% endblock %}
+{% block title %}Permissions{% endblock %}
 
 {% block included_scripts %}
     {% if errors is not empty %}
         <script>
-            var createUserModal = new bootstrap.Modal(document.getElementById("modal-create-role"), {});
+            var createUserModal = new bootstrap.Modal(document.getElementById("modal-create-permission"), {});
             document.onreadystatechange = function () {
                 createUserModal.show();
             };
@@ -13,8 +13,8 @@
     {% endif %}
 
     <script>
-        const modal = document.getElementById('modal-role-remove');
-        const modalLink = document.getElementById('role-remove-post');
+        const modal = document.getElementById('modal-permission-remove');
+        const modalLink = document.getElementById('permission-remove-post');
 
         // Listen for the "show.bs.modal" event
         modal.addEventListener('show.bs.modal', function (event) {
@@ -25,7 +25,7 @@
             const value = button.getAttribute('data-value');
 
             // Update the link's href attribute with the value
-            modalLink.action = '/admin/roles/' + value + '/remove';
+            modalLink.action = '/admin/permissions/' + value + '/remove';
         });
     </script>
     <script>
@@ -43,24 +43,24 @@
                 url: actionUrl,
                 data: formData, // send the form's elements along with the clicked button's value
                 success: function (data) {
-                    $("div#roles-container").html(data);
+                    $("div#permissions-container").html(data);
                 }
             });
         });
     </script>
 {% endblock %}
 {% block content %}
-    <form method="POST" id="search-form" autocomplete="off" action="{{ route('admin.roles.search') }}">
+    <form method="POST" id="search-form" autocomplete="off" action="{{ route('admin.permissions.search') }}">
         <div class="page-header d-print-none">
             <div class="container-xl">
                 <div class="row g-2 align-items-center">
                     <div class="col">
                         <!-- Page pre-title -->
                         <div class="page-pretitle">
-                            Admin / Roles
+                            Admin / Permissions
                         </div>
                         <h2 class="page-title text-white">
-                            Roles
+                            Permissions
                         </h2>
                     </div>
 
@@ -75,11 +75,11 @@
                             <span class="d-none d-sm-inline">
                                 <button type="submit" class="btn">Search</button>
                             </span>
-                            {% if auth_user().hasPermission('create.roles') %}
+                            {% if auth_user().hasPermission('create.permissions') %}
                                 <span class="d-none d-sm-inline">
                                 <a href="#" class="btn btn-primary" data-bs-toggle="modal"
-                                   data-bs-target="#modal-create-role">
-                                  Create New Role
+                                   data-bs-target="#modal-create-permission">
+                                  Create New Permission
                                 </a>
                             </span>
                             {% endif %}
@@ -90,21 +90,21 @@
             </div>
         </div>
 
-        <div id="roles-container">
-            {% include 'admin/roles-list.twig' %}
+        <div id="permissions-container">
+            {% include 'admin/permissions-list.twig' %}
         </div>
     </form>
 
-    {% if auth_user().hasPermission('create.roles') %}
+    {% if auth_user().hasPermission('create.permissions') %}
         <div class="modal modal-blur modal-lg{% if errors is empty %} fade{% endif %}" id="modal-create-role"
              tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
-                    <form method="POST" autocomplete="off" action="{{ route('admin.roles') }}">
+                    <form method="POST" autocomplete="off" action="{{ route('admin.permissions') }}">
                         <input type="hidden" name="_token" value="{{ csrf_token() }}"/>
 
                         <div class="modal-header">
-                            <h5 class="modal-title">Create New Role</h5>
+                            <h5 class="modal-title">Create New Permission</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
 
@@ -120,20 +120,6 @@
                             <div class="mb-3">
                                 <label class="form-label">Description</label>
                                 <input name="description" type="text" class="form-control">
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label">Level</label>
-                                <input name="level" type="number" class="form-control">
-                            </div>
-                            <label class="form-label">Permissions</label>
-                            <div class="form-selectgroup">
-                                {% for permission in permissions_list %}
-                                    <label class="form-selectgroup-item">
-                                        <input type="checkbox" name="permissions[]" value="{{ permission.id }}"
-                                               class="form-selectgroup-input">
-                                        <span class="form-selectgroup-label">{{ permission.name }}</span>
-                                    </label>
-                                {% endfor %}
                             </div>
                         </div>
                         {% if errors is not empty %}
@@ -158,8 +144,8 @@
         </div>
     {% endif %}
 
-    {% if auth_user().hasPermission('delete.roles') %}
-        <div class="modal modal-blur fade" id="modal-role-remove" tabindex="-1" role="dialog" aria-modal="true"
+    {% if auth_user().hasPermission('delete.permissions') %}
+        <div class="modal modal-blur fade" id="modal-permission-remove" tabindex="-1" role="dialog" aria-modal="true"
              aria-hidden="true">
             <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
                 <div class="modal-content">
@@ -177,7 +163,7 @@
                                 d="M5 19h14a2 2 0 0 0 1.84 -2.75l-7.1 -12.25a2 2 0 0 0 -3.5 0l-7.1 12.25a2 2 0 0 0 1.75 2.75"></path>
                         </svg>
                         <h3>Are you sure?</h3>
-                        <div class="text-muted">Do you really want to remove this role? What you've done cannot be
+                        <div class="text-muted">Do you really want to remove this permission? What you've done cannot be
                             undone.
                         </div>
                     </div>
@@ -191,7 +177,7 @@
                                             Cancel
                                         </a></div>
                                     <div class="col">
-                                        <button type="submit" class="btn btn-danger w-100">Remove Role</button>
+                                        <button type="submit" class="btn btn-danger w-100">Remove Permission</button>
                                     </div>
                                 </div>
                             </form>
@@ -201,27 +187,4 @@
             </div>
         </div>
     {% endif %}
-
-    <div class="modal modal-blur fade" id="modal-default-role-warning" tabindex="-1" role="dialog" aria-modal="true"
-         aria-hidden="true">
-        <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                <div class="modal-status bg-danger"></div>
-                <div class="modal-body text-center py-4">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon mb-2 text-danger icon-lg" width="24" height="24"
-                         viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
-                         stroke-linejoin="round">
-                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                        <path
-                            d="M19.875 6.27a2.225 2.225 0 0 1 1.125 1.948v7.284c0 .809 -.443 1.555 -1.158 1.948l-6.75 4.27a2.269 2.269 0 0 1 -2.184 0l-6.75 -4.27a2.225 2.225 0 0 1 -1.158 -1.948v-7.285c0 -.809 .443 -1.554 1.158 -1.947l6.75 -3.98a2.33 2.33 0 0 1 2.25 0l6.75 3.98h-.033z"></path>
-                        <path d="M12 12m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"></path>
-                    </svg>
-                    <h3>Default Role</h3>
-                    <div class="text-muted">This is the default role and cannot be removed.
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 {% endblock %}

@@ -164,7 +164,7 @@ class RoleController extends Controller
 
         $permissionsArray = [];
 
-        $fullPermissions = $this->permissionRepository->FindAll();
+        $fullPermissions = $this->permissionRepository->FindAll('',1,5000);
 
         $permissions = $role->permissions()->pluck('slug')->toArray();
 

@@ -31,6 +31,14 @@ Route::middleware(['auth', 'verified', 'level:2'])->group(function () {
         ->name('admin.roles.search');
     Route::get('/admin/roles/{id}', [\App\Http\Controllers\Admin\RoleController::class, 'edit']);
     Route::post('/admin/roles/{id}/remove', [\App\Http\Controllers\Admin\RoleController::class, 'delete']);
-
     Route::post('/admin/roles/{id}', [\App\Http\Controllers\Admin\RoleController::class, 'editSave']);
+
+    Route::get('/admin/permissions', [\App\Http\Controllers\Admin\PermissionController::class, 'show'])
+        ->name('admin.permissions');
+    Route::post('/admin/permissions', [\App\Http\Controllers\Admin\PermissionController::class, 'store']);
+    Route::post('/admin/permissions/search', [\App\Http\Controllers\Admin\PermissionController::class, 'search'])
+        ->name('admin.permissions.search');
+    Route::get('/admin/permissions/{id}', [\App\Http\Controllers\Admin\PermissionController::class, 'edit']);
+    Route::post('/admin/permissions/{id}/remove', [\App\Http\Controllers\Admin\PermissionController::class, 'delete']);
+    Route::post('/admin/permissions/{id}', [\App\Http\Controllers\Admin\PermissionController::class, 'editSave']);
 });
