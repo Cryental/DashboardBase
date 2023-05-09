@@ -42,7 +42,6 @@ class PermissionRepository
         return config('roles.models.permission')::where('slug', '=', $slug)->first();
     }
 
-
     public function FindAll($search, $page, $limit): LengthAwarePaginator|null
     {
         return config('roles.models.permission')::where('name', 'LIKE', "%$search%")
