@@ -9,8 +9,8 @@ class PermissionRepository
     public function Create(array $inputs): void
     {
         config('roles.models.permission')::create([
-            'name' => $inputs['name'],
-            'slug' => $inputs['slug'],
+            'name'        => $inputs['name'],
+            'slug'        => $inputs['slug'],
             'description' => $inputs['description'],
         ]);
     }
@@ -19,12 +19,12 @@ class PermissionRepository
     {
         $permission = $this->FindById($permission_id);
 
-        if (! $permission) {
+        if (!$permission) {
             return null;
         }
 
         $permission->update([
-            'name' => $inputs['name'],
+            'name'        => $inputs['name'],
             'description' => $inputs['description'],
         ]);
 

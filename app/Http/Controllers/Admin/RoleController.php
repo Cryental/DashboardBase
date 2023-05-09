@@ -25,7 +25,7 @@ class RoleController extends Controller
 
     public function show(Request $request)
     {
-        if (! Auth::user()->hasPermission('view.roles')) {
+        if (!Auth::user()->hasPermission('view.roles')) {
             abort(403);
         }
 
@@ -44,19 +44,19 @@ class RoleController extends Controller
         $currentPage = $roles->currentPage();
 
         return view('admin.roles', [
-            'roles' => $roles,
-            'permissions' => $permissionsArray,
+            'roles'            => $roles,
+            'permissions'      => $permissionsArray,
             'permissions_list' => config('roles.models.permission')::all(),
-            'bottomText' => $showingText,
-            'links' => Nav::getNavLinks($currentPage, $roles->lastPage()),
-            'page' => $currentPage,
-            'search' => '',
+            'bottomText'       => $showingText,
+            'links'            => Nav::getNavLinks($currentPage, $roles->lastPage()),
+            'page'             => $currentPage,
+            'search'           => '',
         ]);
     }
 
     public function search(Request $request)
     {
-        if (! Auth::user()->hasPermission('view.roles')) {
+        if (!Auth::user()->hasPermission('view.roles')) {
             abort(403);
         }
 
@@ -75,27 +75,27 @@ class RoleController extends Controller
         $currentPage = $roles->currentPage();
 
         return view('admin.roles-list', [
-            'roles' => $roles,
+            'roles'       => $roles,
             'permissions' => $permissionsArray,
-            'bottomText' => $showingText,
-            'links' => Nav::getNavLinks($currentPage, $roles->lastPage()),
-            'page' => $currentPage,
-            'search' => $request->search,
+            'bottomText'  => $showingText,
+            'links'       => Nav::getNavLinks($currentPage, $roles->lastPage()),
+            'page'        => $currentPage,
+            'search'      => $request->search,
         ]);
     }
 
     public function store(Request $request)
     {
-        if (! Auth::user()->hasPermission('create.roles')) {
+        if (!Auth::user()->hasPermission('create.roles')) {
             abort(403);
         }
 
         $request->validate([
-            'name' => 'required|string|max:255',
-            'slug' => 'required|string|max:255|unique:roles',
-            'description' => 'required|string|max:255',
-            'level' => 'required|integer|max:11',
-            'permissions' => 'required|array',
+            'name'          => 'required|string|max:255',
+            'slug'          => 'required|string|max:255|unique:roles',
+            'description'   => 'required|string|max:255',
+            'level'         => 'required|integer|max:11',
+            'permissions'   => 'required|array',
             'permissions.*' => [
                 'integer',
                 Rule::exists('permissions', 'id'),
@@ -103,10 +103,10 @@ class RoleController extends Controller
         ]);
 
         $this->roleRepository->Create([
-            'name' => $request->input('name'),
-            'slug' => $request->input('slug'),
+            'name'        => $request->input('name'),
+            'slug'        => $request->input('slug'),
             'description' => $request->input('description'),
-            'level' => (int) $request->input('level'),
+            'level'       => (int) $request->input('level'),
         ]);
 
         $role = $this->roleRepository->FindBySlug($request->input('slug'));
@@ -121,15 +121,15 @@ class RoleController extends Controller
     public function editSave(Request $request, $id)
     {
         // no permissions or trying to edit admin or user roles.
-        if (! Auth::user()->hasPermission('edit.roles') || $id == 1 || $id == 2) {
+        if (!Auth::user()->hasPermission('edit.roles') || $id == 1 || $id == 2) {
             abort(403);
         }
 
         $request->validate([
-            'name' => 'required|string|max:255',
-            'description' => 'required|string|max:255',
-            'level' => 'required|integer|max:11',
-            'permissions' => 'required|array',
+            'name'          => 'required|string|max:255',
+            'description'   => 'required|string|max:255',
+            'level'         => 'required|integer|max:11',
+            'permissions'   => 'required|array',
             'permissions.*' => [
                 'integer',
                 Rule::exists('permissions', 'id'),
@@ -137,13 +137,13 @@ class RoleController extends Controller
         ]);
 
         $role = $this->roleRepository->Update($id, [
-            'name' => $request->input('name'),
+            'name'        => $request->input('name'),
             'description' => $request->input('description'),
-            'level' => (int) $request->input('level'),
+            'level'       => (int) $request->input('level'),
             'permissions' => $request->input('permissions'),
         ]);
 
-        if (! $role) {
+        if (!$role) {
             abort(403);
         }
 
@@ -152,13 +152,13 @@ class RoleController extends Controller
 
     public function edit(Request $request, $id)
     {
-        if (! Auth::user()->hasPermission('edit.roles') || $id == 1 || $id == 2) {
+        if (!Auth::user()->hasPermission('edit.roles') || $id == 1 || $id == 2) {
             abort(403);
         }
 
         $role = $this->roleRepository->FindById($id);
 
-        if (! $role) {
+        if (!$role) {
             abort(404);
         }
 
@@ -170,28 +170,28 @@ class RoleController extends Controller
 
         foreach ($fullPermissions as $permission) {
             $permissionsArray[] = [
-                'id' => $permission->id,
-                'name' => $permission->name,
-                'slug' => $permission->slug,
+                'id'      => $permission->id,
+                'name'    => $permission->name,
+                'slug'    => $permission->slug,
                 'checked' => in_array($permission->slug, $permissions),
             ];
         }
 
         return response()->view('admin.role_edit', [
-            'role' => $role,
+            'role'        => $role,
             'permissions' => $permissionsArray,
         ]);
     }
 
     public function delete(Request $request, $id)
     {
-        if (! Auth::user()->hasPermission('delete.roles') || $id == 1 || $id == 2) {
+        if (!Auth::user()->hasPermission('delete.roles') || $id == 1 || $id == 2) {
             abort(403);
         }
 
         $role = $this->roleRepository->FindById($id);
 
-        if (! $role) {
+        if (!$role) {
             return redirect()->route('admin.roles');
         }
 

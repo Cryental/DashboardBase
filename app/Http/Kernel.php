@@ -63,8 +63,8 @@ class Kernel extends HttpKernel
         'throttle'         => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified'         => \App\Http\Middleware\EnsureEmailIsVerified::class,
         'social.password'  => \App\Http\Middleware\SocialSetPassword::class,
-        'role' => \jeremykenedy\LaravelRoles\App\Http\Middleware\VerifyRole::class,
-        'permission' => \jeremykenedy\LaravelRoles\App\Http\Middleware\VerifyPermission::class,
-        'level' => \jeremykenedy\LaravelRoles\App\Http\Middleware\VerifyLevel::class,
+        'role'             => \jeremykenedy\LaravelRoles\App\Http\Middleware\VerifyRole::class,
+        'permission'       => \jeremykenedy\LaravelRoles\App\Http\Middleware\VerifyPermission::class,
+        'level'            => \jeremykenedy\LaravelRoles\App\Http\Middleware\VerifyLevel::class,
     ];
 }

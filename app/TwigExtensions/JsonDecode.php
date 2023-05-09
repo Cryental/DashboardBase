@@ -19,7 +19,9 @@ class JsonDecode extends AbstractExtension
     public function getFunctions(): array
     {
         return [
-            new TwigFunction('json_decode', [$this, 'json_decode']
+            new TwigFunction(
+                'json_decode',
+                [$this, 'json_decode']
             ),
         ];
     }

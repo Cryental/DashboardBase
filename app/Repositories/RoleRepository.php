@@ -9,10 +9,10 @@ class RoleRepository
     public function Create(array $inputs): void
     {
         config('roles.models.role')::create([
-            'name' => $inputs['name'],
-            'slug' => $inputs['slug'],
+            'name'        => $inputs['name'],
+            'slug'        => $inputs['slug'],
             'description' => $inputs['description'],
-            'level' => $inputs['level'],
+            'level'       => $inputs['level'],
         ]);
     }
 
@@ -20,14 +20,14 @@ class RoleRepository
     {
         $role = $this->FindById($role_id);
 
-        if (! $role) {
+        if (!$role) {
             return null;
         }
 
         $role->update([
-            'name' => $inputs['name'],
+            'name'        => $inputs['name'],
             'description' => $inputs['description'],
-            'level' => $inputs['level'],
+            'level'       => $inputs['level'],
         ]);
 
         $role->detachAllPermissions();
