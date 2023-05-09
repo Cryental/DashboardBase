@@ -128,7 +128,7 @@ class UserController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
-            'role' => 'required|string|in:Member,Admin',
+            'role' => 'required|integer|min:0',
             'bio' => 'sometimes|string|max:1000|nullable',
             'website_url' => 'sometimes|url|max:500|nullable',
             'email-verification' => 'required|string|in:Unverified,Verified',
@@ -138,13 +138,14 @@ class UserController extends Controller
         $user = User::query()->create([
             'name' => $request->input('name'),
             'email' => $request->input('email'),
-            'role' => $request->input('role'),
             'bio' => $request->input('bio'),
             'website_url' => $request->input('website_url'),
             'email_verified_at' => $request->input('email-verification') === 'Verified' ? now() : null,
             'password' => Hash::make($request->input('password')),
             'remember_token' => Str::random(60),
         ]);
+
+        $user->attachRole((int) $request->input('role'));
 
         return redirect('/admin/users/'.$user->id);
     }
