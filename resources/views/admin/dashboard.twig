@@ -37,7 +37,7 @@
                         curve: "smooth",
                     },
                     series: [{
-                        name: "Profits",
+                        name: "Users",
                         data: counts
                     }],
                     tooltip: {
@@ -59,12 +59,16 @@
                         type: 'datetime',
                     },
                     yaxis: {
+                        tickAmount: 4,
                         labels: {
-                            padding: 4
+                            padding: 4,
+                            formatter: (value) => {
+                                return parseInt(value);
+                            }
                         },
                     },
                     labels: dates,
-                    colors: tabler.getColor("primary"),
+                    colors: [tabler.getColor("primary")],
                     legend: {
                         show: false,
                     },
@@ -101,11 +105,6 @@
                             </div>
                             <div class="d-flex align-items-baseline">
                                 <div class="h1 mb-0 me-2">{{ userCount }}</div>
-                                <div class="me-auto">
-                        <span class="text-green d-inline-flex align-items-center lh-1">
-                          <svg xmlns="http://www.w3.org/2000/svg" class="icon ms-1" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M3 17l6 -6l4 4l8 -8"></path><path d="M14 7l7 0l0 7"></path></svg>
-                        </span>
-                                </div>
                             </div>
                         </div>
                         <div id="chart-users-bg" class="chart-sm" style="min-height: 40px;">
