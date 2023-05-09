@@ -3,12 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Facades\Nav;
-use App\Models\User;
 use App\Repositories\PermissionRepository;
 use App\Repositories\RoleRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Validation\Rule;
 use jeremykenedy\LaravelRoles\Traits\RolesAndPermissionsHelpersTrait;
 
 class PermissionController extends Controller

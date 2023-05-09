@@ -6,7 +6,7 @@
         </button>
         <h1 class="navbar-brand d-none-navbar-horizontal pe-0 pe-md-3">
             <a href="/">
-                <img src="/img/logo.png" width="110" height="32" alt="Tabler" class="navbar-brand-image">
+                <img src="/img/logo.png" width="110" height="32" class="navbar-brand-image">
             </a>
         </h1>
         <div class="navbar-nav flex-row order-md-last">
@@ -22,8 +22,8 @@
                 </a>
 
                 <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                    {% if auth_user().level(2) %}
-                        <a href="{{ route('admin.users') }}" class="dropdown-item">Admin Panel</a>
+                    {% if auth_user().hasPermission('view.users') or auth_user().hasPermission('create.users') or auth_user().hasPermission('edit.users') or auth_user().hasPermission('delete.users') or auth_user().hasPermission('view.roles') or auth_user().hasPermission('create.roles') or auth_user().hasPermission('edit.roles') or auth_user().hasPermission('delete.roles') or auth_user().hasPermission('view.permissions') or auth_user().hasPermission('create.permissions') or auth_user().hasPermission('edit.permissions') or auth_user().hasPermission('delete.permissions') %}
+                        <a href="{{ route('admin.dashboard') }}" class="dropdown-item">Admin Panel</a>
                         <div class="dropdown-divider"></div>
                     {% endif %}
                     <a href="{{ route('settings.account') }}" class="dropdown-item">Settings</a>

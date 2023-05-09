@@ -2,7 +2,6 @@
 
 namespace App\Repositories;
 
-use Exception;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
 class PermissionRepository

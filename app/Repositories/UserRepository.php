@@ -10,20 +10,6 @@ use Illuminate\Support\Facades\Hash;
 
 class UserRepository
 {
-//    public function Create(array $inputs): Model|Builder
-//    {
-//        return Subscription::query()->create([
-//            'user_id'      => $inputs['user_id'],
-//            'plan_id'      => $inputs['plan_id'],
-//            'status'       => $inputs['status'],
-//            'activated_at' => $inputs['activated_at'] ?? Carbon::now(),
-//            'expires_at'   => $inputs['expires_at'],
-//            'cancels_at'   => null,
-//            'cancelled_at' => null,
-//        ]);
-//    }
-//
-//
     public function Update($user_id, array $inputs): ?object
     {
         $user = $this->Find($user_id);
@@ -76,36 +62,6 @@ class UserRepository
     {
         return User::query()->find($user_id);
     }
-//
-//    public function FindUserActiveSubscription($user_id): Builder|Model|null
-//    {
-//        return Subscription::with('plan')
-//            ->where('user_id', $user_id)
-//            ->where('status', SubscriptionStatus::ACTIVE)
-//            ->first();
-//    }
-//
-//    public function FindUserInactiveSubscription($user_id): Builder|Model|null
-//    {
-//        return Subscription::with('plan')
-//            ->where('user_id', $user_id)
-//            ->where('status', SubscriptionStatus::INACTIVE)
-//            ->orderBy('activated_at', 'ASC')
-//            ->first();
-//    }
-//
-//    public function Delete($user_id, $subscription_id): ?bool
-//    {
-//        $toBeDeletedSub = $this->Find($user_id, $subscription_id);
-//
-//        if (!$toBeDeletedSub) {
-//            return null;
-//        }
-//
-//        $toBeDeletedSub->delete();
-//
-//        return true;
-//    }
 
     public function FindAll($search, $page, $limit): LengthAwarePaginator|null
     {

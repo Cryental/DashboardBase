@@ -14,6 +14,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::middleware(['auth', 'verified', 'level:2'])->group(function () {
+    Route::get('/admin/users-chart-data', [\App\Http\Controllers\Admin\DashboardController::class, 'getUsersChartData']);
+    Route::get('/admin', [\App\Http\Controllers\Admin\DashboardController::class, 'show'])
+        ->name('admin.dashboard');
     Route::get('/admin/users', [\App\Http\Controllers\Admin\UserController::class, 'show'])
         ->name('admin.users');
     Route::post('/admin/users/search', [\App\Http\Controllers\Admin\UserController::class, 'search'])
