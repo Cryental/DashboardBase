@@ -27,13 +27,13 @@
                                         <td>
                                             <div class="btn-list flex-nowrap">
                                                 {% if auth_user().hasPermission('edit.permissions') %}
-                                                    <a href="/admin/permissions/{{ role.id }}" class="btn">
+                                                    <a href="/admin/permissions/{{ permission.id }}" class="btn">
                                                         Edit
                                                     </a>
                                                 {% endif %}
                                                 {% if auth_user().hasPermission('delete.permissions') %}
-                                                    <a href="#" data-value="{{ role.id }}" class="btn btn-danger"
-                                                       data-bs-toggle="modal" data-bs-target="#modal-role-remove">
+                                                    <a href="#" data-value="{{ permission.id }}" class="btn btn-danger"
+                                                       data-bs-toggle="modal" data-bs-target="#modal-permission-remove">
                                                         Remove
                                                     </a>
                                                 {% endif %}

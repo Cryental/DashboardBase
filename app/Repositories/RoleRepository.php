@@ -9,10 +9,10 @@ class RoleRepository
     public function Create(array $inputs): void
     {
         config('roles.models.role')::create([
-            'name' => $inputs('name'),
-            'slug' => $inputs('slug'),
-            'description' => $inputs('description'),
-            'level' => $inputs('level'),
+            'name' => $inputs['name'],
+            'slug' => $inputs['slug'],
+            'description' => $inputs['description'],
+            'level' => $inputs['level'],
         ]);
     }
 
@@ -25,14 +25,14 @@ class RoleRepository
         }
 
         $role->update([
-            'name' => $inputs('name'),
-            'description' => $inputs('description'),
-            'level' => $inputs('level'),
+            'name' => $inputs['name'],
+            'description' => $inputs['description'],
+            'level' => $inputs['level'],
         ]);
 
         $role->detachAllPermissions();
 
-        foreach ($inputs('permissions') as $permission) {
+        foreach ($inputs['permissions'] as $permission) {
             $role->attachPermission($permission);
         }
 

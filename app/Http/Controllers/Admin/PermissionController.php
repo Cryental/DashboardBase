@@ -74,8 +74,8 @@ class PermissionController extends Controller
 
         $request->validate([
             'name' => 'required|string|max:255',
-            'slug' => 'required|string|max:255|unique:roles',
-            'description' => 'required|string|max:255',
+            'slug' => 'required|string|max:255|unique:permissions',
+            'description' => 'sometimes|string|max:255',
         ]);
 
         $this->permissionRepository->Create([
@@ -85,7 +85,6 @@ class PermissionController extends Controller
         ]);
 
         $permission = $this->permissionRepository->FindBySlug($request->input('slug'));
-
 
         return redirect("/admin/permissions/$permission->id");
     }
@@ -111,7 +110,7 @@ class PermissionController extends Controller
             abort(403);
         }
 
-        return redirect("/admin/permissions/$id");
+        return redirect("/admin/permissions");
     }
 
     public function edit(Request $request, $id)
@@ -120,14 +119,14 @@ class PermissionController extends Controller
             abort(403);
         }
 
-        $role = $this->permissionRepository->FindById($id);
+        $permission = $this->permissionRepository->FindById($id);
 
-        if (!$role) {
+        if (!$permission) {
             abort(404);
         }
 
         return response()->view('admin.permission_edit', [
-            'role' => $role,
+            'permission' => $permission,
         ]);
     }
 

@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use Exception;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
 class PermissionRepository
@@ -9,9 +10,9 @@ class PermissionRepository
     public function Create(array $inputs): void
     {
         config('roles.models.permission')::create([
-            'name' => $inputs('name'),
-            'slug' => $inputs('slug'),
-            'description' => $inputs('description'),
+            'name' => $inputs['name'],
+            'slug' => $inputs['slug'],
+            'description' => $inputs['description'],
         ]);
     }
 
@@ -19,13 +20,13 @@ class PermissionRepository
     {
         $permission = $this->FindById($permission_id);
 
-        if (! $permission) {
+        if (!$permission) {
             return null;
         }
 
         $permission->update([
-            'name' => $inputs('name'),
-            'description' => $inputs('description'),
+            'name' => $inputs['name'],
+            'description' => $inputs['description'],
         ]);
 
         return $permission;

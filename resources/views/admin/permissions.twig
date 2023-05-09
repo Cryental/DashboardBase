@@ -96,7 +96,7 @@
     </form>
 
     {% if auth_user().hasPermission('create.permissions') %}
-        <div class="modal modal-blur modal-lg{% if errors is empty %} fade{% endif %}" id="modal-create-role"
+        <div class="modal modal-blur modal-lg{% if errors is empty %} fade{% endif %}" id="modal-create-permission"
              tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -169,7 +169,7 @@
                     </div>
                     <div class="modal-footer">
                         <div class="w-100">
-                            <form id="role-remove-post" method="POST" autocomplete="off" action="">
+                            <form id="permission-remove-post" method="POST" autocomplete="off" action="">
                                 <input type="hidden" name="_token" value="{{ csrf_token() }}"/>
 
                                 <div class="row">
