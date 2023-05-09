@@ -13,10 +13,6 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        $users = \App\Models\User::factory()->count(100)->make()->toArray();
-
-        foreach ($users as $user) {
-            \App\Models\User::query()->create($user);
-        }
+        \App\Models\User::factory()->count(100)->configure()->create();
     }
 }
