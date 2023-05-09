@@ -20,7 +20,7 @@ class PermissionRepository
     {
         $permission = $this->FindById($permission_id);
 
-        if (!$permission) {
+        if (! $permission) {
             return null;
         }
 
