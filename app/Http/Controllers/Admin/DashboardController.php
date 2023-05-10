@@ -3,31 +3,29 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\User;
+use App\Repositories\UserRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 
 class DashboardController extends Controller
 {
-    public function __construct()
+    private UserRepository $userRepository;
+
+    public function __construct(UserRepository $userRepository)
     {
+        $this->userRepository = $userRepository;
     }
 
     public function show(Request $request)
     {
         return view('admin.dashboard', [
-            'userCount' => User::count(),
+            'userCount' => $this->userRepository->FindUsersCount(''),
         ]);
     }
 
     public function getUsersChartData()
     {
-        $sevenDaysAgo = Carbon::now()->subDays(7)->toDateString();
-
-        $users = User::selectRaw('DATE(created_at) as date, COUNT(*) as count')
-            ->whereDate('created_at', '>=', $sevenDaysAgo)
-            ->groupBy('date')
-            ->orderBy('date')
-            ->get();
+        $users = $this->userRepository->FindUsersCountCreatedAfterDate(7);
 
         return response()->json($users);
     }
