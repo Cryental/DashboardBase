@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Hash;
 
 class UserRepository
@@ -69,5 +70,24 @@ class UserRepository
             ->where('name', 'LIKE', "%$search%")
             ->orWhere('email', 'LIKE', "%$search%")
             ->paginate($limit, ['*'], 'p', $page);
+    }
+
+    public function FindUsersCount($search): int
+    {
+        return User::query()
+            ->where('name', 'LIKE', "%$search%")
+            ->orWhere('email', 'LIKE', "%$search%")
+            ->count();
+    }
+
+    public function FindUsersCountCreatedAfterDate(int $days)
+    {
+        $pastDate = Carbon::now()->subDays($days)->toDateString();
+
+        return User::selectRaw('DATE(created_at) as date, COUNT(*) as count')
+            ->whereDate('created_at', '>=', $pastDate)
+            ->groupBy('date')
+            ->orderBy('date')
+            ->get();
     }
 }
