@@ -80,14 +80,34 @@ class UserRepository
             ->count();
     }
 
-    public function FindUsersCountCreatedAfterDate(int $days)
+    public function GetUsersStatistics(int $days)
     {
-        $pastDate = Carbon::now()->subDays($days)->toDateString();
 
-        return User::selectRaw('DATE(created_at) as date, COUNT(*) as count')
-            ->whereDate('created_at', '>=', $pastDate)
+        // Calculate the dates for the current period and the previous period
+        $currentPeriodStart = Carbon::now()->subDays($days)->toDateTimeString(); //what is it for?
+        $previousPeriodStart = Carbon::now()->subDays($days * 2)->toDateTimeString();
+
+        // Get the number of users registered in the current period and the previous period
+        $currentPeriodRegistrations = User::where('created_at', '>=', $currentPeriodStart)->count();
+        $previousPeriodRegistrations = User::whereBetween('created_at', [$previousPeriodStart, $currentPeriodStart])->count();
+
+        // Calculate the percentage growth
+        $percentageGrowth = 0;
+        if ($previousPeriodRegistrations > 0) {
+            $percentageGrowth = (($currentPeriodRegistrations - $previousPeriodRegistrations) / $previousPeriodRegistrations) * 100;
+        }
+
+        $distribution = User::selectRaw('DATE(created_at) as date, COUNT(*) as count')
+            ->whereDate('created_at', '>=', $currentPeriodStart)
             ->groupBy('date')
             ->orderBy('date')
             ->get();
+
+        return [
+            'distribution' => $distribution,
+            'current' => $currentPeriodRegistrations,
+            'previous' => $previousPeriodRegistrations,
+            'percentage_growth' => round($percentageGrowth, 2)
+        ];
     }
 }

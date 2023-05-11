@@ -4,78 +4,138 @@
 
 {% block included_scripts %}
     <script src="/libs/apexcharts/dist/apexcharts.min.js"></script>
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        fetch('/admin/users-chart-data')
-            .then(response => response.json())
-            .then(usersData => {
-                const dates = usersData.map(user => user.date);
-                const counts = usersData.map(user => user.count);
+    <script>
+        document.addEventListener("DOMContentLoaded", () => getUsersInitialChartsData());
 
-                new ApexCharts(document.getElementById('chart-users-bg'), {
-                    chart: {
-                        type: "area",
-                        fontFamily: 'inherit',
-                        height: 40.0,
-                        sparkline: {
-                            enabled: true
+        $(document).ready(function () {
+            $('#user-stats-period').change(() => {
+                const selectedPeriod = $('#user-stats-period').val();
+                updateUsersChartsData(selectedPeriod);
+            });
+        });
+
+        function getUsersInitialChartsData() {
+            fetch(`/admin/users-stats?period=7`)
+                .then(response => response.json())
+                .then(usersData => {
+                    const dates = usersData['distribution'].map(user => user.date);
+                    const counts = usersData['distribution'].map(user => user.count);
+
+                    new ApexCharts(document.getElementById('chart-users-bg'), {
+                        chart: {
+                            id: 'users_chart',
+                            type: "area",
+                            fontFamily: 'inherit',
+                            height: 40.0,
+                            sparkline: {
+                                enabled: true
+                            },
+                            animations: {
+                                enabled: false
+                            },
                         },
-                        animations: {
-                            enabled: false
+                        dataLabels: {
+                            enabled: false,
                         },
-                    },
-                    dataLabels: {
-                        enabled: false,
-                    },
-                    fill: {
-                        opacity: .16,
-                        type: 'solid'
-                    },
-                    stroke: {
-                        width: 2,
-                        lineCap: "round",
-                        curve: "smooth",
-                    },
-                    series: [{
-                        name: "Users",
-                        data: counts
-                    }],
-                    tooltip: {
-                        theme: 'dark'
-                    },
-                    grid: {
-                        strokeDashArray: 4,
-                    },
-                    xaxis: {
-                        labels: {
-                            padding: 0,
+                        fill: {
+                            opacity: .16,
+                            type: 'solid'
                         },
+                        stroke: {
+                            width: 2,
+                            lineCap: "round",
+                            curve: "smooth",
+                        },
+                        series: [{
+                            name: "Users",
+                            data: counts
+                        }],
                         tooltip: {
-                            enabled: false
+                            theme: 'dark'
                         },
-                        axisBorder: {
+                        grid: {
+                            strokeDashArray: 4,
+                        },
+                        xaxis: {
+                            labels: {
+                                padding: 0,
+                            },
+                            tooltip: {
+                                enabled: false
+                            },
+                            axisBorder: {
+                                show: false,
+                            },
+                            type: 'datetime',
+                        },
+                        yaxis: {
+                            tickAmount: 4,
+                            labels: {
+                                padding: 4,
+                                formatter: (value) => {
+                                    return parseInt(value);
+                                }
+                            },
+                        },
+                        labels: dates,
+                        colors: [tabler.getColor("primary")],
+                        legend: {
                             show: false,
                         },
-                        type: 'datetime',
-                    },
-                    yaxis: {
-                        tickAmount: 4,
-                        labels: {
-                            padding: 4,
-                            formatter: (value) => {
-                                return parseInt(value);
-                            }
-                        },
-                    },
-                    labels: dates,
-                    colors: [tabler.getColor("primary")],
-                    legend: {
-                        show: false,
-                    },
-                }).render();
-            });
-    });
-</script>
+                    }).render();
+                    updateUsersIcon(usersData['percentage_growth']);
+                });
+        }
+
+        function updateUsersChartsData(period) {
+            fetch(`/admin/users-stats?period=${period}`)
+                .then(response => response.json())
+                .then(usersData => {
+                    const dates = usersData['distribution'].map(user => user.date);
+                    const counts = usersData['distribution'].map(user => user.count);
+
+                    ApexCharts.exec('users_chart', 'updateOptions', {
+                        labels: dates,
+                        series: [{
+                            name: "Users",
+                            data: counts
+                        }],
+                    }, false, true);
+
+                    updateUsersIcon(usersData['percentage_growth']);
+                });
+
+        }
+
+        function updateUsersIcon(percentage) {
+            let data = null;
+            if (percentage > 0) {
+                data = `
+<div class="d-flex flex-row align-items-center" style="color: green">
+    <div>${percentage}%</div>
+    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-trending-up" width="24"
+                        height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                        stroke-linecap="round" stroke-linejoin="round">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                <path d="M3 17l6 -6l4 4l8 -8"></path>
+                <path d="M14 7l7 0l0 7"></path>
+            </svg>
+</div>`
+            } else {
+                data = `
+<div class="d-flex flex-row align-items-center" style="color: red">
+    <div>${percentage}%</div>
+    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-trending-down" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+        <path d="M3 7l6 6l4 -4l8 8"></path>
+        <path d="M21 10l0 7l-7 0"></path>
+    </svg>
+</div>`
+            }
+
+            $('#icon-container').html(data);
+        }
+    </script>
 {% endblock %}
 
 {% block content %}
@@ -100,11 +160,25 @@
                 <div class="col-sm-6 col-lg-4">
                     <div class="card">
                         <div class="card-body">
-                            <div class="d-flex align-items-center">
-                                <div class="subheader">Users</div>
-                            </div>
-                            <div class="d-flex align-items-baseline">
-                                <div class="h1 mb-0 me-2">{{ userCount }}</div>
+                            <div class="d-flex flex-row justify-content-between">
+                                <div class="d-flex flex-column">
+                                    <div class="d-flex align-items-center">
+                                        <div class="subheader">Users</div>
+                                    </div>
+                                    <div class="d-flex flex-row align-items-center">
+                                        <div class="d-flex align-items-baseline">
+                                            <div class="h1 mb-0 me-2">{{ userCount }}</div>
+                                        </div>
+                                        <div id="icon-container">
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <select id="user-stats-period" class="custom-dropdown">
+                                    <option value="7">Last 7 days</option>
+                                    <option value="30">Last 30 days</option>
+                                    <option value="90">Last 3 months</option>
+                                </select>
                             </div>
                         </div>
                         <div id="chart-users-bg" class="chart-sm" style="min-height: 40px;">
