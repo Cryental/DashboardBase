@@ -2,10 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\User;
 use App\Repositories\UserRepository;
 use Illuminate\Http\Request;
-use Illuminate\Support\Carbon;
 
 class DashboardController extends Controller
 {
@@ -25,8 +23,8 @@ class DashboardController extends Controller
 
     public function getUserStats(Request $request)
     {
-        $stats = $this->userRepository->GetUsersStatistics($request->input('period',7));
+        $stats = $this->userRepository->GetUsersStatistics($request->input('period', 7));
+
         return response()->json($stats);
     }
-
 }

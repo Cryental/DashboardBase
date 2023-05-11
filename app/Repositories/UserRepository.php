@@ -82,7 +82,6 @@ class UserRepository
 
     public function GetUsersStatistics(int $days)
     {
-
         // Calculate the dates for the current period and the previous period
         $currentPeriodStart = Carbon::now()->subDays($days)->toDateTimeString(); //what is it for?
         $previousPeriodStart = Carbon::now()->subDays($days * 2)->toDateTimeString();
@@ -104,10 +103,10 @@ class UserRepository
             ->get();
 
         return [
-            'distribution' => $distribution,
-            'current' => $currentPeriodRegistrations,
-            'previous' => $previousPeriodRegistrations,
-            'percentage_growth' => round($percentageGrowth, 2)
+            'distribution'      => $distribution,
+            'current'           => $currentPeriodRegistrations,
+            'previous'          => $previousPeriodRegistrations,
+            'percentage_growth' => round($percentageGrowth, 2),
         ];
     }
 }
