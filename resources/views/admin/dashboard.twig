@@ -7,13 +7,6 @@
     <script>
         document.addEventListener("DOMContentLoaded", () => getUsersInitialChartsData());
 
-        $(document).ready(function () {
-            $('#user-stats-period').change(() => {
-                const selectedPeriod = $('#user-stats-period').val();
-                updateUsersChartsData(selectedPeriod);
-            });
-        });
-
         function getUsersInitialChartsData() {
             fetch(`/admin/users-stats?period=7`)
                 .then(response => response.json())
@@ -87,7 +80,7 @@
                 });
         }
 
-        function updateUsersChartsData(period) {
+        function updateUsersChartsData(period, text) {
             fetch(`/admin/users-stats?period=${period}`)
                 .then(response => response.json())
                 .then(usersData => {
@@ -103,6 +96,8 @@
                     }, false, true);
 
                     updateUsersIcon(usersData['percentage_growth']);
+
+                    document.getElementById("user-stats-period").innerHTML = text;
                 });
 
         }
@@ -160,25 +155,24 @@
                 <div class="col-sm-6 col-lg-4">
                     <div class="card">
                         <div class="card-body">
-                            <div class="d-flex flex-row justify-content-between">
-                                <div class="d-flex flex-column">
-                                    <div class="d-flex align-items-center">
-                                        <div class="subheader">Users</div>
-                                    </div>
-                                    <div class="d-flex flex-row align-items-center">
-                                        <div class="d-flex align-items-baseline">
-                                            <div class="h1 mb-0 me-2">{{ userCount }}</div>
-                                        </div>
-                                        <div id="icon-container">
-
+                            <div class="d-flex align-items-center">
+                                <div class="subheader">Users</div>
+                                <div class="ms-auto lh-1">
+                                    <div class="dropdown">
+                                        <a class="dropdown-toggle text-muted" href="#" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="user-stats-period">Last 7 days</a>
+                                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="user-stats-period">
+                                            <a class="dropdown-item" href="#" onclick="updateUsersChartsData(7, 'Last 7 days')">Last 7 days</a>
+                                            <a class="dropdown-item" href="#" onclick="updateUsersChartsData(30, 'Last 30 days')">Last 30 days</a>
+                                            <a class="dropdown-item" href="#" onclick="updateUsersChartsData(90, 'Last 3 months')">Last 3 months</a>
                                         </div>
                                     </div>
                                 </div>
-                                <select id="user-stats-period" class="custom-dropdown">
-                                    <option value="7">Last 7 days</option>
-                                    <option value="30">Last 30 days</option>
-                                    <option value="90">Last 3 months</option>
-                                </select>
+                            </div>
+                            <div class="d-flex align-items-baseline">
+                                <div class="h1 mb-0 me-2">{{ userCount }}</div>
+                                <div id="icon-container me-auto">
+
+                                </div>
                             </div>
                         </div>
                         <div id="chart-users-bg" class="chart-sm" style="min-height: 40px;">
