@@ -30,10 +30,12 @@ class RoleRepository
             'level'       => $inputs['level'],
         ]);
 
-        $role->detachAllPermissions();
+        if (!empty($inputs['permissions'])) {
+            $role->detachAllPermissions();
 
-        foreach ($inputs['permissions'] as $permission) {
-            $role->attachPermission($permission);
+            foreach ($inputs['permissions'] as $permission) {
+                $role->attachPermission($permission);
+            }
         }
 
         return $role;

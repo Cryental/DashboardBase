@@ -95,7 +95,7 @@ class RoleController extends Controller
             'slug'          => 'required|string|max:255|unique:roles',
             'description'   => 'required|string|max:255',
             'level'         => 'required|integer|max:11',
-            'permissions'   => 'required|array',
+            'permissions'   => 'array',
             'permissions.*' => [
                 'integer',
                 Rule::exists('permissions', 'id'),
@@ -129,7 +129,7 @@ class RoleController extends Controller
             'name'          => 'required|string|max:255',
             'description'   => 'required|string|max:255',
             'level'         => 'required|integer|max:11',
-            'permissions'   => 'required|array',
+            'permissions'   => 'array',
             'permissions.*' => [
                 'integer',
                 Rule::exists('permissions', 'id'),
