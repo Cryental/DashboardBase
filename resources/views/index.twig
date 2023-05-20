@@ -1,66 +1,38 @@
-{% extends "layout.default" %}
+{% include "partials.main" %}
+<head>
 
-{% block title %}Home{% endblock %}
+    {% include "partials.title-meta" %}
 
-{% block content %}
-    <div class="page-header d-print-none text-white">
-        <div class="container-xl">
-            <div class="row g-2 align-items-center">
-                <div class="col">
-                    <!-- Page pre-title -->
-                    <div class="page-pretitle">
-                        Dashboard
-                    </div>
-                    <h2 class="page-title">
-                        Welcome, {{ auth_user().name }}!
-                    </h2>
-                </div>
+    {% include "partials.head-css" %}
+</head>
+<body>
+<!-- Begin page -->
+<div id="layout-wrapper">
+    {% include "partials.menu" %}
+
+    <!-- ============================================================== -->
+    <!-- Start right Content here -->
+    <!-- ============================================================== -->
+    <div class="main-content">
+        <div class="page-content">
+            <div class="container-fluid">
+                {% include "partials.page-title" %}
             </div>
+            <!-- container-fluid -->
         </div>
+        <!-- End Page-content -->
+
+        {% include "partials.footer" %}
     </div>
-    <div class="page-body">
-        <div class="container-xl">
-            <div class="row row-deck row-cards">
-                <div class="col-sm-6 col-lg-4">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="d-flex align-items-center">
-                                <div class="font-weight-medium">Sales</div>
-                            </div>
-                            <div class="d-flex align-items-baseline">
-                                <div class="h1 mb-0 me-2">0</div>
-                                <small>This day</small>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-lg-4">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="d-flex align-items-center">
-                                <div class="font-weight-medium">Patients</div>
-                            </div>
-                            <div class="d-flex align-items-baseline">
-                                <div class="h1 mb-0 me-2">0</div>
-                                <small>This day</small>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-lg-4">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="d-flex align-items-center">
-                                <div class="font-weight-medium">Sales</div>
-                            </div>
-                            <div class="d-flex align-items-baseline">
-                                <div class="h1 mb-0 me-2">0</div>
-                                <small>This day</small>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-{% endblock %}
+    <!-- end main content-->
+
+</div>
+<!-- END layout-wrapper -->
+
+{% include "partials.vendor-scripts" %}
+
+<!-- App js -->
+<script src="/assets/js/app.js"></script>
+
+</body>
+</html>

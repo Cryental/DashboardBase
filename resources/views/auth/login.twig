@@ -1,63 +1,91 @@
-{% extends "layout.blank" %}
+{% include "partials.main" %}
 
-{% block title %}Login{% endblock %}
+<head>
+    {% include "partials.title-meta" with {'title': 'Login'} %}
+    {% include "partials.head-css" %}
+</head>
 
-{% block content %}
-<body class="theme-dark d-flex flex-column">
-<div class="page page-center">
-    <div class="container container-tight py-4">
-        <div class="text-center mb-4">
-            <a href="#" class="navbar-brand navbar-brand"><img src="/img/logo.png" height="36" alt=""></a>
-        </div>
-        <div class="card card-md">
-            <div class="card-body">
-                <h2 class="h2 text-center mb-4">Login To Your Account</h2>
-                <form method="POST" autocomplete="off" action="{{ route('login') }}">
-                    <input type="hidden" name="_token" value="{{ csrf_token() }}"/>
+<body>
 
-                    <div class="mb-3">
-                        <label class="form-label">Email Address</label>
-                        <input id="email" class="form-control" type="email" name="email" autocomplete="off"
-                               value="{{ input_old('email') }}" required>
-                    </div>
-                    <div class="mb-2">
-                        <label class="form-label">
-                            Password
-                            <span class="form-label-description">
-                    <a href="{{ route('password.email') }}">Forgot Password?</a>
-                  </span>
-                        </label>
-                        <input id="password" name="password" type="password" class="form-control" autocomplete="off"
-                               required>
-                    </div>
-
-                    <div class="form-footer">
-                        {% if errors is not empty %}
-                            <div class="alert alert-danger">
-                                <p>{{ errors.all()|first }}</p>
+<div class="auth-page-wrapper py-5 d-flex justify-content-center align-items-center min-vh-100">
+    <!-- auth page content -->
+    <div class="auth-page-content overflow-hidden p-0">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-8 col-lg-6 col-xl-5">
+                    <div class="card mt-4">
+                        <div class="card-body p-4">
+                            <div class="text-center mt-2">
+                                <h5 class="text-primary">Welcome Back!</h5>
+                                <p class="text-muted">Sign in to continue to Cryental's Central.</p>
                             </div>
-                        {% endif %}
-                        {% if session('status') is not empty %}
-                            <div class="alert alert-success">
-                                <p>{{ session('status') }}</p>
+                            <div class="p-2 mt-4">
+                                <form method="POST" autocomplete="off" action="{{ route('login') }}">
+                                    <input type="hidden" name="_token" value="{{ csrf_token() }}"/>
+
+                                    <div class="mb-3">
+                                        <label class="form-label">Email Address</label>
+                                        <input id="email" class="form-control" type="email" name="email" autocomplete="off"
+                                               value="{{ input_old('email') }}" required>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <div class="float-end">
+                                            <a href="{{ route('password.email') }}" class="text-muted">Forgot password?</a>
+                                        </div>
+                                        <label class="form-label" for="password-input">Password</label>
+                                        <div class="position-relative auth-pass-inputgroup mb-3">
+                                            <input name="password" type="password" class="form-control pe-5 password-input" id="password-input">
+                                            <button class="btn btn-link position-absolute end-0 top-0 text-decoration-none text-muted shadow-none password-addon" type="button" id="password-addon"><i class="ri-eye-fill align-middle"></i></button>
+                                        </div>
+                                    </div>
+
+                                    <div class="mt-4">
+                                        {% if errors is not empty %}
+                                            <div class="alert alert-danger">
+                                                {{ errors.all()|first }}
+                                            </div>
+                                        {% endif %}
+                                        {% if session('status') is not empty %}
+                                            <div class="alert alert-success">
+                                                {{ session('status') }}
+                                            </div>
+                                        {% endif %}
+                                        <button class="btn btn-success w-100" type="submit">Sign In</button>
+                                    </div>
+
+                                    <div class="mt-4 text-center">
+                                        <div class="signin-other-title">
+                                            <h5 class="fs-13 mb-4 title">Sign In with</h5>
+                                        </div>
+                                        <div class="">
+                                            <button type="button" class="btn btn-danger waves-effect waves-light w-100"><i class="ri-google-fill fs-16"></i></button>
+                                        </div>
+                                    </div>
+                                </form>
                             </div>
-                        {% endif %}
-                        <button type="submit" class="btn btn-primary w-100">Login</button>
+                        </div>
+                        <!-- end card body -->
                     </div>
-                </form>
-            </div>
-            <div class="hr-text">or</div>
-            <div class="card-body">
-                <div class="row">
-                    <div class="col"><a href="/login/google" class="btn w-100">
-                            Login with Google
-                        </a></div>
+                    <!-- end card -->
+
+                    <div class="mt-4 text-center">
+                        <p class="mb-0">Don't have an account? <a href="{{ route('register') }}" class="fw-semibold text-primary text-decoration-underline">Register</a></p>
+                    </div>
+
                 </div>
             </div>
+            <!-- end row -->
         </div>
-        <div class="text-center text-muted mt-3">
-            Don't have account yet? <a href="{{ route('register') }}" tabindex="-1">Register</a>
-        </div>
+        <!-- end container -->
     </div>
+    <!-- end auth page content -->
 </div>
-{% endblock %}
+<!-- end auth-page-wrapper -->
+
+{% include "partials.vendor-scripts" %}
+
+<!-- password-addon init -->
+<script src="/assets/js/pages/password-addon.init.js"></script>
+</body>
+</html>

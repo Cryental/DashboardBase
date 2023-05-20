@@ -1,27 +1,38 @@
-<!doctype html>
-<html lang="en">
+{% include "partials.main" %}
 <head>
-    <meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
-    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
-    <title>{% block title %}{% endblock %} - Cryental's Central</title>
 
-    {% include "layout.head" %}
+    {% include "partials.title-meta" %}
 
-    {% block included_stylesheets %}{% endblock %}
+    {% include "partials.head-css" %}
 </head>
-<body class="theme-dark">
-<div class="page">
-    {% include "layout.header" %}
+<body>
+<!-- Begin page -->
+<div id="layout-wrapper">
+    {% include "partials.menu" %}
 
-    <div class="page-wrapper">
-        {% block content %}{% endblock %}
+    <!-- ============================================================== -->
+    <!-- Start right Content here -->
+    <!-- ============================================================== -->
+    <div class="main-content">
+        <div class="page-content">
+            <div class="container-fluid">
+                {% include "partials.page-title" %}
+            </div>
+            <!-- container-fluid -->
+        </div>
+        <!-- End Page-content -->
+
+        {% include "partials.footer" %}
     </div>
+    <!-- end main content-->
 
-    {% include "layout.footer" %}
 </div>
-<script src="/js/tabler.min.js"></script>
-<script src="/js/jQuery-3.6.4.min.js"></script>
-{% block included_scripts %}{% endblock %}
+<!-- END layout-wrapper -->
+
+{% include "partials.vendor-scripts" %}
+
+<!-- App js -->
+<script src="/assets/js/app.js"></script>
+
 </body>
 </html>
