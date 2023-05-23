@@ -1,7 +1,7 @@
 {% include "partials.main" %}
 <head>
 
-    {% include "partials.title-meta" %}
+    {% include "partials.title-meta" with {'title': 'Dashboard'}%}
 
     {% include "partials.head-css" %}
 </head>
@@ -16,7 +16,7 @@
     <div class="main-content">
         <div class="page-content">
             <div class="container-fluid">
-                {% include "partials.page-title" %}
+                {% include "partials.page-title" with {'title': 'Dashboard', 'breadcrumbs': ['Home', 'Dashboard']} %}
             </div>
             <!-- container-fluid -->
         </div>
@@ -33,6 +33,5 @@
 
 <!-- App js -->
 <script src="/assets/js/app.js"></script>
-
 </body>
 </html>

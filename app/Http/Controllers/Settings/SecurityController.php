@@ -38,6 +38,10 @@ class SecurityController extends Controller
                 'bot'    => $dd->isBot(),
             ];
 
+            $ipLocation = geoip($device->ip_address);
+
+            $device->ipLocation = "{$ipLocation->city}, {$ipLocation->country}";
+
             $deviceArrays[] = $device;
         }
 

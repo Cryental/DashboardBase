@@ -1,113 +1,163 @@
-{% extends "layout.default" %}
+{% include "partials.main" %}
+<head>
 
-{% block title %}Public Profile{% endblock %}
+    {% include "partials.title-meta" with {'title': 'Account'} %}
 
-{% block content %}
-<div class="page-header d-print-none">
-    <div class="container-xl">
-        <div class="row g-2 align-items-center">
-            <div class="col">
-                <h2 class="page-title">
-                    Security
-                </h2>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Page body -->
-<div class="page-body">
-    <div class="container-xl">
-        <div class="card">
-            <div class="row g-0">
-                <div class="col-3 d-none d-md-block border-end">
-                    <div class="card-body">
-                        <h4 class="subheader">Account Settings</h4>
-                        <div class="list-group list-group-transparent">
-                            <a href="{{ route('settings.account') }}"
-                               class="list-group-item list-group-item-action d-flex align-items-center active">Public
-                                Profile</a>
-                            <a href="{{ route('settings.security') }}"
-                               class="list-group-item list-group-item-action d-flex align-items-center">Security</a>
-                        </div>
-                        <h4 class="subheader mt-4">Experience</h4>
-                        <div class="list-group list-group-transparent">
-                            <a href="#" class="list-group-item list-group-item-action">Give Feedback</a>
-                        </div>
+    {% include "partials.head-css" %}
+</head>
+<body>
+<!-- Begin page -->
+<div id="layout-wrapper">
+    {% include "partials.menu" %}
+
+    <!-- ============================================================== -->
+    <!-- Start right Content here -->
+    <!-- ============================================================== -->
+    <div class="main-content">
+        <div class="page-content">
+            <div class="container-fluid">
+                <div class="profile-foreground position-relative mx-n4 mt-n4">
+                    <div class="profile-wid-bg">
+                        <img src="/assets/images/profile-bg.jpg" alt="" class="profile-wid-img"/>
                     </div>
                 </div>
-                <div class="col d-flex flex-column">
-                    <form method="POST" autocomplete="off" action="{{ route('settings.account') }}">
-                        <input type="hidden" name="_token" value="{{ csrf_token() }}"/>
-                        <div class="card-body">
-                            <h2 class="mb-4">Public Profile</h2>
-                            <h3 class="card-title">Profile Picture</h3>
-
-                            <div>
-                                <div class="row align-items-center">
-                                    <div class="col-auto"><span class="avatar avatar-xl"
-                                                                style="background-image: url({{ gravatar.get(auth_user().email) }})"></span>
-                                    </div>
-                                    <div class="col-auto">
-                                        You can change your profile image in <a
-                                            href="https://gravatar.com/">Gravatar</a>.
-                                    </div>
-                                </div>
-                                <h3 class="card-title mt-4">Public Profile</h3>
-                                <p class="card-subtitle">If you change your email address, we will send you a
-                                    confirmation email.</p>
-                                <div class="row g-3">
-                                    <div class="col-md">
-                                        <div class="form-label">Name</div>
-                                        <input name="name" type="text" class="form-control"
-                                               value="{{ auth_user().name }}">
-                                    </div>
-                                    <div class="col-md">
-                                        <div class="form-label">Email</div>
-                                        <input name="email" type="email" class="form-control"
-                                               value="{{ auth_user().email }}">
-                                    </div>
-                                </div>
-                                <h3 class="card-title mt-4">Bio</h3>
-                                <p class="card-subtitle">This field supports the basic Markdown style.</p>
-                                <div class="row">
-                                    <div class="col-12">
-                                        <textarea name="bio" class="form-control"
-                                                  rows="3">{{ auth_user().bio }}</textarea>
-                                    </div>
-                                </div>
-                                <br>
-                                <div class="row g-3">
-                                    <div class="col-md">
-                                        <div class="form-label">Website URL</div>
-                                        <input name="website_url" type="text" class="form-control"
-                                               value="{{ auth_user().website_url }}">
+                <div class="pt-4 mb-4 mb-lg-3 pb-lg-4 profile-wrapper">
+                    <div class="row g-4">
+                        <div class="col-auto">
+                            <div class="avatar-lg">
+                                <img src="{{ gravatar.get(auth_user().email) }}" alt="user-img"
+                                     class="img-thumbnail rounded-circle"/>
+                            </div>
+                        </div>
+                        <!--end col-->
+                        <div class="col">
+                            <div class="p-2">
+                                <h3 class="text-white mb-1">{{ auth_user().name }}</h3>
+                                <p class="text-white-75">{{ auth_user().roles.first()['name'] }}</p>
+                                <div class="hstack text-white-50 gap-1">
+                                    <div class="me-2"><i
+                                            class="ri-mail-line me-1 text-white-75 fs-16 align-middle"></i>{{ auth_user().email }}
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="card-footer bg-transparent mt-auto">
-                            {% if errors is not empty %}
-                                <div class="alert alert-danger">
-                                    <p>{{ errors.all()|first }}</p>
-                                </div>
-                            {% endif %}
+                        <!--end col-->
 
-                            {% if session('status') is not empty %}
-                                <div class="alert alert-success">
-                                    <p>{{ session('status') }}</p>
-                                </div>
-                            {% endif %}
+                    </div>
+                    <!--end row-->
+                </div>
 
-                            <div class="btn-list justify-content-end">
-                                <a href="{{ route('settings.account') }}" class="btn">
-                                    Cancel
-                                </a>
-                                <button type="submit" class="btn btn-primary">Submit</button>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div>
+                            <div class="d-flex profile-wrapper">
+                                <!-- Nav tabs -->
+                                <ul class="nav nav-pills animation-nav profile-nav gap-2 gap-lg-3 flex-grow-1"
+                                    role="tablist">
+                                    <li class="nav-item" role="presentation">
+                                        <a class="nav-link fs-14 active" href="{{ route('settings.account')}}" aria-selected="true" tabindex="-1">
+                                            <i class="ri-user-fill d-inline-block d-md-none"></i> <span
+                                                class="d-none d-md-inline-block">Account</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item" role="presentation">
+                                        <a class="nav-link fs-14" href="{{ route('settings.security')}}"
+                                           aria-selected="false" tabindex="-1">
+                                            <i class="ri-lock-fill d-inline-block d-md-none"></i> <span
+                                                class="d-none d-md-inline-block">Security</span>
+                                        </a>
+                                    </li>
+                                </ul>
                             </div>
+                            <!-- Tab panes -->
+                            <div class="tab-content pt-4 text-muted">
+                                <div class="tab-pane active" id="account-tab" role="tabpanel">
+                                    <div class="card">
+                                        <!--end col-->
+                                        <div class="col-xxl-12">
+                                            <form method="POST" autocomplete="off"
+                                                  action="{{ route('settings.account') }}">
+                                                <input type="hidden" name="_token" value="{{ csrf_token() }}"/>
+                                                <div class="card-body">
+                                                    {% if errors is not empty %}
+                                                        <div class="alert alert-danger">
+                                                            {{ errors.all()|first }}
+                                                        </div>
+                                                    {% endif %}
+
+                                                    {% if session('status') is not empty %}
+                                                        <div class="alert alert-success">
+                                                            {{ session('status') }}
+                                                        </div>
+                                                    {% endif %}
+
+                                                    <div>
+                                                        <div class="row mb-3">
+                                                            <div class="col-md">
+                                                                <div class="form-label">Name</div>
+                                                                <input name="name" type="text" class="form-control"
+                                                                       value="{{ auth_user().name }}">
+                                                            </div>
+                                                            <div class="col-md">
+                                                                <div class="form-label">Email</div>
+                                                                <input name="email" type="email" class="form-control"
+                                                                       value="{{ auth_user().email }}">
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="form-label">Bio</div>
+                                                                <textarea name="bio" class="form-control"
+                                                                          rows="3">{{ auth_user().bio }}</textarea>
+                                                            </div>
+                                                        </div>
+                                                        <br>
+                                                        <div class="row mb-3">
+                                                            <div class="col-md">
+                                                                <div class="form-label">Website URL</div>
+                                                                <input name="website_url" type="text"
+                                                                       class="form-control"
+                                                                       value="{{ auth_user().website_url }}">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="card-footer bg-transparent mt-auto">
+                                                    <div class="btn-list text-end">
+                                                        <a href="{{ route('settings.account') }}" class="btn">
+                                                            Cancel
+                                                        </a>
+                                                        <button type="submit" class="btn btn-primary">Submit</button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div><!-- end card -->
+                                    </div>
+                                    <!--end col-->
+                                </div>
+                                <!--end tab-pane-->
+                            </div>
+                            <!--end tab-content-->
                         </div>
-                    </form>
+                    </div>
+                    <!--end col-->
                 </div>
             </div>
+            <!-- container-fluid -->
         </div>
+        <!-- End Page-content -->
+
+        {% include "partials.footer" %}
     </div>
-    {% endblock %}
+    <!-- end main content-->
+
+</div>
+<!-- END layout-wrapper -->
+
+{% include "partials.vendor-scripts" %}
+
+<!-- App js -->
+<script src="/assets/js/app.js"></script>
+
+</body>
+</html>
