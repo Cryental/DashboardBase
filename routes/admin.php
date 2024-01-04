@@ -23,12 +23,13 @@ Route::prefix('admin')->group(function () {
         Route::post('/users/search', [\App\Http\Controllers\Admin\UserController::class, 'search'])
             ->name('admin.users.search');
         Route::post('/users', [\App\Http\Controllers\Admin\UserController::class, 'store']);
-        Route::post('/users/{id}/remove', [\App\Http\Controllers\Admin\UserController::class, 'delete']);
+        Route::post('/users/{id}/remove', [\App\Http\Controllers\Admin\UserController::class, 'destroy']);
         Route::get('/users/{id}', [\App\Http\Controllers\Admin\UserController::class, 'edit']);
-        Route::post('/users/{id}', [\App\Http\Controllers\Admin\UserController::class, 'editSave']);
-        Route::get('/users/{id}/security', [\App\Http\Controllers\Admin\UserController::class, 'securityShow']);
-        Route::post('/users/{id}/security', [\App\Http\Controllers\Admin\UserController::class, 'securityEditSave']);
-        Route::get('/users/{id}/remove_device/{device_id}', [\App\Http\Controllers\Admin\UserController::class, 'logoutDevice']);
+        Route::post('/users/{id}', [\App\Http\Controllers\Admin\UserController::class, 'update']);
+        Route::get('/users/{id}/security', [\App\Http\Controllers\Admin\UserController::class, 'showSecurity']);
+        Route::post('/users/{id}/security', [\App\Http\Controllers\Admin\UserController::class, 'updateSecurity']);
+        Route::get('/users/{id}/remove_device/{device_id}', [\App\Http\Controllers\Admin\UserController::class, 'logoutFromDevice']);
+        Route::post('/users/{userId}/disable-2fa', [\App\Http\Controllers\Admin\UserController::class, 'destroyTwoFactorAuth'])->name('admin.users.disable-2fa');
 
         Route::get('/roles', [\App\Http\Controllers\Admin\RoleController::class, 'show'])
             ->name('admin.roles');

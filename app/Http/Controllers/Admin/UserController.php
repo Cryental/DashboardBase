@@ -91,7 +91,7 @@ class UserController extends Controller
         ]);
     }
 
-    public function securityShow(Request $request, $id)
+    public function showSecurity(Request $request, $id)
     {
         $user = $this->userRepository->Find($id);
 
@@ -123,7 +123,7 @@ class UserController extends Controller
         ]);
     }
 
-    public function securityEditSave(Request $request, $id)
+    public function updateSecurity(Request $request, $id)
     {
         if (! Auth::user()->hasPermission('edit.users')) {
             abort(403);
@@ -150,13 +150,38 @@ class UserController extends Controller
         return back();
     }
 
-    public function logoutDevice(Request $request, $id, $device_id)
+    public function logoutFromDevice(Request $request, $id, $device_id)
     {
         if (! Auth::user()->hasPermission('edit.users')) {
             abort(403);
         }
 
         $this->devicesRepository->LogoutUserDevice($id, $device_id);
+
+        return back();
+    }
+
+    public function destroyTwoFactorAuth(Request $request, $userId)
+    {
+        if (!Auth::user()->hasPermission('edit.users')) {
+            abort(403);
+        }
+
+        $user = User::find($userId);
+
+        if (!$user) {
+            abort(404, 'User not found');
+        }
+
+        // Assuming the 2FA details are stored in a method like `disableTwoFactorAuth()`
+        // on the User model. You would need to implement this logic based on your 2FA setup.
+        $user->two_factor_confirmed = null;
+        $user->two_factor_confirmed_at = null;
+        $user->two_factor_recovery_codes = null;
+
+        $user->update();
+
+        session()->flash('status', 'Two-factor authentication disabled for ' . $user->name);
 
         return back();
     }
@@ -192,7 +217,7 @@ class UserController extends Controller
         return redirect('/admin/users/'.$user->id);
     }
 
-    public function editSave(Request $request, $id)
+    public function update(Request $request, $id)
     {
         if (! Auth::user()->hasPermission('edit.users')) {
             abort(403);
@@ -238,7 +263,7 @@ class UserController extends Controller
         return back();
     }
 
-    public function delete(Request $request, $id)
+    public function destroy(Request $request, $id)
     {
         if (! Auth::user()->hasPermission('delete.users')) {
             abort(403);
