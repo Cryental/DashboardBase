@@ -2,26 +2,102 @@
 
 {% block title %}Two-Factor Authorization{% endblock %}
 
+{% block included_scripts %}
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var inputs = document.querySelectorAll('[data-code-input]');
+            var form = document.getElementById('twoFactorForm');
+
+            function updateFullCode() {
+                var fullCode = '';
+                for(var i = 0; i < inputs.length; i++) {
+                    fullCode += inputs[i].value;
+                }
+                document.getElementById('fullCode').value = fullCode;
+            }
+
+            function setCursorToEnd(input) {
+                var len = input.value.length;
+                input.setSelectionRange(len, len);
+            }
+
+            inputs.forEach((input, index) => {
+                input.addEventListener('keydown', function(e) {
+                    // Allow only digits, backspace, tab, and arrow keys
+                    if (!e.key.match(/[0-9]/) && e.key !== 'Backspace' && e.key !== 'Tab' && e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') {
+                        e.preventDefault();
+                    }
+                    // Clear input and move to the previous field if backspace is pressed
+                    if (e.key === 'Backspace') {
+                        setTimeout(function() {
+                            if (input.value === '' && index > 0) {
+                                inputs[index - 1].focus();
+                            }
+                        }, 0);
+                    }
+                    // Move focus to the previous field if left arrow key is pressed
+                    if (e.key === 'ArrowLeft' && index > 0) {
+                        inputs[index - 1].focus();
+                    }
+                    // Move focus to the next field if right arrow key is pressed
+                    if (e.key === 'ArrowRight' && index < inputs.length - 1) {
+                        inputs[index + 1].focus();
+                    }
+                    input.addEventListener('focus', function(e) {
+                        setCursorToEnd(input);
+                    });
+
+                    input.addEventListener('click', function(e) {
+                        setCursorToEnd(input);
+                    });
+                });
+
+                input.addEventListener('input', function(e) {
+                    // Move to next field if a digit is entered
+                    if (e.target.value.length === e.target.maxLength && index + 1 < inputs.length) {
+                        inputs[index + 1].focus();
+                    }
+                    // Update and submit form if all inputs are filled
+                    if (Array.from(inputs).every(input => input.value.length === input.maxLength)) {
+                        updateFullCode();
+                        form.submit();
+                    }
+                });
+            });
+
+            form.addEventListener('submit', function(e) {
+                updateFullCode();
+            });
+        });
+    </script>
+
+{% endblock %}
 {% block content %}
 <body class="d-flex flex-column">
 <div class="page page-center">
     <div class="container container-tight py-4">
         <div class="text-center mb-4">
-            <a href="#" class="navbar-brand navbar-brand"><img src="/img/logo.png" height="36" alt=""></a>
+            <a href="#" class="navbar-brand"><img src="/img/logo.png" height="36" alt=""></a>
         </div>
         <div class="card card-md">
             <div class="card-body">
                 <h2 class="h2 text-center mb-4">Please enter 2FA code</h2>
                 <p class="mb-4">Two-factor authentication (2FA) is enabled for your account. Please enter a code to log in.</p>
-                <form method="POST" autocomplete="off" action="{{ route('two-factor.login') }}">
+                <form id="twoFactorForm" method="POST" autocomplete="off" action="{{ route('two-factor.login') }}">
                     <input type="hidden" name="_token" value="{{ csrf_token() }}"/>
+                    <input type="hidden" id="fullCode" name="code" />
 
-                    <div class="mb-3">
-                        <label class="form-label">Code</label>
-                        <input id="code" name="code" type="text" class="form-control" required>
+                    <div class="my-5">
+                        <div class="row g-2 justify-content-center">
+                            {% for i in 1..6 %}
+                                <div class="col-2">
+                                    <input type="text" class="form-control form-control-lg text-center py-3 wider-input" maxlength="1" inputmode="numeric" pattern="[0-9]*" data-code-input id="codeDigit{{ i }}" required>
+                                </div>
+                            {% endfor %}
+                        </div>
                     </div>
 
-                    <div class="form-footer">
+                    <div class="form-footer mt-4">
                         {% if errors is not empty %}
                             <div class="alert alert-danger">
                                 <p>{{ errors.all()|first }}</p>

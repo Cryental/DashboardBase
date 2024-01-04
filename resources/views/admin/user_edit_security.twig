@@ -1,0 +1,343 @@
+{% extends "layout.admin" %}
+
+{% block title %}{{ user.name }}{% endblock %}
+
+{% block included_scripts %}
+    {% if errors is not empty %}
+        <script>
+            $(document).ready(function() {
+                $('#modal-error-message').modal('show');
+            });
+        </script>
+    {% endif %}
+
+    {% if session('status') is not empty %}
+        <script>
+            $(document).ready(function() {
+                $('#modal-success-message').modal('show');
+            });
+        </script>
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+    <div class="page-header d-print-none">
+        <div class="container-xl">
+            <div class="row g-2 align-items-center">
+                <div class="col">
+                    <!-- Page pre-title -->
+                    <div class="page-pretitle">
+                        Admin / Users / {{ user.id }}
+                    </div>
+                    <h2 class="page-title">
+                        {{ user.name }}
+                    </h2>
+                </div>
+                {% if auth_user().hasPermission('edit.users') %}
+                    {% if user.id != 1 %}
+                        <div class="col-auto ms-auto d-print-none">
+                            <a href="#" class="btn btn-danger" data-bs-toggle="modal"
+                               data-bs-target="#modal-user-remove">
+                                Delete
+                            </a>
+                        </div>
+                    {% else %}
+                        <div class="col-auto ms-auto d-print-none">
+                            <a href="#" class="btn btn-danger" data-bs-toggle="modal"
+                               data-bs-target="#modal-default-role-warning">
+                                Delete
+                            </a>
+                        </div>
+                    {% endif %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <div class="page-body">
+        <div class="container-xl">
+            <div class="row row-deck row-cards">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row row-deck align-items-center">
+                                <div class="d-flex py-1 align-items-center">
+                                    <span class="avatar me-2" style="background-image: url({{ gravatar.get(user.email) }}"></span>
+                                    <div class="flex-fill">
+                                        <div class="font-weight-medium">{{ user.name }}</div>
+                                        <div class="text-muted"><a class="text-reset">{{ user.email }}</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-2">
+                    <div class="card-body p-0">
+                        <a href="/admin/users/{{ user.id }}" class="btn w-100 rounded-0">Public Profile</a>
+                        <a href="/admin/users/{{ user.id }}" class="btn w-100 rounded-0">Connected Apps</a>
+                        <a href="/admin/users/{{ user.id }}" class="btn btn-primary w-100 rounded-0">Security</a>
+                    </div>
+                </div>
+
+                <div class="col-lg-10">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Security</h3>
+                        </div>
+                        <form method="POST" autocomplete="off" action="/admin/users/{{ user.id }}/security">
+                            <div class="card-body">
+                                <h3 class="card-title">Devices</h3>
+                                <div class="card">
+                                    <div class="table-responsive">
+                                        <table class="table table-vcenter table-mobile-md card-table">
+                                            <thead>
+                                            <tr>
+                                                <th>IP Address</th>
+                                                <th>Browser</th>
+                                                <th>Last Access</th>
+                                                <th class="w-1"></th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            {% for device in devices %}
+                                                <tr>
+                                                    <td data-label="IP Address">
+                                                        <div class="d-flex py-1 align-items-center">
+                                                        <span class="avatar me-2">
+                                                            {% if device.deviceDetector.mobile == true %}
+                                                                <svg xmlns="http://www.w3.org/2000/svg"
+                                                                     class="icon icon-tabler icon-tabler-device-mobile"
+                                                                     width="24" height="24" viewBox="0 0 24 24"
+                                                                     stroke-width="2" stroke="currentColor" fill="none"
+                                                                     stroke-linecap="round" stroke-linejoin="round">
+   <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+   <path d="M6 5a2 2 0 0 1 2 -2h8a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-8a2 2 0 0 1 -2 -2v-14z"></path>
+   <path d="M11 4h2"></path>
+   <path d="M12 17v.01"></path>
+</svg>
+                                                            {% elseif device.deviceDetector.tablet == true %}
+                                                                <svg xmlns="http://www.w3.org/2000/svg"
+                                                                     class="icon icon-tabler icon-tabler-device-tablet"
+                                                                     width="24" height="24" viewBox="0 0 24 24"
+                                                                     stroke-width="2" stroke="currentColor" fill="none"
+                                                                     stroke-linecap="round" stroke-linejoin="round">
+   <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+   <path d="M5 4a1 1 0 0 1 1 -1h12a1 1 0 0 1 1 1v16a1 1 0 0 1 -1 1h-12a1 1 0 0 1 -1 -1v-16z"></path>
+   <path d="M11 17a1 1 0 1 0 2 0a1 1 0 0 0 -2 0"></path>
+</svg>
+                                                            {% elseif device.deviceDetector.pc == true %}
+                                                                <svg xmlns="http://www.w3.org/2000/svg"
+                                                                     class="icon icon-tabler icon-tabler-device-desktop"
+                                                                     width="24" height="24" viewBox="0 0 24 24"
+                                                                     stroke-width="2" stroke="currentColor" fill="none"
+                                                                     stroke-linecap="round" stroke-linejoin="round">
+   <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+   <path d="M3 5a1 1 0 0 1 1 -1h16a1 1 0 0 1 1 1v10a1 1 0 0 1 -1 1h-16a1 1 0 0 1 -1 -1v-10z"></path>
+   <path d="M7 20h10"></path>
+   <path d="M9 16v4"></path>
+   <path d="M15 16v4"></path>
+</svg>
+                                                            {% elseif device.deviceDetector.tv == true %}
+                                                                <svg xmlns="http://www.w3.org/2000/svg"
+                                                                     class="icon icon-tabler icon-tabler-device-tv"
+                                                                     width="24" height="24" viewBox="0 0 24 24"
+                                                                     stroke-width="2" stroke="currentColor" fill="none"
+                                                                     stroke-linecap="round" stroke-linejoin="round">
+   <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+   <path d="M3 7m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v9a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z"></path>
+   <path d="M16 3l-4 4l-4 -4"></path>
+</svg>
+                                                            {% elseif device.deviceDetector.camera == true %}
+                                                                <svg xmlns="http://www.w3.org/2000/svg"
+                                                                     class="icon icon-tabler icon-tabler-camera"
+                                                                     width="24" height="24" viewBox="0 0 24 24"
+                                                                     stroke-width="2" stroke="currentColor" fill="none"
+                                                                     stroke-linecap="round" stroke-linejoin="round">
+   <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+   <path
+       d="M5 7h1a2 2 0 0 0 2 -2a1 1 0 0 1 1 -1h6a1 1 0 0 1 1 1a2 2 0 0 0 2 2h1a2 2 0 0 1 2 2v9a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-9a2 2 0 0 1 2 -2"></path>
+   <path d="M9 13a3 3 0 1 0 6 0a3 3 0 0 0 -6 0"></path>
+</svg>
+                                                            {% elseif device.deviceDetector.bot == true %}
+                                                                <svg xmlns="http://www.w3.org/2000/svg"
+                                                                     class="icon icon-tabler icon-tabler-robot"
+                                                                     width="24" height="24" viewBox="0 0 24 24"
+                                                                     stroke-width="2" stroke="currentColor" fill="none"
+                                                                     stroke-linecap="round" stroke-linejoin="round">
+   <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+   <path
+       d="M7 7h10a2 2 0 0 1 2 2v1l1 1v3l-1 1v3a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2v-3l-1 -1v-3l1 -1v-1a2 2 0 0 1 2 -2z"></path>
+   <path d="M10 16h4"></path>
+   <circle cx="8.5" cy="11.5" r=".5" fill="currentColor"></circle>
+   <circle cx="15.5" cy="11.5" r=".5" fill="currentColor"></circle>
+   <path d="M9 7l-1 -4"></path>
+   <path d="M15 7l1 -4"></path>
+</svg>
+                                                            {% else %}
+                                                                <svg xmlns="http://www.w3.org/2000/svg"
+                                                                     class="icon icon-tabler icon-tabler-question-mark"
+                                                                     width="24" height="24" viewBox="0 0 24 24"
+                                                                     stroke-width="2" stroke="currentColor" fill="none"
+                                                                     stroke-linecap="round" stroke-linejoin="round">
+   <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+   <path d="M8 8a3.5 3 0 0 1 3.5 -3h1a3.5 3 0 0 1 3.5 3a3 3 0 0 1 -2 3a3 4 0 0 0 -2 4"></path>
+   <path d="M12 19l0 .01"></path>
+</svg>
+                                                            {% endif %}
+
+                                                        </span>
+                                                            <div class="flex-fill">
+                                                                <div
+                                                                    class="font-weight-medium">{{ device.ip_address }}</div>
+                                                                <div class="text-muted">Miami, United States</div>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td data-label="Browser">
+                                                        <div>{{ device.agentBrowser }}</div>
+                                                        <div class="text-muted">{{ device.agentPlatform }}</div>
+                                                    </td>
+                                                    <td data-label="Last Access" class="text-muted">
+                                                        {{ device.last_activity|date("Y-m-d H:i:s") }} UTC
+                                                    </td>
+                                                    <td>
+                                                        <div class="btn-list flex-nowrap">
+                                                            {% if sessionID == device.id %}
+                                                                <a href="#" class="btn disabled">
+                                                                    Current
+                                                                </a>
+                                                            {% else %}
+                                                                <a href="/admin/users/{{ user.id }}/remove_device/{{ device.id }}"
+                                                                   class="btn btn-danger">
+                                                                    Remove
+                                                                </a>
+                                                            {% endif %}
+                                                        </div>
+                                                    </td>
+                                                </tr>
+
+                                            {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                                <h3 class="card-title mt-4">Password</h3>
+                                    <input type="hidden" name="_token" value="{{ csrf_token() }}"/>
+                                    <div class="mb-3">
+                                        <div>
+                                            <input type="password" name="password" class="form-control" placeholder="Password">
+                                            <small class="form-hint">
+                                                Password must be 8-20 characters long, contain letters and numbers, and must not contain
+                                                spaces, special characters, or emoji.
+                                            </small>
+                                        </div>
+                                    </div>
+                            </div>
+
+                                <div class="card-footer bg-transparent mt-auto">
+                                    <div class="btn-list justify-content-end">
+                                        <a href="{{ route('admin.users') }}" class="btn">
+                                            Cancel
+                                        </a>
+                                        <button type="submit" class="btn btn-primary">Submit</button>
+                                    </div>
+                                </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal modal-blur fade" id="modal-user-remove" tabindex="-1" role="dialog" aria-modal="true"
+         aria-hidden="true">
+        <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <div class="modal-status bg-danger"></div>
+                <div class="modal-body text-center py-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon mb-2 text-danger icon-lg" width="24" height="24"
+                         viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
+                         stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                        <path d="M12 9v2m0 4v.01"></path>
+                        <path
+                            d="M5 19h14a2 2 0 0 0 1.84 -2.75l-7.1 -12.25a2 2 0 0 0 -3.5 0l-7.1 12.25a2 2 0 0 0 1.75 2.75"></path>
+                    </svg>
+                    <h3>Are you sure?</h3>
+                    <div class="text-muted">Do you really want to remove this user? What you've done cannot be undone.
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="w-100">
+                        <form id="user-remove-post" method="POST" autocomplete="off" action="">
+                            <input type="hidden" name="_token" value="{{ csrf_token() }}"/>
+
+                            <div class="row">
+                                <div class="col"><a href="#" class="btn w-100" data-bs-dismiss="modal">
+                                        Cancel
+                                    </a></div>
+                                <div class="col">
+                                    <button type="submit" class="btn btn-danger w-100">Remove User</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal modal-blur fade" id="modal-error-message" tabindex="-1" role="dialog" aria-modal="true"
+         aria-hidden="true">
+        <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <div class="modal-status bg-danger"></div>
+                <div class="modal-body text-center py-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon mb-2 text-danger icon-lg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                        <path d="M19.875 6.27a2.225 2.225 0 0 1 1.125 1.948v7.284c0 .809 -.443 1.555 -1.158 1.948l-6.75 4.27a2.269 2.269 0 0 1 -2.184 0l-6.75 -4.27a2.225 2.225 0 0 1 -1.158 -1.948v-7.285c0 -.809 .443 -1.554 1.158 -1.947l6.75 -3.98a2.33 2.33 0 0 1 2.25 0l6.75 3.98h-.033z"></path>
+                        <path d="M12 12m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"></path>
+                    </svg>
+                    {% if errors is not empty %}
+                        <h3>Error Occurred</h3>
+                    <div class="text-muted">{{ errors.all()|first }}
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal modal-blur fade" id="modal-success-message" tabindex="-1" role="dialog" aria-modal="true"
+         aria-hidden="true">
+        <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <div class="modal-status bg-success"></div>
+                <div class="modal-body text-center py-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon mb-2 text-danger icon-lg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                        <path d="M5 5m0 1a1 1 0 0 1 1 -1h12a1 1 0 0 1 1 1v12a1 1 0 0 1 -1 1h-12a1 1 0 0 1 -1 -1z" />
+                        <path d="M9 9h6v6h-6z" />
+                        <path d="M3 10h2" />
+                        <path d="M3 14h2" />
+                        <path d="M10 3v2" />
+                        <path d="M14 3v2" />
+                        <path d="M21 10h-2" />
+                        <path d="M21 14h-2" />
+                        <path d="M14 21v-2" />
+                        <path d="M10 21v-2" />
+                    </svg>
+                    {% if session('status') is not empty %}
+                        <h3>Success</h3>
+                        <div class="text-muted">{{ session('status') }}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -15,12 +15,12 @@ class CreateNewUser implements CreatesNewUsers
     /**
      * Validate and create a newly registered user.
      *
-     * @param array<string, string> $input
+     * @param  array<string, string>  $input
      */
     public function create(array $input): User
     {
         Validator::make($input, [
-            'name'  => ['required', 'string', 'max:255'],
+            'name' => ['required', 'string', 'max:255'],
             'email' => [
                 'required',
                 'string',
@@ -29,12 +29,12 @@ class CreateNewUser implements CreatesNewUsers
                 Rule::unique(User::class),
             ],
             'password' => $this->passwordRules(),
-            'captcha'  => 'required|captcha',
+            'captcha' => 'required|captcha',
         ])->validate();
 
         $user = User::create([
-            'name'     => $input['name'],
-            'email'    => $input['email'],
+            'name' => $input['name'],
+            'email' => $input['email'],
             'password' => Hash::make($input['password']),
         ]);
 

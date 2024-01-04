@@ -26,6 +26,8 @@ Route::prefix('admin')->group(function () {
         Route::post('/users/{id}/remove', [\App\Http\Controllers\Admin\UserController::class, 'delete']);
         Route::get('/users/{id}', [\App\Http\Controllers\Admin\UserController::class, 'edit']);
         Route::post('/users/{id}', [\App\Http\Controllers\Admin\UserController::class, 'editSave']);
+        Route::get('/users/{id}/security', [\App\Http\Controllers\Admin\UserController::class, 'securityShow']);
+        Route::post('/users/{id}/security', [\App\Http\Controllers\Admin\UserController::class, 'securityEditSave']);
         Route::get('/users/{id}/remove_device/{device_id}', [\App\Http\Controllers\Admin\UserController::class, 'logoutDevice']);
 
         Route::get('/roles', [\App\Http\Controllers\Admin\RoleController::class, 'show'])

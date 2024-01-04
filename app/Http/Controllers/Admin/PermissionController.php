@@ -14,6 +14,7 @@ class PermissionController extends Controller
     use RolesAndPermissionsHelpersTrait;
 
     private RoleRepository $roleRepository;
+
     private PermissionRepository $permissionRepository;
 
     public function __construct(RoleRepository $roleRepository, PermissionRepository $permissionRepository)
@@ -24,7 +25,7 @@ class PermissionController extends Controller
 
     public function show(Request $request)
     {
-        if (!Auth::user()->hasPermission('view.permissions')) {
+        if (! Auth::user()->hasPermission('view.permissions')) {
             abort(403);
         }
 
@@ -36,16 +37,16 @@ class PermissionController extends Controller
 
         return view('admin.permissions', [
             'permissions' => $permissions,
-            'bottomText'  => $showingText,
-            'links'       => Nav::getNavLinks($currentPage, $permissions->lastPage()),
-            'page'        => $currentPage,
-            'search'      => '',
+            'bottomText' => $showingText,
+            'links' => Nav::getNavLinks($currentPage, $permissions->lastPage()),
+            'page' => $currentPage,
+            'search' => '',
         ]);
     }
 
     public function search(Request $request)
     {
-        if (!Auth::user()->hasPermission('view.permissions')) {
+        if (! Auth::user()->hasPermission('view.permissions')) {
             abort(403);
         }
 
@@ -57,28 +58,28 @@ class PermissionController extends Controller
 
         return view('admin.permissions-list', [
             'permissions' => $permissions,
-            'bottomText'  => $showingText,
-            'links'       => Nav::getNavLinks($currentPage, $permissions->lastPage()),
-            'page'        => $currentPage,
-            'search'      => $request->search,
+            'bottomText' => $showingText,
+            'links' => Nav::getNavLinks($currentPage, $permissions->lastPage()),
+            'page' => $currentPage,
+            'search' => $request->search,
         ]);
     }
 
     public function store(Request $request)
     {
-        if (!Auth::user()->hasPermission('create.permissions')) {
+        if (! Auth::user()->hasPermission('create.permissions')) {
             abort(403);
         }
 
         $request->validate([
-            'name'        => 'required|string|max:255',
-            'slug'        => 'required|string|max:255|unique:permissions',
+            'name' => 'required|string|max:255',
+            'slug' => 'required|string|max:255|unique:permissions',
             'description' => 'sometimes|string|max:255',
         ]);
 
         $this->permissionRepository->Create([
-            'name'        => $request->input('name'),
-            'slug'        => $request->input('slug'),
+            'name' => $request->input('name'),
+            'slug' => $request->input('slug'),
             'description' => $request->input('description'),
         ]);
 
@@ -90,21 +91,21 @@ class PermissionController extends Controller
     public function editSave(Request $request, $id)
     {
         // no permissions or trying to edit admin or user roles.
-        if (!Auth::user()->hasPermission('edit.permissions')) {
+        if (! Auth::user()->hasPermission('edit.permissions')) {
             abort(403);
         }
 
         $request->validate([
-            'name'        => 'required|string|max:255',
+            'name' => 'required|string|max:255',
             'description' => 'required|string|max:255',
         ]);
 
         $permission = $this->permissionRepository->Update($id, [
-            'name'        => $request->input('name'),
+            'name' => $request->input('name'),
             'description' => $request->input('description'),
         ]);
 
-        if (!$permission) {
+        if (! $permission) {
             abort(403);
         }
 
@@ -113,13 +114,13 @@ class PermissionController extends Controller
 
     public function edit(Request $request, $id)
     {
-        if (!Auth::user()->hasPermission('edit.permissions')) {
+        if (! Auth::user()->hasPermission('edit.permissions')) {
             abort(403);
         }
 
         $permission = $this->permissionRepository->FindById($id);
 
-        if (!$permission) {
+        if (! $permission) {
             abort(404);
         }
 
@@ -130,13 +131,13 @@ class PermissionController extends Controller
 
     public function delete(Request $request, $id)
     {
-        if (!Auth::user()->hasPermission('delete.permissions')) {
+        if (! Auth::user()->hasPermission('delete.permissions')) {
             abort(403);
         }
 
         $permission = $this->permissionRepository->FindById($id);
 
-        if (!$permission) {
+        if (! $permission) {
             return redirect()->route('admin.permissions');
         }
 

@@ -14,15 +14,12 @@ class TwoFactorAuthController extends Controller
 {
     /**
      * The two factor authentication provider.
-     *
-     * @var TwoFactorAuthenticationProvider
      */
     protected TwoFactorAuthenticationProvider $provider;
 
     /**
      * Create a new action instance.
      *
-     * @param TwoFactorAuthenticationProvider $provider
      *
      * @return void
      */
@@ -40,7 +37,7 @@ class TwoFactorAuthController extends Controller
             Auth::user()->refresh();
         }
 
-        if (!$user->two_factor_confirmed) {
+        if (! $user->two_factor_confirmed) {
             return view('auth.2fa-confirm-code', ['twoFactorSecretKey' => decrypt($user->two_factor_secret)]);
         }
 
@@ -50,7 +47,7 @@ class TwoFactorAuthController extends Controller
     public function enableTwoFactor(User $user)
     {
         $user->forceFill([
-            'two_factor_secret'         => encrypt($this->provider->generateSecretKey()),
+            'two_factor_secret' => encrypt($this->provider->generateSecretKey()),
             'two_factor_recovery_codes' => encrypt(json_encode(Collection::times(8, function () {
                 return RecoveryCode::generate();
             })->all())),
@@ -61,7 +58,7 @@ class TwoFactorAuthController extends Controller
     {
         $confirmed = $request->user()->confirmTwoFactorAuth($request->code);
 
-        if (!$confirmed) {
+        if (! $confirmed) {
             return back()->withErrors('The provided 2FA code is invalid.');
         }
 
@@ -71,10 +68,10 @@ class TwoFactorAuthController extends Controller
     public function cancelTwoFactorAuth()
     {
         Auth::user()->forceFill([
-            'two_factor_secret'         => null,
+            'two_factor_secret' => null,
             'two_factor_recovery_codes' => null,
-            'two_factor_confirmed_at'   => null,
-            'two_factor_confirmed'      => false,
+            'two_factor_confirmed_at' => null,
+            'two_factor_confirmed' => false,
         ])->save();
 
         return redirect()->route('settings.security');

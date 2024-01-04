@@ -22,13 +22,13 @@ class SocialiteController extends Controller
         $userSocial = Socialite::driver('google')->user();
         $user = User::query()->where(['provider' => 'google', 'provider_id' => $userSocial->getId()])->get()->first();
 
-        if (!$user) {
+        if (! $user) {
             $user = User::query()->create([
-                'name'              => $userSocial->getName(),
-                'email'             => $userSocial->getEmail(),
-                'password'          => null,
-                'provider'          => 'google',
-                'provider_id'       => $userSocial->getId(),
+                'name' => $userSocial->getName(),
+                'email' => $userSocial->getEmail(),
+                'password' => null,
+                'provider' => 'google',
+                'provider_id' => $userSocial->getId(),
                 'email_verified_at' => Carbon::now(),
             ]);
 
@@ -47,7 +47,7 @@ class SocialiteController extends Controller
         } else {
             if ($user->two_factor_confirmed) {
                 session()->put([
-                    'login.id'       => $user->getKey(),
+                    'login.id' => $user->getKey(),
                     'login.remember' => false,
                 ]);
 

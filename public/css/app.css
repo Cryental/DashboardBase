@@ -198,3 +198,9 @@ body {
 .dropdown-menu {
     box-shadow: none;
 }
+
+#password-hints .password-hint {
+    color: #333;
+    margin-bottom: 5px;
+}
+

@@ -15,7 +15,7 @@ class UserRepository
     {
         $user = $this->Find($user_id);
 
-        if (!$user) {
+        if (! $user) {
             return null;
         }
 
@@ -42,15 +42,15 @@ class UserRepository
             $user->website_url = $inputs['website_url'];
         }
 
-        if ($user_id != 1) {
-            if (!$user->email_verified_at && $inputs['email-verification'] === 'Verified') {
+        if ($user_id != 1 && array_key_exists('email-verification', $inputs)) {
+            if (! $user->email_verified_at && $inputs['email-verification'] === 'Verified') {
                 $user->email_verified_at = now();
             } elseif ($user->email_verified_at && $inputs['email-verification'] === 'Unverified') {
                 $user->email_verified_at = null;
             }
         }
 
-        if (!empty($inputs['password'])) {
+        if (! empty($inputs['password'])) {
             $user->password = Hash::make($inputs['password']);
         }
 
@@ -64,7 +64,7 @@ class UserRepository
         return User::query()->find($user_id);
     }
 
-    public function FindAll($search, $page, $limit): LengthAwarePaginator|null
+    public function FindAll($search, $page, $limit): ?LengthAwarePaginator
     {
         return User::query()
             ->where('name', 'LIKE', "%$search%")
@@ -103,9 +103,9 @@ class UserRepository
             ->get();
 
         return [
-            'distribution'      => $distribution,
-            'current'           => $currentPeriodRegistrations,
-            'previous'          => $previousPeriodRegistrations,
+            'distribution' => $distribution,
+            'current' => $currentPeriodRegistrations,
+            'previous' => $previousPeriodRegistrations,
             'percentage_growth' => round($percentageGrowth, 2),
         ];
     }

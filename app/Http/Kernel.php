@@ -52,19 +52,19 @@ class Kernel extends HttpKernel
      * @var array<string, class-string|string>
      */
     protected $middlewareAliases = [
-        'auth'             => \App\Http\Middleware\Authenticate::class,
-        'auth.basic'       => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
-        'auth.session'     => \Illuminate\Session\Middleware\AuthenticateSession::class,
-        'cache.headers'    => \Illuminate\Http\Middleware\SetCacheHeaders::class,
-        'can'              => \Illuminate\Auth\Middleware\Authorize::class,
-        'guest'            => \App\Http\Middleware\RedirectIfAuthenticated::class,
+        'auth' => \App\Http\Middleware\Authenticate::class,
+        'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
+        'auth.session' => \Illuminate\Session\Middleware\AuthenticateSession::class,
+        'cache.headers' => \Illuminate\Http\Middleware\SetCacheHeaders::class,
+        'can' => \Illuminate\Auth\Middleware\Authorize::class,
+        'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'password.confirm' => \Illuminate\Auth\Middleware\RequirePassword::class,
-        'signed'           => \App\Http\Middleware\ValidateSignature::class,
-        'throttle'         => \Illuminate\Routing\Middleware\ThrottleRequests::class,
-        'verified'         => \App\Http\Middleware\EnsureEmailIsVerified::class,
-        'social.password'  => \App\Http\Middleware\SocialSetPassword::class,
-        'role'             => \jeremykenedy\LaravelRoles\App\Http\Middleware\VerifyRole::class,
-        'permission'       => \jeremykenedy\LaravelRoles\App\Http\Middleware\VerifyPermission::class,
-        'level'            => \jeremykenedy\LaravelRoles\App\Http\Middleware\VerifyLevel::class,
+        'signed' => \App\Http\Middleware\ValidateSignature::class,
+        'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
+        'verified' => \App\Http\Middleware\EnsureEmailIsVerified::class,
+        'social.password' => \App\Http\Middleware\SocialSetPassword::class,
+        'role' => \jeremykenedy\LaravelRoles\App\Http\Middleware\VerifyRole::class,
+        'permission' => \jeremykenedy\LaravelRoles\App\Http\Middleware\VerifyPermission::class,
+        'level' => \jeremykenedy\LaravelRoles\App\Http\Middleware\VerifyLevel::class,
     ];
 }

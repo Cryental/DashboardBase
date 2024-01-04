@@ -17,9 +17,9 @@ class AccountController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name'        => 'required|string|max:255',
-            'email'       => 'required|string|email|max:255|unique:users,email,'.Auth::id(),
-            'bio'         => 'sometimes|string|max:1000|nullable',
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users,email,'.Auth::id(),
+            'bio' => 'sometimes|string|max:1000|nullable',
             'website_url' => 'sometimes|url|max:500|nullable',
         ]);
 
