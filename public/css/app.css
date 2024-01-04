@@ -204,3 +204,7 @@ body {
     margin-bottom: 5px;
 }
 
+.password-hints .password-hint {
+    color: #333;
+    margin-bottom: 5px;
+}

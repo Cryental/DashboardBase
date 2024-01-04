@@ -18,6 +18,31 @@
             });
         </script>
     {% endif %}
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            // Event handler for password input
+            $('input[name="password"]').on('input', function() {
+                validatePassword($(this).val());
+            });
+
+            function validatePassword(password) {
+                var lengthValid = password.length >= 8 && password.length <= 20;
+                var lettersNumbersValid = /[a-zA-Z]/.test(password) && /\d/.test(password);
+                var noSpacesValid = !(/\s/.test(password) || /[^a-zA-Z\d]/.test(password));
+
+                updateHint('#length-hint', lengthValid);
+                updateHint('#letters-numbers-hint', lettersNumbersValid);
+                updateHint('#no-spaces-hint', noSpacesValid);
+            }
+
+            function updateHint(hintId, isValid) {
+                var color = isValid ? 'yellow' : 'red';
+                var symbol = isValid ? '✔' : '✖';
+                $(hintId).find('.hint-icon').css('color', color).text(symbol);
+            }
+        });
+    </script>
 {% endblock %}
 
 {% block content %}
@@ -228,9 +253,10 @@
                                     <div class="mb-3">
                                         <div>
                                             <input type="password" name="password" class="form-control" placeholder="Password">
-                                            <small class="form-hint">
-                                                Password must be 8-20 characters long, contain letters and numbers, and must not contain
-                                                spaces, special characters, or emoji.
+                                            <small class="form-hint" id="password-hints">
+                                                <p class="password-hint" id="length-hint"><span class="hint-icon" style="color: red;">✖</span> Must be 8-20 characters long</p>
+                                                <p class="password-hint" id="letters-numbers-hint"><span class="hint-icon" style="color: red;">✖</span> Must contain letters and numbers</p>
+                                                <p class="password-hint" id="no-spaces-hint"><span class="hint-icon" style="color: red;">✖</span> Must not contain spaces, special characters, or emoji</p>
                                             </small>
                                         </div>
                                     </div>
@@ -304,8 +330,8 @@
                     </svg>
                     {% if errors is not empty %}
                         <h3>Error Occurred</h3>
-                    <div class="text-muted">{{ errors.all()|first }}
-                    </div>
+                        <div class="text-muted">{{ errors.all()|first }}
+                        </div>
                     {% endif %}
                 </div>
             </div>

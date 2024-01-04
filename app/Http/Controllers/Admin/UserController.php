@@ -39,7 +39,7 @@ class UserController extends Controller
 
         $roles = config('roles.models.role')::all();
 
-        return view('admin.users', [
+        return view('admin.users.index', [
             'users' => $users,
             'bottomText' => $showingText,
             'links' => Nav::getNavLinks($currentPage, $users->lastPage()),
@@ -61,7 +61,7 @@ class UserController extends Controller
 
         $currentPage = $users->currentPage();
 
-        return view('admin.users-list', [
+        return view('admin.users.list', [
             'users' => $users,
             'bottomText' => $showingText,
             'links' => Nav::getNavLinks($currentPage, $users->lastPage()),
@@ -82,24 +82,10 @@ class UserController extends Controller
 
         $currentSessionID = $request->session()->getId();
 
-        $deviceArrays = [];
-
-        foreach ($devices as $device) {
-            $dd = new DeviceDetector($device->user_agent);
-            $dd->parse();
-
-            $device->agentPlatform = $dd->getOs('name').' '.$dd->getOs('version');
-            $device->agentBrowser = $dd->getClient('name').' '.$dd->getClient('version');
-            $device->deviceDetector = DeviceDTO::fromModel($dd)->GetDTO();
-
-            $deviceArrays[] = $device;
-        }
-
         $roles = config('roles.models.role')::all();
 
-        return response()->view('admin.user_edit', [
+        return response()->view('admin.users.edit_public_profile', [
             'user' => $user,
-            'devices' => $deviceArrays,
             'sessionID' => $currentSessionID,
             'roles' => $roles,
         ]);
@@ -130,7 +116,7 @@ class UserController extends Controller
             $deviceArrays[] = $device;
         }
 
-        return response()->view('admin.user_edit_security', [
+        return response()->view('admin.users.edit_security', [
             'user' => $user,
             'devices' => $deviceArrays,
             'sessionID' => $currentSessionID,

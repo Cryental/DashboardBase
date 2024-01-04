@@ -35,7 +35,7 @@ class PermissionController extends Controller
 
         $currentPage = $permissions->currentPage();
 
-        return view('admin.permissions', [
+        return view('admin.permissions.index', [
             'permissions' => $permissions,
             'bottomText' => $showingText,
             'links' => Nav::getNavLinks($currentPage, $permissions->lastPage()),
@@ -56,7 +56,7 @@ class PermissionController extends Controller
 
         $currentPage = $permissions->currentPage();
 
-        return view('admin.permissions-list', [
+        return view('admin.permissions.list', [
             'permissions' => $permissions,
             'bottomText' => $showingText,
             'links' => Nav::getNavLinks($currentPage, $permissions->lastPage()),
@@ -124,7 +124,7 @@ class PermissionController extends Controller
             abort(404);
         }
 
-        return response()->view('admin.permission_edit', [
+        return response()->view('admin.permissions.edit', [
             'permission' => $permission,
         ]);
     }

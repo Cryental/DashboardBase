@@ -45,7 +45,7 @@ class RoleController extends Controller
 
         $currentPage = $roles->currentPage();
 
-        return view('admin.roles', [
+        return view('admin.roles.index', [
             'roles' => $roles,
             'permissions' => $permissionsArray,
             'permissions_list' => config('roles.models.permission')::all(),
@@ -76,7 +76,7 @@ class RoleController extends Controller
 
         $currentPage = $roles->currentPage();
 
-        return view('admin.roles-list', [
+        return view('admin.roles.list', [
             'roles' => $roles,
             'permissions' => $permissionsArray,
             'bottomText' => $showingText,
@@ -179,7 +179,7 @@ class RoleController extends Controller
             ];
         }
 
-        return response()->view('admin.role_edit', [
+        return response()->view('admin.roles.edit', [
             'role' => $role,
             'permissions' => $permissionsArray,
         ]);
