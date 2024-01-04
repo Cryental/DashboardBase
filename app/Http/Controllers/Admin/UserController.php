@@ -150,7 +150,8 @@ class UserController extends Controller
         return back();
     }
 
-    public function showConnectedApps(Request $request, $id) {
+    public function showConnectedApps(Request $request, $id)
+    {
         $user = $this->userRepository->Find($id);
 
         if (! $user) {
