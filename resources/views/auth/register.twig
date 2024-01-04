@@ -53,15 +53,18 @@
             }
 
             function validatePassword(password) {
-                var lengthValid = password.length >= 8 && password.length <= 20;
+                var lengthValid = password.length >= 8 && password.length <= 255;
                 var lettersNumbersValid = /[a-zA-Z]/.test(password) && /\d/.test(password);
-                var noSpacesValid = !(/\s/.test(password) || /[^a-zA-Z\d]/.test(password));
+
+                // This regex is for basic emoji detection. It may not cover all cases.
+                var emojiRegex = /(\uD83D[\uDC00-\uDFFF])|(\uD83C[\uDC00-\uDFFF])|(\uFFFD)/;
+                var noEmojiValid = !emojiRegex.test(password);
 
                 updateHint('#length-hint', lengthValid);
                 updateHint('#letters-numbers-hint', lettersNumbersValid);
-                updateHint('#no-spaces-hint', noSpacesValid);
+                updateHint('#no-spaces-hint', noEmojiValid);
 
-                return lengthValid && lettersNumbersValid && noSpacesValid;
+                return lengthValid && lettersNumbersValid && noEmojiValid;
             }
 
             function validateEmail(email) {
@@ -107,9 +110,9 @@
                         <input id="password" name="password" type="password" class="form-control" autocomplete="off"
                                required>
                         <small class="form-hint" id="password-hints">
-                            <p class="password-hint" id="length-hint"><span class="hint-icon" style="color: red;">✖</span> Must be 8-20 characters long</p>
+                            <p class="password-hint" id="length-hint"><span class="hint-icon" style="color: red;">✖</span> Must be 8-255 characters long</p>
                             <p class="password-hint" id="letters-numbers-hint"><span class="hint-icon" style="color: red;">✖</span> Must contain letters and numbers</p>
-                            <p class="password-hint" id="no-spaces-hint"><span class="hint-icon" style="color: red;">✖</span> Must not contain spaces, special characters, or emoji</p>
+                            <p class="password-hint" id="no-spaces-hint"><span class="hint-icon" style="color: red;">✖</span> Must not contain emoji</p>
                         </small>
                     </div>
                     <div class="mb-3">

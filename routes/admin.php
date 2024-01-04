@@ -28,8 +28,9 @@ Route::prefix('admin')->group(function () {
         Route::post('/users/{id}', [\App\Http\Controllers\Admin\UserController::class, 'update']);
         Route::get('/users/{id}/security', [\App\Http\Controllers\Admin\UserController::class, 'showSecurity']);
         Route::post('/users/{id}/security', [\App\Http\Controllers\Admin\UserController::class, 'updateSecurity']);
-        Route::get('/users/{id}/remove_device/{device_id}', [\App\Http\Controllers\Admin\UserController::class, 'logoutFromDevice']);
+        Route::get('/users/{id}/remove-device/{device_id}', [\App\Http\Controllers\Admin\UserController::class, 'logoutFromDevice']);
         Route::post('/users/{userId}/disable-2fa', [\App\Http\Controllers\Admin\UserController::class, 'destroyTwoFactorAuth'])->name('admin.users.disable-2fa');
+        Route::get('/users/{id}/connected-apps', [\App\Http\Controllers\Admin\UserController::class, 'showConnectedApps']);
 
         Route::get('/roles', [\App\Http\Controllers\Admin\RoleController::class, 'show'])
             ->name('admin.roles');

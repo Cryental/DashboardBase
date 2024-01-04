@@ -48,13 +48,18 @@
             });
 
             function validatePassword(password) {
-                var lengthValid = password.length >= 8 && password.length <= 20;
+                var lengthValid = password.length >= 8 && password.length <= 255;
                 var lettersNumbersValid = /[a-zA-Z]/.test(password) && /\d/.test(password);
-                var noSpacesValid = !(/\s/.test(password) || /[^a-zA-Z\d]/.test(password));
+
+                // This regex is for basic emoji detection. It may not cover all cases.
+                var emojiRegex = /(\uD83D[\uDC00-\uDFFF])|(\uD83C[\uDC00-\uDFFF])|(\uFFFD)/;
+                var noEmojiValid = !emojiRegex.test(password);
 
                 updateHint('#length-hint', lengthValid);
                 updateHint('#letters-numbers-hint', lettersNumbersValid);
-                updateHint('#no-spaces-hint', noSpacesValid);
+                updateHint('#no-spaces-hint', noEmojiValid);
+
+                return lengthValid && lettersNumbersValid && noEmojiValid;
             }
 
             function updateHint(hintId, isValid) {
@@ -122,8 +127,8 @@
                 <div class="col-lg-2">
                     <div class="card-body p-0">
                         <a href="/admin/users/{{ user.id }}" class="btn w-100 rounded-0">Public Profile</a>
-                        <a href="/admin/users/{{ user.id }}" class="btn w-100 rounded-0">Connected Apps</a>
-                        <a href="/admin/users/{{ user.id }}" class="btn btn-primary w-100 rounded-0">Security</a>
+                        <a href="/admin/users/{{ user.id }}/connected-apps" class="btn w-100 rounded-0">Connected Apps</a>
+                        <a href="/admin/users/{{ user.id }}/security" class="btn btn-primary w-100 rounded-0">Security</a>
                     </div>
                 </div>
 
@@ -255,7 +260,7 @@
                                                                     Current
                                                                 </a>
                                                             {% else %}
-                                                                <a href="/admin/users/{{ user.id }}/remove_device/{{ device.id }}"
+                                                                <a href="/admin/users/{{ user.id }}/remove-device/{{ device.id }}"
                                                                    class="btn btn-danger">
                                                                     Remove
                                                                 </a>
@@ -287,9 +292,9 @@
                                     <div>
                                         <input type="password" name="password" class="form-control" placeholder="Password">
                                         <small class="form-hint" id="password-hints">
-                                            <p class="password-hint" id="length-hint"><span class="hint-icon" style="color: red;">✖</span> Must be 8-20 characters long</p>
+                                            <p class="password-hint" id="length-hint"><span class="hint-icon" style="color: red;">✖</span> Must be 8-255 characters long</p>
                                             <p class="password-hint" id="letters-numbers-hint"><span class="hint-icon" style="color: red;">✖</span> Must contain letters and numbers</p>
-                                            <p class="password-hint" id="no-spaces-hint"><span class="hint-icon" style="color: red;">✖</span> Must not contain spaces, special characters, or emoji</p>
+                                            <p class="password-hint" id="no-spaces-hint"><span class="hint-icon" style="color: red;">✖</span> Must not contain emoji</p>
                                         </small>
                                     </div>
                                 </div>

@@ -136,7 +136,7 @@ class UserController extends Controller
         }
 
         $validationRules = [
-            'password' => 'required|string|min:8|max:20|regex:/^(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d]*$/',
+            'password' => 'required|string|min:8|max:255|regex:/^(?=.*[a-zA-Z])(?=.*\d)[^\u{1F600}-\u{1F64F}]*$/u',
         ];
 
         $request->validate($validationRules);
@@ -148,6 +148,26 @@ class UserController extends Controller
         session()->flash('status', 'Password has been successfully updated.');
 
         return back();
+    }
+
+    public function showConnectedApps(Request $request, $id) {
+        $user = $this->userRepository->Find($id);
+
+        if (! $user) {
+            abort(404);
+        }
+
+        $devices = $this->devicesRepository->FindAllUserDevices($user->id)->reverse()->toArray();
+
+        $currentSessionID = $request->session()->getId();
+
+        $roles = config('roles.models.role')::all();
+
+        return response()->view('admin.users.edit_connected_app', [
+            'user' => $user,
+            'sessionID' => $currentSessionID,
+            'roles' => $roles,
+        ]);
     }
 
     public function logoutFromDevice(Request $request, $id, $device_id)
@@ -199,7 +219,7 @@ class UserController extends Controller
             'bio' => 'sometimes|string|max:1000|nullable',
             'website_url' => 'sometimes|url|max:500|nullable',
             'email-verification' => 'required|string|in:Unverified,Verified',
-            'password' => 'required|string|min:8|max:20|regex:/^(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d]*$/',
+            'password' => 'required|string|min:8|max:255|regex:/^(?=.*[a-zA-Z])(?=.*\d)[^\u{1F600}-\u{1F64F}]*$/u',
         ]);
 
         $user = User::query()->create([

@@ -24,5 +24,5 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::post('/settings/security', [\App\Http\Controllers\Settings\SecurityController::class, 'store']);
 
-    Route::get('/settings/security/remove_device/{device_id}', [\App\Http\Controllers\Settings\SecurityController::class, 'logoutDevice']);
+    Route::get('/settings/security/remove-device/{device_id}', [\App\Http\Controllers\Settings\SecurityController::class, 'logoutDevice']);
 });

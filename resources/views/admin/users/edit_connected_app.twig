@@ -72,20 +72,20 @@
                 </div>
                 {% if auth_user().hasPermission('edit.users') %}
                     {% if user.id != 1 %}
-                    <div class="col-auto ms-auto d-print-none">
-                        <a href="#" class="btn btn-danger" data-bs-toggle="modal"
-                           data-bs-target="#modal-user-remove">
-                            Delete
-                        </a>
-                    </div>
-                        {% else %}
-                            <div class="col-auto ms-auto d-print-none">
-                                <a href="#" class="btn btn-danger" data-bs-toggle="modal"
-                                   data-bs-target="#modal-default-role-warning">
-                                    Delete
-                                </a>
-                            </div>
-                        {% endif %}
+                        <div class="col-auto ms-auto d-print-none">
+                            <a href="#" class="btn btn-danger" data-bs-toggle="modal"
+                               data-bs-target="#modal-user-remove">
+                                Delete
+                            </a>
+                        </div>
+                    {% else %}
+                        <div class="col-auto ms-auto d-print-none">
+                            <a href="#" class="btn btn-danger" data-bs-toggle="modal"
+                               data-bs-target="#modal-default-role-warning">
+                                Delete
+                            </a>
+                        </div>
+                    {% endif %}
                 {% endif %}
             </div>
         </div>
@@ -111,8 +111,8 @@
                 </div>
                 <div class="col-lg-2">
                     <div class="card-body p-0">
-                        <a href="/admin/users/{{ user.id }}" class="btn btn-primary w-100 rounded-0">Public Profile</a>
-                        <a href="/admin/users/{{ user.id }}/connected-apps" class="btn w-100 rounded-0">Connected Apps</a>
+                        <a href="/admin/users/{{ user.id }}" class="btn w-100 rounded-0">Public Profile</a>
+                        <a href="/admin/users/{{ user.id }}/connected-apps" class="btn btn-primary w-100 rounded-0">Connected Apps</a>
                         <a href="/admin/users/{{ user.id }}/security" class="btn w-100 rounded-0">Security</a>
                     </div>
                 </div>
@@ -120,95 +120,18 @@
                 <div class="col-lg-10">
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title">Public Profile</h3>
+                            <h3 class="card-title">Connected Apps</h3>
                         </div>
-                        <form method="POST" autocomplete="off" action="/admin/users/{{ user.id }}">
-                            <input type="hidden" name="_token" value="{{ csrf_token() }}"/>
-                            <div class="card-body">
-                                <div class="row g-3">
-                                    <div class="col-md">
-                                        <div class="form-label">Name</div>
-                                        <input name="name" type="text" class="form-control" value="{{ user.name }}">
-                                    </div>
-                                    <div class="col-md">
-                                        <div class="form-label">Email</div>
-                                        <input name="email" type="email" class="form-control" value="{{ user.email }}">
-                                    </div>
-                                </div>
-                                <h3 class="card-title mt-4">Bio</h3>
-                                <div class="row">
-                                    <div class="col-12">
-                                        <textarea id="bio" name="bio">{{ user.bio }}</textarea>
-                                    </div>
-                                </div>
-                                <div class="row g-3 mt-2">
-                                    <div class="col-md">
-                                        <div class="form-label">Website URL</div>
-                                        <input name="website_url" type="text" class="form-control"
-                                               value="{{ user.website_url }}">
-                                    </div>
-                                </div>
 
-                                <h3 class="card-title mt-4">Email Verification</h3>
-                                <div class="form-selectgroup-boxes row mb-3">
-                                    <div class="col-lg-6">
-                                        <label class="form-selectgroup-item">
-                                            <input type="radio" name="email-verification" value="Unverified"
-                                                   class="form-selectgroup-input" {% if user.email_verified_at is empty %} checked{% endif %}{% if user.id == 1 %} disabled{% endif %}>
-                                            <span class="form-selectgroup-label d-flex align-items-center p-3">
-                    <span class="me-3">
-                      <span class="form-selectgroup-check"></span>
-                    </span>
-                    <span class="form-selectgroup-label-content">
-                      <span class="form-selectgroup-title strong mb-1">Unverified</span>
-                    </span>
-                  </span>
-                                        </label>
-                                    </div>
-                                    <div class="col-lg-6">
-                                        <label class="form-selectgroup-item">
-                                            <input type="radio" name="email-verification" value="Verified"
-                                                   class="form-selectgroup-input" {% if user.email_verified_at is not empty %} checked{% endif %}{% if user.id == 1 %} disabled{% endif %}>
-                                            <span class="form-selectgroup-label d-flex align-items-center p-3">
-                    <span class="me-3">
-                      <span class="form-selectgroup-check"></span>
-                    </span>
-                    <span class="form-selectgroup-label-content">
-                      <span class="form-selectgroup-title strong mb-1">Verified</span>
-                    </span>
-                  </span>
-                                        </label>
-                                    </div>
-                                </div>
-                                <h3 class="card-title mt-4">Role</h3>
-                                <div class="form-selectgroup-boxes row mb-3">
-                                    {% for role in roles %}
-                                    <div class="col-lg-6 mb-3">
-                                        <label class="form-selectgroup-item">
-                                            <input type="radio" name="role" value="{{ role.id }}"
-                                                   class="form-selectgroup-input" {% if user.hasRole(role.id) %} checked{% endif %} {% if user.id == 1 %} disabled{% endif %}>
-                                            <span class="form-selectgroup-label d-flex align-items-center p-3">
-                    <span class="me-3">
-                      <span class="form-selectgroup-check"></span>
-                    </span>
-                    <span class="form-selectgroup-label-content">
-                      <span class="form-selectgroup-title strong mb-1">{{ role.name }}</span>
-                    </span>
-                  </span>
-                                        </label>
-                                    </div>
-                                    {% endfor %}
+                        <div class="card-body">
+                            <!-- Google Card -->
+                            <div class="card mb-3"> <!-- mb-3 for margin bottom space -->
+                                <div class="card-body d-flex justify-content-between align-items-center">
+                                    <span class="fs-3">Google</span> <!-- fs-3 for larger text -->
+                                    <button class="btn btn-outline-primary">{% if user.provider == 'google' and user.provider_id %}Disconnect{% else %}Connect{% endif %}</button>
                                 </div>
                             </div>
-                            <div class="card-footer bg-transparent mt-auto">
-                                <div class="btn-list justify-content-end">
-                                    <a href="{{ route('admin.users') }}" class="btn">
-                                        Cancel
-                                    </a>
-                                    <button type="submit" class="btn btn-primary">Submit</button>
-                                </div>
-                            </div>
-                        </form>
+                        </div>
                     </div>
                 </div>
             </div>
