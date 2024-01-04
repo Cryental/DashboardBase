@@ -163,13 +163,13 @@ class UserController extends Controller
 
     public function destroyTwoFactorAuth(Request $request, $userId)
     {
-        if (!Auth::user()->hasPermission('edit.users')) {
+        if (! Auth::user()->hasPermission('edit.users')) {
             abort(403);
         }
 
         $user = User::find($userId);
 
-        if (!$user) {
+        if (! $user) {
             abort(404, 'User not found');
         }
 
@@ -181,7 +181,7 @@ class UserController extends Controller
 
         $user->update();
 
-        session()->flash('status', 'Two-factor authentication disabled for ' . $user->name);
+        session()->flash('status', 'Two-factor authentication disabled for '.$user->name);
 
         return back();
     }
@@ -233,7 +233,7 @@ class UserController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users,email,'.$user->id,
             'bio' => 'sometimes|string|max:1000|nullable',
-            'website_url' => 'sometimes|url|max:500|nullable'
+            'website_url' => 'sometimes|url|max:500|nullable',
         ];
 
         // Add role and bio validation rules if not the default user
