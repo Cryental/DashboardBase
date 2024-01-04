@@ -11,6 +11,21 @@
         });
     </script>
     {% endif %}
+    {% if errors is not empty %}
+        <script>
+            $(document).ready(function() {
+                $('#modal-error-message').modal('show');
+            });
+        </script>
+    {% endif %}
+
+    {% if session('status') is not empty and session('status') != 'two-factor-authentication-enabled' %}
+        <script>
+            $(document).ready(function() {
+                $('#modal-success-message').modal('show');
+            });
+        </script>
+    {% endif %}
 {% endblock %}
 {% block content %}
 <div class="page-header d-print-none text-white">
@@ -211,18 +226,6 @@
                         </div>
                     </div>
                     <div class="card-footer bg-transparent mt-auto">
-                        {% if errors is not empty %}
-                            <div class="alert alert-danger">
-                                <p>{{ errors.all()|first }}</p>
-                            </div>
-                        {% endif %}
-
-                        {% if session('status') is not empty and session('status') != 'two-factor-authentication-enabled' %}
-                            <div class="alert alert-success">
-                                <p>{{ session('status') }}</p>
-                            </div>
-                        {% endif %}
-
                         <div class="btn-list justify-content-end">
                             <a href="{{ route('settings.account') }}" class="btn">
                                 Cancel
@@ -301,4 +304,55 @@
             </div>
         </div>
     </div>
-    {% endblock %}
+    <div class="modal modal-blur fade" id="modal-error-message" tabindex="-1" role="dialog" aria-modal="true"
+         aria-hidden="true">
+        <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <div class="modal-status bg-danger"></div>
+                <div class="modal-body text-center py-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon mb-2 text-danger icon-lg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                        <path d="M19.875 6.27a2.225 2.225 0 0 1 1.125 1.948v7.284c0 .809 -.443 1.555 -1.158 1.948l-6.75 4.27a2.269 2.269 0 0 1 -2.184 0l-6.75 -4.27a2.225 2.225 0 0 1 -1.158 -1.948v-7.285c0 -.809 .443 -1.554 1.158 -1.947l6.75 -3.98a2.33 2.33 0 0 1 2.25 0l6.75 3.98h-.033z"></path>
+                        <path d="M12 12m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"></path>
+                    </svg>
+                    {% if errors is not empty %}
+                        <h3>Error Occurred</h3>
+                        <div class="text-muted">{{ errors.all()|first }}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal modal-blur fade" id="modal-success-message" tabindex="-1" role="dialog" aria-modal="true"
+         aria-hidden="true">
+        <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <div class="modal-status bg-success"></div>
+                <div class="modal-body text-center py-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon mb-2 text-danger icon-lg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                        <path d="M5 5m0 1a1 1 0 0 1 1 -1h12a1 1 0 0 1 1 1v12a1 1 0 0 1 -1 1h-12a1 1 0 0 1 -1 -1z" />
+                        <path d="M9 9h6v6h-6z" />
+                        <path d="M3 10h2" />
+                        <path d="M3 14h2" />
+                        <path d="M10 3v2" />
+                        <path d="M14 3v2" />
+                        <path d="M21 10h-2" />
+                        <path d="M21 14h-2" />
+                        <path d="M14 21v-2" />
+                        <path d="M10 21v-2" />
+                    </svg>
+                    {% if session('status') is not empty %}
+                        <h3>Success</h3>
+                        <div class="text-muted">{{ session('status') }}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
