@@ -19,15 +19,15 @@ class SocialiteController extends Controller
 
     public function handleProviderCallback(Request $request, $provider)
     {
-        $userSocial = Socialite::driver('google')->user();
-        $user = User::query()->where(['provider' => 'google', 'provider_id' => $userSocial->getId()])->get()->first();
+        $userSocial = Socialite::driver($provider)->user();
+        $user = User::query()->where(['provider' => $provider, 'provider_id' => $userSocial->getId()])->get()->first();
 
         if (! $user) {
             $user = User::query()->create([
                 'name' => $userSocial->getName(),
                 'email' => $userSocial->getEmail(),
                 'password' => null,
-                'provider' => 'google',
+                'provider' => $provider,
                 'provider_id' => $userSocial->getId(),
                 'email_verified_at' => Carbon::now(),
             ]);

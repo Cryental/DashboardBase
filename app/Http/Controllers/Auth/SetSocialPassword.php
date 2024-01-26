@@ -19,7 +19,7 @@ class SetSocialPassword extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'password' => $this->passwordRules(),
+            'password' => ['required', ''],
         ]);
 
         $request->user()->update([

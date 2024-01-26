@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Actions\Fortify\PasswordValidationRules;
 use App\DataTransferObjects\DeviceDTO;
 use App\Facades\Nav;
 use App\Models\User;
@@ -15,6 +16,8 @@ use Illuminate\Support\Str;
 
 class UserController extends Controller
 {
+    use PasswordValidationRules;
+
     private UserRepository $userRepository;
 
     private DeviceRepository $devicesRepository;
@@ -157,8 +160,6 @@ class UserController extends Controller
             abort(404);
         }
 
-        $devices = $this->devicesRepository->FindAllUserDevices($user->id)->reverse()->toArray();
-
         $currentSessionID = $request->session()->getId();
 
         $roles = config('roles.models.role')::all();
@@ -181,13 +182,13 @@ class UserController extends Controller
         return back();
     }
 
-    public function destroyTwoFactorAuth(Request $request, $userId)
+    public function destroyTwoFactorAuth(Request $request, $id)
     {
         if (! Auth::user()->hasPermission('edit.users')) {
             abort(403);
         }
 
-        $user = User::find($userId);
+        $user = User::find($id);
 
         if (! $user) {
             abort(404, 'User not found');
@@ -219,7 +220,7 @@ class UserController extends Controller
             'bio' => 'sometimes|string|max:1000|nullable',
             'website_url' => 'sometimes|url|max:500|nullable',
             'email-verification' => 'required|string|in:Unverified,Verified',
-            'password' => 'required|string|min:8|max:255|regex:/^(?=.*[a-zA-Z])(?=.*\d)[^\u{1F600}-\u{1F64F}]*$/u',
+            'password' => $this->passwordRules(),
         ]);
 
         $user = User::query()->create([

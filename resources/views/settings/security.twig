@@ -3,7 +3,7 @@
 {% block title %}Security{% endblock %}
 
 {% block included_scripts %}
-    {% if session('2fa_recovery_key') is not empty %}
+    {% if session('2fa_recovery_key') is not empty or session('status') == 'recovery-codes-generated' %}
     <script>
         $(document).ready(function() {
             var recoveryCodeModal = new bootstrap.Modal(document.getElementById('recovery-code'));
@@ -19,7 +19,7 @@
         </script>
     {% endif %}
 
-    {% if session('status') is not empty and session('status') != 'two-factor-authentication-enabled' %}
+    {% if session('status') is not empty and session('status') != 'two-factor-authentication-enabled' and session('status') != 'recovery-codes-generated' %}
         <script>
             $(document).ready(function() {
                 $('#modal-success-message').modal('show');
@@ -28,7 +28,7 @@
     {% endif %}
 {% endblock %}
 {% block content %}
-<div class="page-header d-print-none text-white">
+<div class="page-header d-print-none">
     <div class="container-xl">
         <div class="row g-2 align-items-center">
             <div class="col">
@@ -213,17 +213,22 @@
                             authentication (2FA).</p>
                         <div>
                             {% if auth_user().two_factor_confirmed == 1 %}
-                                <form action="{{ route('two-factor.destroy') }}" method="POST">
+                                <form action="{{ route('two-factor.destroy') }}" method="POST" style="display: inline;">
                                     <input type="hidden" name="_token" value="{{ csrf_token() }}"/>
                                     <button type="submit" class="btn btn-primary">Disable 2FA</button>
                                 </form>
                             {% else %}
-                                <form action="{{ route('two-factor.setup') }}" method="get">
+                                <form action="{{ route('two-factor.setup') }}" method="GET" style="display: inline;">
                                     <input type="hidden" name="_token" value="{{ csrf_token() }}"/>
                                     <button type="submit" class="btn btn-primary">Activate 2FA</button>
                                 </form>
                             {% endif %}
+                            <form action="/user/two-factor-recovery-codes" method="POST" style="display: inline;">
+                                <input type="hidden" name="_token" value="{{ csrf_token() }}"/>
+                                <button type="submit" class="btn btn-danger">Regenerate Recovery Codes</button>
+                            </form>
                         </div>
+
                     </div>
                     <div class="card-footer bg-transparent mt-auto">
                         <div class="btn-list justify-content-end">

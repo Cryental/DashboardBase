@@ -12,6 +12,7 @@
         "matomo/device-detector": "^6.1",
         "mews/captcha": "^3.3",
         "rcrowe/twigbridge": "^0.14.1",
+        "socialiteproviders/github": "^4.1",
         "spiral/roadrunner-http": "^3.3",
         "twig/twig": "^3.5",
         "whichbrowser/parser": "^2.1"

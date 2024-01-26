@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Settings;
 
+use App\Actions\Fortify\PasswordValidationRules;
 use App\Http\Controllers\Controller;
 use DeviceDetector\DeviceDetector;
 use Illuminate\Http\Request;
@@ -12,6 +13,8 @@ use Illuminate\Support\Str;
 
 class SecurityController extends Controller
 {
+    use PasswordValidationRules;
+
     public function show(Request $request)
     {
         $devices = DB::table('sessions')
@@ -41,6 +44,12 @@ class SecurityController extends Controller
             $deviceArrays[] = $device;
         }
 
+        ray(session()->get('status', ''));
+
+        if (session()->get('status', '') == 'recovery-codes-generated') {
+            $request->session()->flash('2fa_recovery_key', json_decode(decrypt(Auth::user()->two_factor_recovery_codes)));
+        }
+
         return view('settings.security', ['devices' => $deviceArrays, 'sessionID' => $currentSessionID]);
     }
 
@@ -50,13 +59,13 @@ class SecurityController extends Controller
 
         if (empty($user->password) && $user->provider_id !== null) {
             $request->validate([
-                'new_password' => ['required', 'string', \Illuminate\Validation\Rules\Password::min(8)->letters()->numbers()->mixedCase()],
+                'new_password' => $this->passwordRules(),
                 'confirm_new_password' => 'required|same:new_password',
             ]);
         } else {
             $request->validate([
                 'password' => 'required_without:password|string|min:8|current_password',
-                'new_password' => ['required', 'string', \Illuminate\Validation\Rules\Password::min(8)->letters()->numbers()->mixedCase()],
+                'new_password' => $this->passwordRules(),
                 'confirm_new_password' => 'required|same:new_password',
             ]);
         }
