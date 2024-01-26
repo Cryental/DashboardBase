@@ -58,7 +58,7 @@ class TwoFactorAuthController extends Controller
     {
         $confirmed = $request->user()->confirmTwoFactorAuth($request->code);
 
-        if (!$confirmed) {
+        if (! $confirmed) {
             return back()->withErrors('The provided 2FA code is invalid.');
         }
 
