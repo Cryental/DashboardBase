@@ -94,7 +94,11 @@
 <div class="page page-center">
     <div class="container container-tight py-4">
         <div class="text-center mb-4">
-            <a href="#" class="navbar-brand navbar-brand"><img src="/img/logo.png" height="36" alt=""></a>
+            <div class="navbar-brand navbar-brand-autodark d-none-navbar-horizontal pe-0 pe-md-3">
+                <a href=".">
+                    <img src="/img/logo.png" alt="Cryental's Private Space" class="navbar-brand-image">
+                </a>
+            </div>
         </div>
         <div class="card card-md">
             <div class="card-body">
@@ -118,9 +122,9 @@
                         <input id="password" name="password" type="password" class="form-control" autocomplete="off"
                                required>
                         <small class="form-hint" id="password-hints">
-                            <p class="password-hint" id="length-hint"><span class="hint-icon" style="color: red;">✖</span> Must be 8-255 characters long</p>
-                            <p class="password-hint" id="letters-numbers-hint"><span class="hint-icon" style="color: red;">✖</span> Must contain letters and numbers</p>
-                            <p class="password-hint" id="no-spaces-hint"><span class="hint-icon" style="color: red;">✖</span> Must not contain emoji</p>
+                            <p class="password-hint text-white" id="length-hint"><span class="hint-icon" style="color: red;">✖</span> Must be 8-255 characters long</p>
+                            <p class="password-hint text-white" id="letters-numbers-hint"><span class="hint-icon" style="color: red;">✖</span> Must contain letters and numbers</p>
+                            <p class="password-hint text-white" id="no-spaces-hint"><span class="hint-icon" style="color: red;">✖</span> Must not contain emoji</p>
                         </small>
                     </div>
                     <div class="mb-3">

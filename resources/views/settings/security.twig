@@ -43,7 +43,7 @@
     <div class="container-xl">
         <div class="card">
             <div class="row g-0">
-                <div class="col-3 d-none d-md-block border-end">
+                <div class="col-12 col-md-3 border-end">
                     <div class="card-body">
                         <h4 class="subheader">Account Settings</h4>
                         <div class="list-group list-group-transparent">
@@ -59,7 +59,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col d-flex flex-column">
+                <div class="col-12 col-md-9 d-flex flex-column">
                     <div class="card-body">
                         <h2 class="mb-4">Security</h2>
                         <h3 class="card-title">Devices</h3>
@@ -207,7 +207,6 @@
                             </a>
                         </div>
 
-
                         <h3 class="card-title mt-4">Two Factor Authorization</h3>
                         <p class="card-subtitle">Enhance the security of your account by enabling two-factor
                             authentication (2FA).</p>
@@ -217,18 +216,17 @@
                                     <input type="hidden" name="_token" value="{{ csrf_token() }}"/>
                                     <button type="submit" class="btn btn-primary">Disable 2FA</button>
                                 </form>
+                                <form action="/user/two-factor-recovery-codes" method="POST" style="display: inline;">
+                                    <input type="hidden" name="_token" value="{{ csrf_token() }}"/>
+                                    <button type="submit" class="btn btn-danger">Regenerate Recovery Codes</button>
+                                </form>
                             {% else %}
                                 <form action="{{ route('two-factor.setup') }}" method="GET" style="display: inline;">
                                     <input type="hidden" name="_token" value="{{ csrf_token() }}"/>
                                     <button type="submit" class="btn btn-primary">Activate 2FA</button>
                                 </form>
                             {% endif %}
-                            <form action="/user/two-factor-recovery-codes" method="POST" style="display: inline;">
-                                <input type="hidden" name="_token" value="{{ csrf_token() }}"/>
-                                <button type="submit" class="btn btn-danger">Regenerate Recovery Codes</button>
-                            </form>
                         </div>
-
                     </div>
                     <div class="card-footer bg-transparent mt-auto">
                         <div class="btn-list justify-content-end">
